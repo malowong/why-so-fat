@@ -1,0 +1,8 @@
+{
+  "name": "c17-bad-project-10-tw",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@gitlab.com:ming971231/c17-bad-project-10-tw.git",
+  "author": "Dennis Chan <dennisming2012@gmail.com>",
+  "license": "MIT"
+}
