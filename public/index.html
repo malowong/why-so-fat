@@ -4,34 +4,43 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tecky</title>
-
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-            crossorigin="anonymous"
-        />
+        <title>Document</title>
         <link rel="stylesheet" href="./css/index.css" />
     </head>
     <body>
-        <main>
-            <h1>HELLO TECKY</h1>
-        </main>
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <!-- Tabs Titles -->
+                <h2 class="active">Sign In</h2>
+                <h2 class="inactive underlineHover">Sign Up</h2>
 
-        <footer class="container-fluid">
-            <div class="row">
-                <div class="col-3"><a href="">Column</a></div>
-                <div class="col-3"><a href="">Column</a></div>
-                <div class="col-3"><a href="">Column</a></div>
-                <div class="col-3"><a href="">Column</a></div>
+                <!-- Icon -->
+                <div class="fadeIn first"></div>
+
+                <!-- Login Form -->
+                <form id="loginForm">
+                    <input
+                        type="text"
+                        id="username"
+                        class="fadeIn second"
+                        name="username"
+                        placeholder="Username"
+                    />
+                    <input
+                        type="text"
+                        id="password"
+                        class="fadeIn third"
+                        name="login"
+                        placeholder="Password"
+                    />
+                    <input type="submit" class="fadeIn fourth" value="Log In" />
+                </form>
+
+                <!-- Remind Passowrd -->
+                <div id="formFooter">
+                    <a class="underlineHover" href="#">Forgot Password?</a>
+                </div>
             </div>
-        </footer>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"
-        ></script>
+        </div>
     </body>
 </html>

@@ -16,6 +16,9 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "public")));
 
+const API_VERSION = "/api";
+app.use(API_VERSION, routes);
+
 const PORT = 8080;
 server.listen(PORT, () => {
   logger.info(`[INFO] listening to port ${PORT}`);
