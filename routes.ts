@@ -3,4 +3,4 @@ import { userRoutes } from "./routers/UserRoutes";
 
 export const routes = express.Router();
 
-routes.use("/login", userRoutes);
+routes.use("/user", userRoutes);

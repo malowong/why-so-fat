@@ -8,18 +8,18 @@ function loginForm() {
         .addEventListener('submit', async (e) => {
             e.preventDefault()
             const formObj = {
-                username: form['username'].value,
-                password: form['password'].value,
+                username: e.target['username'].value,
+                password: e.target['password'].value,
             }
-            const resp = await fetch('/loginData', {
+            const resp = await fetch('/api/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formObject),
+                body: JSON.stringify(formObj),
             })
             if (resp.status == 200) {
-                window.location = '/'
+                window.location = '/index.html'
             }
         })
 }
