@@ -3,6 +3,7 @@ import http from "http";
 import Knex from "knex";
 import path from "path";
 import { Server as SocketIO } from "socket.io";
+import { isLoggedIn } from "./utils/guards";
 import { logger } from "./utils/logger";
 import expressSession from "express-session";
 
@@ -24,6 +25,7 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, "public"), { index: "loginPage.html" }));
+app.use(isLoggedIn, express.static(path.join(__dirname, "private")));
 
 import { routes } from "./routes";
 const API_VERSION = "/api";
