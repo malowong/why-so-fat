@@ -5,6 +5,7 @@ import path from "path";
 import { Server as SocketIO } from "socket.io";
 import { isLoggedIn } from "./utils/guards";
 import { logger } from "./utils/logger";
+import { routes } from "./routes";
 
 const app = express();
 const server = new http.Server(app);
