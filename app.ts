@@ -4,6 +4,7 @@ import Knex from "knex";
 import path from "path";
 import { Server as SocketIO } from "socket.io";
 import { logger } from "./utils/logger";
+import { routes } from "./routes";
 
 const app = express();
 const server = new http.Server(app);
