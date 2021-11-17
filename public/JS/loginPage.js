@@ -19,7 +19,7 @@ function loginForm() {
                 body: JSON.stringify(formObj),
             })
             if (resp.status == 200) {
-                window.location = '/index.html'
+                window.location = '/homePage.html'
             }
         })
 }
