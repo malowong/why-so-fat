@@ -21,8 +21,13 @@ const server = new http.Server(app);
 export const io = new SocketIO(server);
 
 const knexConfig = require("./knexfile");
-console.log(knexConfig[process.env.NODE_ENV || "development"]);
 export const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
+
+app.use((req, res, next) => {
+  const cur = new Date().toISOString();
+  logger.info(`${cur} req path: ${req.path} method: ${req.method}`);
+  next();
+});
 
 import { routes } from "./routes";
 const API_VERSION = "/api";

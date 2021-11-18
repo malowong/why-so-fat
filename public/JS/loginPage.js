@@ -19,7 +19,7 @@ function loginForm() {
                 body: JSON.stringify(formObj),
             })
             if (resp.status == 200) {
-                window.location = '/homePage.html'
+                window.location = '/home-page.html'
             } else if (resp.status == 400) {
                 document.querySelector(
                     '.reminder'

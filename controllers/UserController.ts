@@ -51,4 +51,16 @@ export class UserController {
       res.status(200).json({ message: "Successfully registered" });
     }
   };
+
+  profile = async (req: Request, res: Response) => {
+    try {
+      const userID = req.session["user"].id;
+      const user = await this.userService.getUserProfile(userID);
+
+      res.status(200).json(user);
+    } catch (err) {
+      logger.error(err.message);
+      res.status(500).json({ message: "internal server error" });
+    }
+  };
 }
