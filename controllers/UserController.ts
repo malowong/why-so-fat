@@ -16,14 +16,26 @@ export class UserController {
       }
 
       const user = await this.userService.getUserByUsername(username);
-      console.log(user);
+
       if (!user || !(await checkPassword(password, user.password))) {
         res.status(401).json({ message: "invalid username or password" });
         return;
       }
 
-      req.session["user"] = { id: user.id };
+      req.session["user"] = { id: user.id, username: user.username };
       res.status(200).json({ message: "success" });
+    } catch (err) {
+      logger.error(err.message);
+      res.status(500).json({ message: "internal server error" });
+    }
+  };
+
+  profile = async (req: Request, res: Response) => {
+    try {
+      const userID = req.session["user"].id;
+      const user = await this.userService.getUserProfile(userID);
+
+      res.status(200).json(user);
     } catch (err) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });

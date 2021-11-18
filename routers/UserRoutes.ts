@@ -9,3 +9,4 @@ const userController = new UserController(userService);
 export const userRoutes = express.Router();
 
 userRoutes.post("/login", userController.login);
+userRoutes.get("/profile", userController.profile);
