@@ -1,4 +1,5 @@
 const profileContainer = document.querySelector('#profile-container')
+const logoutButton = document.querySelector('.btn')
 
 window.onload = async () => {
     await loadProfile()
@@ -18,3 +19,10 @@ async function loadProfile() {
 
     profileContainer.innerHTML = htmlStr
 }
+
+logoutButton.addEventListener('click', async () => {
+    const resp = await fetch('/api/user/logout')
+    if (resp.status == 200) {
+        window.location = '/login-page.html'
+    }
+})

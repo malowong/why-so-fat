@@ -1,6 +1,6 @@
 import { UserService } from "../services/UserService";
 import { Request, Response } from "express";
-import { checkPassword } from "../utils/hash";
+import { checkPassword, hashPassword } from "../utils/hash";
 import { logger } from "../utils/logger";
 
 export class UserController {
@@ -21,7 +21,7 @@ export class UserController {
       return;
     }
 
-    req.session["user"] = { id: user.id };
+    req.session["user"] = { id: user.id, username: user.username };
     res.status(200).json({ message: "success" });
   };
 
@@ -30,7 +30,7 @@ export class UserController {
     const { username, password, gender, height, weight } = req.body;
     const resultObj = {
       username,
-      password,
+      password: await hashPassword(password),
       gender,
       height: Number(height),
       weight: Number(weight),
@@ -65,8 +65,21 @@ export class UserController {
     try {
       const userID = req.session["user"].id;
       const user = await this.userService.getUserProfile(userID);
+      console.log(user);
 
       res.status(200).json(user);
+    } catch (err) {
+      logger.error(err.message);
+      res.status(500).json({ message: "internal server error" });
+    }
+  };
+
+  logout = async (req: Request, res: Response) => {
+    try {
+      if (req.session) {
+        delete req.session["user"];
+      }
+      res.status(200).json({ message: "success" });
     } catch (err) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });

@@ -20,6 +20,6 @@ const AsyncWrapper = (fn: (req: Request, res: Response) => void) => async (req: 
 };
 
 userRoutes.post("/login", AsyncWrapper(userController.login));
+userRoutes.get("/logout", userController.logout);
 userRoutes.post("/signup", AsyncWrapper(userController.signup));
-// userRoutes.get("/profile", userController.profile);
-// userRoutes.post("/signup", userController.signup);
+userRoutes.get("/profile", userController.profile);

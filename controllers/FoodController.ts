@@ -10,10 +10,10 @@ export class FoodController {
       const userID = req.session["user"].id;
       const foodList = await this.foodService.getFoodInfo(userID);
 
-      res.status(200).json(foodList);
+      res.status(200).json(foodList).end();
     } catch (err) {
       logger.error(err.message);
-      res.status(500).json({ message: "internal server error" });
+      res.status(500).json({ message: "internal server error" }).end();
     }
   };
 }

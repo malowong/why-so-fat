@@ -20,6 +20,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("food_photo").notNullable();
     table.float("energy").unsigned();
     table.float("protein").unsigned();
+    table.float("sugar").unsigned();
     table.float("total_fat").unsigned();
     table.float("saturated_fat").unsigned();
     table.float("trans_fat").unsigned();
