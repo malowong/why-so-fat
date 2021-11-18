@@ -20,6 +20,14 @@ function loginForm() {
             })
             if (resp.status == 200) {
                 window.location = '/homePage.html'
+            } else if (resp.status == 400) {
+                document.querySelector(
+                    '.reminder'
+                ).innerHTML = `<h3>Invalid username or password!!</h3>`
             }
         })
+}
+
+function redirectSignUp() {
+    window.location = '/sign-up.html'
 }

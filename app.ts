@@ -28,7 +28,7 @@ import { routes } from "./routes";
 const API_VERSION = "/api";
 app.use(API_VERSION, routes);
 
-app.use(express.static(path.join(__dirname, "public"), { index: "loginPage.html" }));
+app.use(express.static(path.join(__dirname, "public"), { index: "login-page.html" }));
 app.use(isLoggedIn, express.static(path.join(__dirname, "private")));
 
 const PORT = 8080;

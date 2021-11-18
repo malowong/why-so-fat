@@ -5,17 +5,16 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <link rel="stylesheet" href="./css/index.css" />
+        <link rel="stylesheet" href="./css/loginPage.css" />
     </head>
     <body>
         <div class="wrapper fadeInDown">
             <div id="formContent">
                 <!-- Tabs Titles -->
-                <h2 class="active">Sign In</h2>
-                <h2 class="inactive underlineHover">Sign Up</h2>
-
-                <!-- Icon -->
-                <div class="fadeIn first"></div>
+                <h2 class="active">Login In</h2>
+                <h2 class="inactive underlineHover" onclick="redirectSignUp()">
+                    Sign Up
+                </h2>
 
                 <!-- Login Form -->
                 <form id="loginForm">
@@ -27,20 +26,15 @@
                         placeholder="Username"
                     />
                     <input
-                        type="text"
+                        type="password"
                         id="password"
                         class="fadeIn third"
                         name="login"
                         placeholder="Password"
                     />
                     <input type="submit" class="fadeIn fourth" value="Log In" />
-                    <h3>Invalid username or password!!</h3>
+                    <div class="reminder"></div>
                 </form>
-
-                <!-- Remind Passowrd -->
-                <div id="formFooter">
-                    <a class="underlineHover" href="#">Forgot Password?</a>
-                </div>
             </div>
         </div>
         <script src="./js/loginPage.js"></script>
