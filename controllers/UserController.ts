@@ -1,6 +1,7 @@
 import { UserService } from "../services/UserService";
 import { Request, Response } from "express";
 import { checkPassword } from "../utils/hash";
+import { logger } from "../utils/logger";
 
 export class UserController {
   constructor(private userService: UserService) {}
@@ -25,7 +26,15 @@ export class UserController {
   };
 
   signup = async (req: Request, res: Response) => {
+    console.log(req.body);
     const { username, password, gender, height, weight } = req.body;
+    const resultObj = {
+      username,
+      password,
+      gender,
+      height: Number(height),
+      weight: Number(weight),
+    };
     if (password.length < 6) {
       res.status(400).json({ message: "Password must contain at least 6 characters" });
       return;
@@ -43,11 +52,11 @@ export class UserController {
       return;
     }
     const isExist = await this.userService.getUserByUsername(username);
-    console.log(isExist);
+    console.log("isExist" + isExist);
     if (isExist) {
       res.status(400).json({ message: "Username has been used" });
     } else {
-      await this.userService.getUserByUsername(req.body);
+      await this.userService.insertNewUser(resultObj);
       res.status(200).json({ message: "Successfully registered" });
     }
   };
