@@ -5,7 +5,7 @@ window.onload = async () => {
 }
 
 async function loadHistory() {
-    const resp = await fetch('/api/food/history')
+    const resp = await fetch('/api/food/info')
     const foodList = await resp.json()
 
     let htmlStr = ``
