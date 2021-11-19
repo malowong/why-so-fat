@@ -5,6 +5,11 @@ interface User {
   id: number;
   username: string;
   password: string;
+  gender: string;
+  height: number;
+  weight: number;
+  created_at: Date;
+  updated_at: Date;
 }
 
 interface NewUser {
@@ -19,7 +24,7 @@ export class UserService {
   constructor(private knex: Knex) {}
 
   async getUserByUsername(username: string) {
-    const result = await this.knex<User>("users").where("username", username).first();
+    const result = await this.knex<User>(tables.USER).where("username", username).first();
     return result;
   }
 
@@ -29,7 +34,7 @@ export class UserService {
   }
 
   async insertNewUser(newUser: NewUser) {
-    await this.knex<NewUser>(tables.USER).insert(newUser);
+    await this.knex(tables.USER).insert(newUser);
     return true;
   }
 }
