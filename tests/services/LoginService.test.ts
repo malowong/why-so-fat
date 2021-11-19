@@ -1,5 +1,5 @@
 import Knex from "knex";
-import { UserService } from "../../services/UserService";
+import { UserService, User } from "../../services/UserService";
 const knexConfig = require("../../knexfile");
 const knex = Knex(knexConfig["test"]);
 import { tables } from "../../utils/tables";
@@ -28,10 +28,10 @@ describe.only("UserService", () => {
   });
 
   it("retrive user", async () => {
-    const result: any = await service.getUserByUsername("Denden");
+    const result = (await service.getUserByUsername("Denden")) as User;
     console.log(result);
-    expect(result.username).toEqual("Denden");
-    expect(result.height).toBe(153);
+    expect(result!!.username).toEqual("Denden");
+    expect(result!!.height).toBe(153);
   });
 
   afterAll(async () => {

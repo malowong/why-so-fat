@@ -1,7 +1,7 @@
 import { Knex } from "knex";
 import { tables } from "../utils/tables";
 
-interface User {
+export interface User {
   id: number;
   username: string;
   password: string;
