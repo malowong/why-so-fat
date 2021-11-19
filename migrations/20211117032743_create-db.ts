@@ -45,6 +45,7 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(tables.NUTRITION_VALUE, (table) => {
     table.increments();
     table.float("nutrition_value").notNullable().unsigned();
+    table.integer("per_unit").notNullable().unsigned();
     table.integer("food_id").notNullable();
     table.foreign("food_id").references(`${tables.FOOD}.id`);
     table.integer("nutrition_id").notNullable();
