@@ -25,6 +25,7 @@ async function loadProfile() {
 logoutButton.addEventListener('click', async () => {
     const resp = await fetch('/api/user/logout')
     if (resp.status == 200) {
+        localStorage.clear()
         window.location = '/login-page.html'
     }
 })

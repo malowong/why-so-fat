@@ -21,6 +21,7 @@ document.querySelector('#signUpForm').addEventListener('submit', async (e) => {
     })
     console.log(resp)
     if (resp.status == 200) {
+        localStorage.setItem('user', e.target['username'].value)
         window.location = '/home-page.html'
     } else if (resp.status == 400) {
         document.querySelector('.reminder').innerHTML = `<h3>${
