@@ -8,4 +8,4 @@ const foodController = new FoodController(foodService);
 
 export const foodRoutes = express.Router();
 
-foodRoutes.get("/history", foodController.info);
+foodRoutes.get("/info", foodController.info);

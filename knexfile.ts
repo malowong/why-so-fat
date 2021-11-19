@@ -69,8 +69,3 @@ module.exports = {
     },
   },
 };
-
-
-// hey man
-
-// hey man man 

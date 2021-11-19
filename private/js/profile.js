@@ -8,13 +8,15 @@ window.onload = async () => {
 async function loadProfile() {
     const resp = await fetch('/api/user/profile')
     const user = await resp.json()
+    const BMI = user.weight / (user.height / 100) ** 2
 
     let htmlStr = ``
     htmlStr += /*html*/ `
         <div>Name: ${user.username}</div>
         <div>Gender: ${user.gender}</div>
-        <div>Height: ${user.height}</div>
-        <div>Weight: ${user.weight}</div>
+        <div>Height: ${user.height}cm</div>
+        <div>Weight: ${user.weight}kg</div>
+        <div>BMI: ${BMI.toFixed(1)}</div>
     `
 
     profileContainer.innerHTML = htmlStr
