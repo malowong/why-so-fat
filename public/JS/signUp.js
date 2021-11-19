@@ -7,7 +7,7 @@ document.querySelector('#signUpForm').addEventListener('submit', async (e) => {
     const formObj = {
         username: e.target['username'].value,
         password: e.target['password'].value,
-        gender: e.target['gender'].value,
+        gender: e.target['dropbtn'].value,
         height: e.target['height'].value,
         weight: e.target['weight'].value,
     }
