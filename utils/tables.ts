@@ -1,6 +1,9 @@
 export const tables = Object.freeze({
   USER: "users",
   FOOD: "food",
+  CONSUMPTION: "consumptions",
+  NUTRITION_VALUE: "nutrition_value",
+  NUTRITION: "nutrition",
 });
 
 export const intakeStandard = Object.freeze({
