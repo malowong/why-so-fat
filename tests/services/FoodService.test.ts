@@ -1,69 +1,61 @@
 import Knex from "knex";
-import { FoodService } from "../../services/FoodService";
 const knexConfig = require("../../knexfile");
 const knex = Knex(knexConfig["test"]);
-import { tables } from "../../utils/tables";
+import { FoodService } from "../../services/FoodService";
+import { tables } from "../../utils/freezedObj";
+import { truncateTable } from "../../utils/truncateTable";
 
 describe("FoodService + DB", () => {
   let service: FoodService;
 
   beforeEach(async () => {
     service = new FoodService(knex);
-    await knex.raw(`TRUNCATE TABLE ${tables.FOOD} RESTART IDENTITY CASCADE`);
-    await knex.raw(`TRUNCATE TABLE ${tables.USER} RESTART IDENTITY CASCADE`);
+    await truncateTable(tables);
 
-    await knex
-      .insert({
-        username: "billy",
-        password: "1234",
-        gender: "male",
-        height: 165,
-        weight: 80.5,
-      })
-      .into(tables.USER);
     await knex
       .insert([
-        {
-          food_name: "可口可樂",
-          food_photo: "1.jpg",
-          energy: 500,
-          protein: 20.8,
-          total_fat: 10.5,
-          saturated_fat: 5.6,
-          trans_fat: 6.7,
-          carbohydrates: 20.1,
-          sodium: 300,
-          user_id: 1,
-        },
-        {
-          food_name: "百事可樂",
-          food_photo: "2.jpg",
-          energy: 600,
-          protein: 10.8,
-          total_fat: 7.5,
-          saturated_fat: 4.6,
-          trans_fat: 3.7,
-          carbohydrates: 27.1,
-          sodium: 400,
-          user_id: 1,
-        },
+        { nutrition_name: "Energy" },
+        { nutrition_name: "Protein" },
+        { nutrition_name: "Total fat" },
+        { nutrition_name: "Saturated fat" },
+        { nutrition_name: "Trans fat" },
+        { nutrition_name: "Carbohydrates" },
+        { nutrition_name: "Sugars" },
+        { nutrition_name: "Sodium" },
+      ])
+      .into(tables.NUTRITION);
+
+    await knex
+      .insert([
+        { food_name: "魚仔餅", food_photo: "1.jpg", total_weight: 33 },
+        { food_name: "可口可樂", food_photo: "2.jpg", total_weight: 250 },
+        { food_name: "金莎朱古力", food_photo: "3.jpg", total_weight: 17 },
+        { food_name: "卡樂B薯條", food_photo: "4.jpg", total_weight: 43 },
       ])
       .into(tables.FOOD);
+
+    await knex
+      .insert([
+        { per_unit: 100, nutrition_value: 405, food_id: 1, nutrition_id: 1 },
+        { per_unit: 100, nutrition_value: 5.3, food_id: 1, nutrition_id: 2 },
+        { per_unit: 100, nutrition_value: 11.8, food_id: 1, nutrition_id: 3 },
+        { per_unit: 100, nutrition_value: 5.5, food_id: 1, nutrition_id: 4 },
+        { per_unit: 100, nutrition_value: 69, food_id: 1, nutrition_id: 6 },
+        { per_unit: 100, nutrition_value: 10.8, food_id: 1, nutrition_id: 7 },
+        { per_unit: 100, nutrition_value: 748, food_id: 1, nutrition_id: 8 },
+        { per_unit: 100, nutrition_value: 42, food_id: 2, nutrition_id: 1 },
+        { per_unit: 100, nutrition_value: 10.6, food_id: 2, nutrition_id: 6 },
+        { per_unit: 100, nutrition_value: 10.6, food_id: 2, nutrition_id: 7 },
+        { per_unit: 100, nutrition_value: 4, food_id: 2, nutrition_id: 8 },
+      ])
+      .into(tables.NUTRITION_VALUE);
   });
 
-  it("test getFoodInfo - Food Found", async () => {
-    const food = await service.getFoodInfo(1);
-
+  it.only("test getFoodInfo - Food Found", async () => {
+    const food = (await service.getFoodInfo()).rows;
     expect(food).toBeDefined();
-    expect(food[0].energy).toBe(500);
-    expect(food[1].protein).toBe(10.8);
-    expect(food[2]).toBeUndefined();
-  });
-
-  it("test getFoodInfo - Food Not Found", async () => {
-    const food = await service.getFoodInfo(5);
-
-    expect(food[0]).toBeUndefined();
+    expect(food[0].nutrition_name).toBe("Energy");
+    expect(food[1].per_unit).toBe(100);
   });
 
   afterAll(async () => {

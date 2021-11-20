@@ -10,5 +10,9 @@ async function loadProfile() {
     // const BMI = user.weight / (user.height / 100) ** 2
 
     // profileContainer.innerHTML = `<div>Hello ${user.username}</div>`
-    d3.select('.profile-container').data([user]).enter().append('div').style()
+    d3.select('.profile-container')
+        .data([user])
+        .enter()
+        .append('div')
+        .style('height')
 }

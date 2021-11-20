@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 import { hashPassword } from "../utils/hash";
-import { tables } from "../utils/tables";
+import { tables } from "../utils/freezedObj";
 
 const users = [
   {

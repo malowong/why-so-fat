@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { tables } from "../utils/tables";
+import { tables } from "../utils/freezedObj";
 
 export async function seed(knex: Knex): Promise<void> {
   async function truncateTable(tableObj: Object) {
@@ -7,22 +7,20 @@ export async function seed(knex: Knex): Promise<void> {
     console.log(keyArr);
     for (let i = 0; i < keyArr.length; i++) {
       console.log(keyArr[i]);
-      await knex.raw(/*sql*/ `TRUNCATE ${keyArr[i]} RESTART IDENTITY CASCADE`);
+      await trx.raw(/*sql*/ `TRUNCATE ${keyArr[i]} RESTART IDENTITY CASCADE`);
     }
   }
 
-  // const trx = await knex.transaction();
-  // try {
-  await truncateTable(tables);
-
-  // await trx(....).insert(...)
-  //   await trx.commit();
-  // } catch (err) {
-  //   console.error(err.message);
-  //   await trx.rollback();
-  // } finally {
-  //   await trx.destroy();
-  // }
+  const trx = await knex.transaction();
+  try {
+    await truncateTable(tables);
+    await trx.commit();
+  } catch (err) {
+    console.error(err.message);
+    await trx.rollback();
+  } finally {
+    await trx.destroy();
+  }
 
   // Deletes ALL existing entries
   // await knex.raw(`TRUNCATE ${tables.USER} RESTART IDENTITY CASCADE`);

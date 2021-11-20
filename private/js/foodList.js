@@ -1,30 +1,41 @@
-const foodContainer = document.querySelector('#food-container')
-
 window.onload = async () => {
     await loadFoodList()
 }
 
 async function loadFoodList() {
     const resp = await fetch('/api/food/info')
-    const foodList = await resp.json()
+    const foodList = (await resp.json()).rows
+
+    // const resp1 = await fetch('/api/food/nutritionValue')
+
+    // console.log(foodList)
+    const uniqueFoodId = foodList.reduce(
+        (acc, cur) => acc.add(cur.food_id),
+        new Set()
+    )
+    // console.log(foodList)
+    // console.log(Array.from(uniqueFoodId))
 
     let htmlStr = ``
-    for (const food of foodList) {
-        htmlStr += /*html*/ `
+    for (const i of Array.from(uniqueFoodId)) {
+        for (const foodItem of foodList) {
+            if (foodItem.food_id == i) {
+                console.log(foodItem.nutrition_name)
+                htmlStr += /*html*/ `
         <div class="card" style="width: 18rem">
         <img
             class="card-img-top"
-            src="${food.food_photo}"
+            src="${foodItem.food_photo}"
             alt="Card image cap"
         />
         <div class="card-body">
-            <h5 class="card-title">${food.food_name}</h5>
+            <h5 class="card-title">${foodItem.food_name}</h5>
 
             <button
                 type="button"
                 class="btn btn-primary"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target="#target-${foodItem.food_id}"
             >
                 Nutrition Label
             </button>
@@ -33,7 +44,7 @@ async function loadFoodList() {
 
     <div
         class="modal fade"
-        id="exampleModal"
+        id="target-${foodItem.food_id}"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -42,7 +53,7 @@ async function loadFoodList() {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                    ${food.food_name}
+                    ${foodItem.food_name}
                     </h5>
                     <button
                         type="button"
@@ -51,14 +62,13 @@ async function loadFoodList() {
                         aria-label="Close"
                     ></button>
                 </div>
-                <div class="modal-body">
-                    <table>
-                        <tr>
-                            <td>Energy/能量</td>
-                            <td>${food.energy} kcal/千卡</td>
-                        </tr>
-                    </table>
-                
+                <div class="modal-body" id="nutrition-table-${foodItem.food_id}">
+                <img
+                class="card-img-top"
+                src="${foodItem.food_photo}"
+                alt="Card image cap"
+            />
+    
                 </div>
                 <div class="modal-footer">
                     <button
@@ -76,8 +86,11 @@ async function loadFoodList() {
         </div>
     </div>
         `
+                break
+            }
+        }
     }
-    foodContainer.innerHTML = htmlStr
+    document.querySelector('#food-container').innerHTML = htmlStr
 }
 
 // let htmlStr = ``

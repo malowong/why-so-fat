@@ -5,7 +5,6 @@ import { UserService } from "../../services/UserService";
 import { Request, Response } from "express";
 
 jest.mock("../../services/UserService");
-jest.mock("../../utils/logger");
 
 describe("Testing UserController", () => {
   let controller: UserController;
@@ -34,7 +33,6 @@ describe("Testing UserController", () => {
 
     await controller.login(req, res);
     expect(res.status).toBeCalledWith(400);
-    expect(res.json).toBeCalledWith({ message: "missing username or password" });
     expect(res.json).toBeCalledTimes(1);
   });
 });

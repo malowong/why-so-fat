@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { tables } from "../utils/tables";
+import { tables } from "../utils/freezedObj";
 
 export interface User {
   id: number;
@@ -28,13 +28,13 @@ export class UserService {
     return result;
   }
 
-  async getUserProfile(userID: number) {
+  getUserProfile = async (userID: number) => {
     const result = await this.knex<User>("users").where("id", userID).first();
     return result;
-  }
+  };
 
-  async insertNewUser(newUser: NewUser) {
+  insertNewUser = async (newUser: NewUser) => {
     await this.knex(tables.USER).insert(newUser);
     return true;
-  }
+  };
 }

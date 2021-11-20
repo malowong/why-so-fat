@@ -1,19 +1,12 @@
 import { FoodService } from "../services/FoodService";
 import { Request, Response } from "express";
-import { logger } from "../utils/logger";
 
 export class FoodController {
   constructor(private foodService: FoodService) {}
 
-  info = async (req: Request, res: Response) => {
-    try {
-      const userID = req.session["user"].id;
-      const foodList = await this.foodService.getFoodInfo(userID);
+  foodListInfo = async (req: Request, res: Response) => {
+    const foodList = await this.foodService.getFoodInfo();
 
-      res.status(200).json(foodList).end();
-    } catch (err) {
-      logger.error(err.message);
-      res.status(500).json({ message: "internal server error" }).end();
-    }
+    res.status(200).json(foodList).end();
   };
 }
