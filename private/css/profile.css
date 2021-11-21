@@ -1,0 +1,15 @@
+html,
+body,
+main {
+    height: 100%;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logout-btn {
+    margin-top: 2em;
+}

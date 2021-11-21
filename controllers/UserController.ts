@@ -60,7 +60,6 @@ export class UserController {
     try {
       const userID = req.session["user"].id;
       const user = await this.userService.getUserProfile(userID);
-      console.log(user);
 
       res.status(200).json(user);
     } catch (err) {

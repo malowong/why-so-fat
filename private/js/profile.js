@@ -1,4 +1,4 @@
-const profileContainer = document.querySelector('#profile-container')
+const userInfo = document.querySelector('#user-info')
 const logoutButton = document.querySelector('.btn')
 
 window.onload = async () => {
@@ -12,14 +12,14 @@ async function loadProfile() {
 
     let htmlStr = ``
     htmlStr += /*html*/ `
-        <div>Name: ${user.username}</div>
+        <div>Hello ${user.username}</div>
         <div>Gender: ${user.gender}</div>
         <div>Height: ${user.height}cm</div>
         <div>Weight: ${user.weight}kg</div>
         <div>BMI: ${BMI.toFixed(1)}</div>
     `
 
-    profileContainer.innerHTML = htmlStr
+    userInfo.innerHTML = htmlStr
 }
 
 logoutButton.addEventListener('click', async () => {
