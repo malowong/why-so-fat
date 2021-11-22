@@ -3,7 +3,7 @@
 /* BASIC */
 
 html {
-    background-color: #56baed;
+    background-color: rgb(72, 136, 71);
 }
 
 body {
@@ -73,7 +73,7 @@ h2.inactive {
 
 h2.active {
     color: #0d0d0d;
-    border-bottom: 2px solid #5fbae9;
+    border-bottom: 2px solid rgb(72, 136, 71);
 }
 
 /* FORM TYPOGRAPHY*/
@@ -81,7 +81,7 @@ h2.active {
 input[type='button'],
 input[type='submit'],
 input[type='reset'] {
-    background-color: #56baed;
+    background-color: rgb(72, 136, 71);
     border: none;
     color: white;
     padding: 15px 80px;

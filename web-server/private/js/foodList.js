@@ -12,7 +12,7 @@ async function loadFoodList() {
         (acc, cur) => acc.add(cur.food_id),
         new Set()
     )
-    console.log(foodList)
+    // console.log(foodList)
     // console.log(Array.from(uniqueFoodId))
 
     let htmlStr = ``
@@ -42,11 +42,11 @@ async function loadFoodList() {
 
             <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-success"
                 data-bs-toggle="modal"
                 data-bs-target="#target-${foodItem.food_id}"
             >
-                Nutrition Label
+                Nutrition Details
             </button>
         </div>
     </div>

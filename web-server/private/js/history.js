@@ -59,7 +59,9 @@ async function loadHistory() {
             `
             for (const nutrition of mapValue['nutrition']) {
                 htmlStr += /*html*/ `
-                    <div>${JSON.stringify(nutrition)}</div>
+                    <div>${Object.keys(nutrition)}: ${Object.values(
+                    nutrition
+                )}</div>
                 `
             }
         }
