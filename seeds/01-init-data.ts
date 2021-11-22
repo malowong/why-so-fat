@@ -56,6 +56,8 @@ const consumptions = [
   { quantity: 1, user_id: 2, food_id: 4 },
   { quantity: 0.5, user_id: 1, food_id: 1 },
   { quantity: 1, user_id: 4, food_id: 3 },
+  { quantity: 1, user_id: 4, food_id: 1 },
+  { quantity: 1, user_id: 4, food_id: 2 },
 ];
 
 const nutrition_value1 = [
