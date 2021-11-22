@@ -18,7 +18,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+const ocrStorage = multer.memoryStorage()
+const ocrUpload = multer({ storage: ocrStorage })
+
 export const foodRoutes = express.Router();
 
 foodRoutes.get("/info", AsyncWrapper(foodController.foodListInfo));
 foodRoutes.post("/upload", upload.single("image"), AsyncWrapper(foodController.upload));
+foodRoutes.post("/ocr", ocrUpload.single("image"), AsyncWrapper(foodController.ocr));
