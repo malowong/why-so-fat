@@ -18,10 +18,14 @@
         <main>
             <h1>UPLOAD PAGE</h1>
 
-            <div id="upload-form">
+            <form id="upload-form">
                 <label>
                     Food Name:
-                    <input type="text" />
+                    <input type="text" name="food_name" />
+                </label>
+                <label>
+                    Total Weight:
+                    <input type="text" name="total_weight" />
                 </label>
                 <label>
                     Upload nutrition label
@@ -36,7 +40,7 @@
                 </label>
 
                 <input type="submit" value="Upload" id="upload-btn" />
-            </div>
+            </form>
         </main>
 
         <footer class="container-fluid navbar-dark bg-dark p-0">
@@ -64,5 +68,6 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"
         ></script>
+        <script src="./js/upload.js"></script>
     </body>
 </html>

@@ -1,0 +1,15 @@
+table,
+th,
+td {
+    border: 0;
+    padding: 5px;
+}
+table {
+    border-spacing: 15px;
+    width: 100%;
+}
+@media (max-width: 767px) {
+    #content .modal.fade.in {
+        top: 5%;
+    }
+}

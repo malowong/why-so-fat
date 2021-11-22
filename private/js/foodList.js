@@ -8,19 +8,28 @@ async function loadFoodList() {
 
     // const resp1 = await fetch('/api/food/nutritionValue')
 
-    // console.log(foodList)
     const uniqueFoodId = foodList.reduce(
         (acc, cur) => acc.add(cur.food_id),
         new Set()
     )
-    // console.log(foodList)
+    console.log(foodList)
     // console.log(Array.from(uniqueFoodId))
 
     let htmlStr = ``
     for (const i of Array.from(uniqueFoodId)) {
+        let foodNutritionMap = new Map()
         for (const foodItem of foodList) {
             if (foodItem.food_id == i) {
-                console.log(foodItem.nutrition_name)
+                foodNutritionMap.set(
+                    foodItem.nutrition_name,
+                    foodItem.nutrition_value
+                )
+            }
+        }
+        console.log(foodNutritionMap)
+
+        for (const foodItem of foodList) {
+            if (foodItem.food_id == i) {
                 htmlStr += /*html*/ `
         <div class="card" style="width: 18rem">
         <img
@@ -62,12 +71,94 @@ async function loadFoodList() {
                         aria-label="Close"
                     ></button>
                 </div>
-                <div class="modal-body" id="nutrition-table-${foodItem.food_id}">
-                <img
-                class="card-img-top"
-                src="${foodItem.food_photo}"
-                alt="Card image cap"
-            />
+                <div class="modal-body" id="nutrition-table-${
+                    foodItem.food_id
+                }">
+                <table>
+                        <tr>
+                        <td></td>
+                        <td></td>
+                            <td>Per ${foodItem.per_unit}g / 每${
+                    foodItem.per_unit
+                }克</td>
+                        </tr>
+
+                        <tr>
+                            <td>Energy/能量</td>
+                            <td></td>
+                            <td>${
+                                foodNutritionMap.get('Energy')
+                                    ? foodNutritionMap.get('Energy')
+                                    : 0
+                            } kcal/千卡</td>
+                        </tr>
+                        <tr>
+                            <td>Protein/蛋白質</td>
+                            <td></td>
+                            <td>${
+                                foodNutritionMap.get('Protein')
+                                    ? foodNutritionMap.get('Energy')
+                                    : 0
+                            } g/克</td>
+                        </tr>
+                        <tr>
+                            <td>Total fat/總脂肪</td>
+                            <td></td>
+                            <td>${
+                                foodNutritionMap.get('Total fat')
+                                    ? foodNutritionMap.get('Total fat')
+                                    : 0
+                            } g/克</td>
+                        </tr>
+                        <tr>
+                            <td>Saturated fat/飽和脂肪</td>
+                            <td></td>
+                            <td>${
+                                foodNutritionMap.get('Saturated fat')
+                                    ? foodNutritionMap.get('Saturated fat')
+                                    : 0
+                            } g/克</td>
+                        </tr>
+                        <tr>
+                            <td>Trans fat/反式脂肪</td>
+                            <td></td>
+                            <td>${
+                                foodNutritionMap.get('Trans fat')
+                                    ? foodNutritionMap.get('Trans fat')
+                                    : 0
+                            } g/克</td>
+                        </tr>
+                        <tr>
+                            <td>Carbohydrates/碳水化合物</td>
+                            <td></td>
+                            <td>${
+                                foodNutritionMap.get('Carbohydrates')
+                                    ? foodNutritionMap.get('Carbohydrates')
+                                    : 0
+                            } g/克</td>
+                        </tr>
+                        <tr>
+                            <td>Sugar/糖</td>
+                            <td></td>
+                            <td>${
+                                foodNutritionMap.get('Sugar')
+                                    ? foodNutritionMap.get('Sugar')
+                                    : 0
+                            } g/克</td>
+                        </tr>
+                        <tr>
+                            <td>Sodium/鈉</td>
+                            <td></td>
+                            <td>${
+                                foodNutritionMap.get('Sodium')
+                                    ? foodNutritionMap.get('Sodium')
+                                    : 0
+                            } mg/毫克</td>
+                        </tr>
+
+                        </tr>
+
+                </table>
     
                 </div>
                 <div class="modal-footer">
@@ -90,6 +181,7 @@ async function loadFoodList() {
             }
         }
     }
+
     document.querySelector('#food-container').innerHTML = htmlStr
 }
 
