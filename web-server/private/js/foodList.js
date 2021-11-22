@@ -170,7 +170,7 @@ async function loadFoodList() {
                         Close
                     </button>
                     <button type="button" class="btn btn-primary">
-                        Save changes
+                        Convert unit
                     </button>
                 </div>
             </div>

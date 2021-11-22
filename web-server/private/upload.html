@@ -27,16 +27,49 @@
                     Total Weight:
                     <input type="text" name="total_weight" />
                 </label>
-                <label>
+                <label class="input-group mb-3">
                     Upload nutrition label
                     <input
                         type="file"
+                        class="form-control"
                         name="image"
                         id="label-img"
                         required
                         onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
                     />
                     <img id="blah" width="200" height="200" />
+                </label>
+                <label>
+                    Energy/能量:
+                    <input type="text" name="food_name" />
+                </label>
+                <label>
+                    Protein/蛋白質:
+                    <input type="text" name="food_name" />
+                </label>
+                <label>
+                    Total fat/總脂肪:
+                    <input type="text" name="food_name" />
+                </label>
+                <label>
+                    Saturated fat/飽和脂肪:
+                    <input type="text" name="food_name" />
+                </label>
+                <label>
+                    Trans fat/反式脂肪:
+                    <input type="text" name="food_name" />
+                </label>
+                <label>
+                    Carbohydrates/碳水化合物:
+                    <input type="text" name="food_name" />
+                </label>
+                <label>
+                    Sugar/糖:
+                    <input type="text" name="food_name" />
+                </label>
+                <label>
+                    Sodium/鈉:
+                    <input type="text" name="food_name" />
                 </label>
 
                 <input type="submit" value="Upload" id="upload-btn" />
