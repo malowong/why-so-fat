@@ -10,10 +10,8 @@ export class FoodController {
     res.status(200).json(foodList).end();
   };
 
-  uploadFood = async (req: Request, res: Response) => {
-  }
-
-  ocr = async (req: Request, res: Response) => {
-  }
-
+  upload = async (req: Request, res: Response) => {
+    await this.foodService.upload(req);
+    res.status(200).json({ message: "Successfully uploaded" });
+  };
 }
