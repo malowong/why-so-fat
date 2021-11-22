@@ -7,7 +7,9 @@ export class ConsumptionService {
   getConsumptionHistory = async (userID: number) => {
     const result = this.knex(tables.CONSUMPTION)
       .innerJoin(tables.FOOD, "food.id", "consumptions.food_id")
-      .select("quantity", "food_id")
+      .innerJoin(tables.NUTRITION_VALUE, "food.id", "nutrition_value.food_id")
+      .innerJoin(tables.NUTRITION, "nutrition_value.nutrition_id", "nutrition.id")
+      .select("*")
       //   .orderBy("created_at", "desc")
       .where("user_id", userID);
 
