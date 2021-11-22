@@ -61,42 +61,42 @@ const consumptions = [
 ];
 
 const nutrition_value1 = [
-  { per_unit: 100, nutrition_value: 405, food_id: 1, nutrition_id: 1 },
-  { per_unit: 100, nutrition_value: 5.3, food_id: 1, nutrition_id: 2 },
-  { per_unit: 100, nutrition_value: 11.8, food_id: 1, nutrition_id: 3 },
-  { per_unit: 100, nutrition_value: 5.5, food_id: 1, nutrition_id: 4 },
-  { per_unit: 100, nutrition_value: 69, food_id: 1, nutrition_id: 6 },
-  { per_unit: 100, nutrition_value: 10.8, food_id: 1, nutrition_id: 7 },
-  { per_unit: 100, nutrition_value: 748, food_id: 1, nutrition_id: 8 },
+  { nutrition_value: 405, food_id: 1, nutrition_id: 1 },
+  { nutrition_value: 5.3, food_id: 1, nutrition_id: 2 },
+  { nutrition_value: 11.8, food_id: 1, nutrition_id: 3 },
+  { nutrition_value: 5.5, food_id: 1, nutrition_id: 4 },
+  { nutrition_value: 69, food_id: 1, nutrition_id: 6 },
+  { nutrition_value: 10.8, food_id: 1, nutrition_id: 7 },
+  { nutrition_value: 748, food_id: 1, nutrition_id: 8 },
 ];
 
 const nutrition_value2 = [
-  { per_unit: 100, nutrition_value: 42, food_id: 2, nutrition_id: 1 },
-  { per_unit: 100, nutrition_value: 10.6, food_id: 2, nutrition_id: 6 },
-  { per_unit: 100, nutrition_value: 10.6, food_id: 2, nutrition_id: 7 },
-  { per_unit: 100, nutrition_value: 4, food_id: 2, nutrition_id: 8 },
+  { nutrition_value: 42, food_id: 2, nutrition_id: 1 },
+  { nutrition_value: 10.6, food_id: 2, nutrition_id: 6 },
+  { nutrition_value: 10.6, food_id: 2, nutrition_id: 7 },
+  { nutrition_value: 4, food_id: 2, nutrition_id: 8 },
 ];
 
 const nutrition_value3 = [
-  { per_unit: 33, nutrition_value: 325, food_id: 3, nutrition_id: 1 },
-  { per_unit: 33, nutrition_value: 5.3, food_id: 3, nutrition_id: 2 },
-  { per_unit: 33, nutrition_value: 35, food_id: 3, nutrition_id: 3 },
-  { per_unit: 33, nutrition_value: 12, food_id: 3, nutrition_id: 4 },
-  { per_unit: 33, nutrition_value: 12, food_id: 3, nutrition_id: 5 },
-  { per_unit: 33, nutrition_value: 2, food_id: 3, nutrition_id: 6 },
-  { per_unit: 33, nutrition_value: 15, food_id: 3, nutrition_id: 7 },
-  { per_unit: 33, nutrition_value: 9, food_id: 3, nutrition_id: 8 },
+  { nutrition_value: 325, food_id: 3, nutrition_id: 1 },
+  { nutrition_value: 5.3, food_id: 3, nutrition_id: 2 },
+  { nutrition_value: 35, food_id: 3, nutrition_id: 3 },
+  { nutrition_value: 12, food_id: 3, nutrition_id: 4 },
+  { nutrition_value: 12, food_id: 3, nutrition_id: 5 },
+  { nutrition_value: 2, food_id: 3, nutrition_id: 6 },
+  { nutrition_value: 15, food_id: 3, nutrition_id: 7 },
+  { nutrition_value: 9, food_id: 3, nutrition_id: 8 },
 ];
 
 const nutrition_value4 = [
-  { per_unit: 67, nutrition_value: 125, food_id: 4, nutrition_id: 1 },
-  { per_unit: 67, nutrition_value: 5.3, food_id: 4, nutrition_id: 2 },
-  { per_unit: 67, nutrition_value: 35, food_id: 4, nutrition_id: 3 },
-  { per_unit: 67, nutrition_value: 23, food_id: 4, nutrition_id: 4 },
-  { per_unit: 67, nutrition_value: 19, food_id: 4, nutrition_id: 5 },
-  { per_unit: 67, nutrition_value: 2, food_id: 4, nutrition_id: 6 },
-  { per_unit: 67, nutrition_value: 15, food_id: 4, nutrition_id: 7 },
-  { per_unit: 67, nutrition_value: 9, food_id: 4, nutrition_id: 8 },
+  { nutrition_value: 125, food_id: 4, nutrition_id: 1 },
+  { nutrition_value: 5.3, food_id: 4, nutrition_id: 2 },
+  { nutrition_value: 35, food_id: 4, nutrition_id: 3 },
+  { nutrition_value: 23, food_id: 4, nutrition_id: 4 },
+  { nutrition_value: 19, food_id: 4, nutrition_id: 5 },
+  { nutrition_value: 2, food_id: 4, nutrition_id: 6 },
+  { nutrition_value: 15, food_id: 4, nutrition_id: 7 },
+  { nutrition_value: 9, food_id: 4, nutrition_id: 8 },
 ];
 
 export async function seed(knex: Knex): Promise<void> {
