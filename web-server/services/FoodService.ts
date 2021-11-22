@@ -1,4 +1,6 @@
 import { Knex } from "knex";
+import { Request } from "express";
+import { tables } from "../utils/freezedObj";
 // import { Food } from "../utils/models";
 
 export class FoodService {
@@ -10,5 +12,16 @@ export class FoodService {
     );
 
     return result;
+  };
+
+  upload = async (reqObj: Request) => {
+    const userInput = {
+      food_name: reqObj.body.food_name,
+      food_photo: reqObj.file?.filename,
+      total_weight: reqObj.body.total_weight,
+    };
+
+    await this.knex(tables.FOOD).insert(userInput);
+    return true;
   };
 }

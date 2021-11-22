@@ -23,10 +23,10 @@ interface NewUser {
 export class UserService {
   constructor(private knex: Knex) {}
 
-  async getUserByUsername(username: string) {
+  getUserByUsername = async (username: string) => {
     const result = await this.knex<User>(tables.USER).where("username", username).first();
     return result;
-  }
+  };
 
   getUserProfile = async (userID: number) => {
     const result = await this.knex<User>("users").where("id", userID).first();
