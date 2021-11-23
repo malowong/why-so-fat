@@ -24,4 +24,13 @@ export class FoodService {
     await this.knex(tables.FOOD).insert(userInput);
     return true;
   };
+
+  convert = async (foodId: Number) => {
+    const result = await this.knex(tables.NUTRITION_VALUE)
+      .join(tables.NUTRITION, `${tables.NUTRITION}.id`, `${tables.NUTRITION_VALUE}.nutrition_id`)
+      .select("*")
+      .where(`${tables.NUTRITION_VALUE}.food_id`, foodId);
+
+    return result;
+  };
 }
