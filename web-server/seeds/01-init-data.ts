@@ -41,14 +41,14 @@ const food = [
 ];
 
 const nutrition = [
-  { nutrition_name: "Energy" },
-  { nutrition_name: "Protein" },
-  { nutrition_name: "Total fat" },
-  { nutrition_name: "Saturated fat" },
-  { nutrition_name: "Trans fat" },
-  { nutrition_name: "Carbohydrates" },
-  { nutrition_name: "Sugars" },
-  { nutrition_name: "Sodium" },
+  { nutrition_name: "energy" },
+  { nutrition_name: "protein" },
+  { nutrition_name: "total_fat" },
+  { nutrition_name: "saturated_fat" },
+  { nutrition_name: "trans_fat" },
+  { nutrition_name: "carbohydrates" },
+  { nutrition_name: "sugars" },
+  { nutrition_name: "sodium" },
 ];
 
 const consumptions = [
