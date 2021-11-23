@@ -13,7 +13,6 @@ async function loadProfile() {
     let htmlStr = ``
     htmlStr += /*html*/ `
         <div>Hello ${user.username}</div>
-        <div>Gender: ${user.gender}</div>
         <div>Height: ${user.height}cm</div>
         <div>Weight: ${user.weight}kg</div>
         <div>BMI: ${BMI.toFixed(1)}</div>
