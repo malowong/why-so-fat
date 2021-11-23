@@ -9,7 +9,7 @@ export class UserController {
     const { username, password } = req.body;
 
     const user = await this.userService.getUserByUsername(username);
-    console.log(user);
+
     if (!user || !(await checkPassword(password, user.password))) {
       res.status(400).json({ message: "Invalid username or password!!" });
       return;

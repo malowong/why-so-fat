@@ -10,6 +10,19 @@ main {
     align-items: center;
 }
 
+#container,
+#user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .logout-btn {
     margin-top: 2em;
+}
+
+.user-img {
+    height: 30%;
+    width: 30%;
 }

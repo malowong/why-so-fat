@@ -26,6 +26,10 @@ table {
     z-index: 1;
 }
 
+.search-bar {
+    height: 4em;
+}
+
 .search-bar:focus {
     outline: none !important;
     outline-width: 0 !important;
