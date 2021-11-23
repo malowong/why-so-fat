@@ -20,13 +20,29 @@
 
             <form id="upload-form">
                 <label>
-                    Food Name:
+                    Food name:
                     <input type="text" name="food_name" />
                 </label>
-                <label>
+                <label> Per unit: </label>
+                <select name="per_unit" id="per_unit">
+                    <option value="per_100">Per 100g</option>
+                    <option value="per_serving">Per serving</option>
+                    <option value="per_package">Per package</option>
+                </select>
+
+                <label id="total_weight">
                     Total Weight:
                     <input type="text" name="total_weight" />
                 </label>
+                <label id="serving_size" hidden="true">
+                    Serving size:
+                    <input type="text" name="serving_size" />
+                </label>
+                <!-- <label id="package_size" hidden="">
+                    Package size:
+                    <input type="text" name="package_size" />
+                </label> -->
+
                 <label class="input-group mb-3">
                     Upload nutrition label
                     <input
@@ -41,35 +57,35 @@
                 </label>
                 <label>
                     Energy/能量:
-                    <input type="text" name="food_name" />
+                    <input type="text" name="energy" />
                 </label>
                 <label>
                     Protein/蛋白質:
-                    <input type="text" name="food_name" />
+                    <input type="text" name="protein" />
                 </label>
                 <label>
                     Total fat/總脂肪:
-                    <input type="text" name="food_name" />
+                    <input type="text" name="total_fat" />
                 </label>
                 <label>
                     Saturated fat/飽和脂肪:
-                    <input type="text" name="food_name" />
+                    <input type="text" name="saturated_fat" />
                 </label>
                 <label>
                     Trans fat/反式脂肪:
-                    <input type="text" name="food_name" />
+                    <input type="text" name="trans_fat" />
                 </label>
                 <label>
                     Carbohydrates/碳水化合物:
-                    <input type="text" name="food_name" />
+                    <input type="text" name="carbohydrates" />
                 </label>
                 <label>
-                    Sugar/糖:
-                    <input type="text" name="food_name" />
+                    Sugars/糖:
+                    <input type="text" name="sugars" />
                 </label>
                 <label>
                     Sodium/鈉:
-                    <input type="text" name="food_name" />
+                    <input type="text" name="sodium" />
                 </label>
 
                 <input type="submit" value="Upload" id="upload-btn" />
