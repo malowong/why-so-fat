@@ -20,7 +20,92 @@
             <div id="container">
                 <div id="user-info"></div>
                 <div>
-                    <button type="button" class="logout-btn btn btn-warning">
+                    <!-- Button trigger modal -->
+                    <button
+                        type="button"
+                        class="edit-btn btn btn-info"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                    >
+                        Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div
+                        class="modal fade"
+                        id="exampleModal"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5
+                                        class="modal-title"
+                                        id="exampleModalLabel"
+                                    >
+                                        Edit Info
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                    ></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="edit-form">
+                                        <div
+                                            class="
+                                                input-group input-group-sm
+                                                mb-3
+                                            "
+                                        >
+                                            <input
+                                                type="number"
+                                                name="height"
+                                                placeholder="height (cm)"
+                                                class="form-control"
+                                                aria-label="Small"
+                                                aria-describedby="inputGroup-sizing-sm"
+                                            />
+                                        </div>
+                                        <div
+                                            class="
+                                                input-group input-group-sm
+                                                mb-3
+                                            "
+                                        >
+                                            <input
+                                                type="number"
+                                                name="weight"
+                                                placeholder="weight (kg)"
+                                                class="form-control"
+                                                aria-label="Small"
+                                                aria-describedby="inputGroup-sizing-sm"
+                                            />
+                                        </div>
+                                        <div class="edit-message mb-2"></div>
+                                        <button
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            data-bs-dismiss="modal"
+                                        >
+                                            Close
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            class="save-edit-btn btn btn-info"
+                                        >
+                                            Save changes
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="logout-btn btn btn-danger">
                         Logout
                     </button>
                 </div>

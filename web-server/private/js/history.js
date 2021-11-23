@@ -47,7 +47,6 @@ async function loadHistory() {
 
     const mapKeys = Array.from(consumptionMap.keys())
     const mapValues = Array.from(consumptionMap.values())[0]
-    console.log(mapValues)
 
     let htmlStr = ``
     for (const mapKey of mapKeys) {

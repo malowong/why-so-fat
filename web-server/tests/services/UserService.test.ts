@@ -5,7 +5,7 @@ import { truncateTable } from "../../utils/truncateTable";
 const knexConfig = require("../../knexfile");
 const knex = Knex(knexConfig["test"]);
 
-describe.only("UserService", () => {
+describe("UserService", () => {
   let service: UserService;
 
   beforeEach(async () => {
@@ -23,7 +23,7 @@ describe.only("UserService", () => {
 
   it("retrive user", async () => {
     const result = (await service.getUserByUsername("Denden")) as User;
-    console.log(result);
+
     expect(result!!.username).toEqual("Denden");
     expect(result!!.height).toBe(153);
   });
