@@ -1,20 +1,26 @@
+const searchBar = document.querySelector('.search-bar')
+const clearButton = document.querySelector('.clear-btn')
+
 window.onload = async () => {
     await loadFoodList()
 }
 
+let foodList
+let uniqueFoodId
+
 async function loadFoodList() {
     const resp = await fetch('/api/food/info')
-    const foodList = (await resp.json()).rows
+    foodList = (await resp.json()).rows
 
-    // const resp1 = await fetch('/api/food/nutritionValue')
-
-    const uniqueFoodId = foodList.reduce(
+    uniqueFoodId = foodList.reduce(
         (acc, cur) => acc.add(cur.food_id),
         new Set()
     )
-    // console.log(foodList)
-    // console.log(Array.from(uniqueFoodId))
 
+    genHtmlStr(uniqueFoodId, foodList)
+}
+
+function genHtmlStr(uniqueFoodId, foodList) {
     let htmlStr = ``
     for (const i of Array.from(uniqueFoodId)) {
         let foodNutritionMap = new Map()
@@ -26,19 +32,18 @@ async function loadFoodList() {
                 )
             }
         }
-        console.log(foodNutritionMap)
 
         for (const foodItem of foodList) {
             if (foodItem.food_id == i) {
                 htmlStr += /*html*/ `
-        <div class="card" style="width: 18rem">
+        <div class="card mt-3" style="width: 18rem">
         <img
             class="card-img-top"
             src="${foodItem.food_photo}"
             alt="Card image cap"
         />
         <div class="card-body">
-            <h5 class="card-title">${foodItem.food_name}</h5>
+            <h5 class="card-title food-name">${foodItem.food_name}</h5>
 
             <button
                 type="button"
@@ -185,18 +190,25 @@ async function loadFoodList() {
     document.querySelector('#food-container').innerHTML = htmlStr
 }
 
-// let htmlStr = ``
-// for (const food of foodList) {
-//     htmlStr += /*html*/ `
-//         <div>${food.food_name}</div>
-//         <div><img src="../../uploads/${food.food_photo}"></div>
-//         <div>Energy: ${food.energy}</div>
-//         <div>Protein: ${food.protein}</div>
-//         <div>Carbohydrates: ${food.carbohydrates}</div>
-//         <div>Total fat: ${food.total_fat}</div>
-//         <div>Saturated fat: ${food.saturated_fat}</div>
-//         <div>Trans fat: ${food.trans_fat}</div>
-//         <div>Sodium: ${food.sodium}</div>
-//         <hr>
-//     `
-// }
+searchBar.addEventListener('input', (e) => {
+    const searchValue = searchBar.value.trim()
+
+    if (searchValue.length == 0) {
+        genHtmlStr(uniqueFoodId, foodList)
+        return
+    }
+
+    let matchSet = new Set()
+    for (let i of foodList) {
+        i.food_name.toLowerCase().includes(searchValue.toLowerCase()) &&
+            matchSet.add(i.food_id)
+    }
+
+    genHtmlStr(Array.from(matchSet), foodList)
+})
+
+clearButton.addEventListener('click', (e) => {
+    searchBar.value = ''
+    genHtmlStr(uniqueFoodId, foodList)
+    return
+})
