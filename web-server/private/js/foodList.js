@@ -1,20 +1,26 @@
+const searchBar = document.querySelector('.search-bar')
+const clearButton = document.querySelector('.clear-btn')
+
 window.onload = async () => {
     await loadFoodList()
 }
 
+let foodList
+let uniqueFoodId
+
 async function loadFoodList() {
     const resp = await fetch('/api/food/info')
-    const foodList = (await resp.json()).rows
+    foodList = (await resp.json()).rows
 
-    // const resp1 = await fetch('/api/food/nutritionValue')
-
-    const uniqueFoodId = foodList.reduce(
+    uniqueFoodId = foodList.reduce(
         (acc, cur) => acc.add(cur.food_id),
         new Set()
     )
-    // console.log(foodList)
-    // console.log(Array.from(uniqueFoodId))
 
+    genHtmlStr(uniqueFoodId, foodList)
+}
+
+function genHtmlStr(uniqueFoodId, foodList) {
     let htmlStr = ``
     for (const i of Array.from(uniqueFoodId)) {
         let foodNutritionMap = new Map()
@@ -27,18 +33,19 @@ async function loadFoodList() {
             }
         }
         console.log(foodNutritionMap)
+        console.log(foodList)
 
         for (const foodItem of foodList) {
             if (foodItem.food_id == i) {
                 htmlStr += /*html*/ `
-        <div class="card" style="width: 18rem">
+        <div class="card mt-3" style="width: 18rem">
         <img
             class="card-img-top"
             src="${foodItem.food_photo}"
             alt="Card image cap"
         />
         <div class="card-body">
-            <h5 class="card-title">${foodItem.food_name}</h5>
+            <h5 class="card-title food-name">${foodItem.food_name}</h5>
 
             <button
                 type="button"
@@ -78,17 +85,15 @@ async function loadFoodList() {
                         <tr>
                         <td></td>
                         <td></td>
-                            <td>Per ${foodItem.per_unit}g / 每${
-                    foodItem.per_unit
-                }克</td>
+                            <td>Per 100g / 每100克</td>
                         </tr>
 
                         <tr>
                             <td>Energy/能量</td>
                             <td></td>
                             <td>${
-                                foodNutritionMap.get('Energy')
-                                    ? foodNutritionMap.get('Energy')
+                                foodNutritionMap.get('energy')
+                                    ? foodNutritionMap.get('energy')
                                     : 0
                             } kcal/千卡</td>
                         </tr>
@@ -96,8 +101,8 @@ async function loadFoodList() {
                             <td>Protein/蛋白質</td>
                             <td></td>
                             <td>${
-                                foodNutritionMap.get('Protein')
-                                    ? foodNutritionMap.get('Energy')
+                                foodNutritionMap.get('protein')
+                                    ? foodNutritionMap.get('protein')
                                     : 0
                             } g/克</td>
                         </tr>
@@ -105,8 +110,8 @@ async function loadFoodList() {
                             <td>Total fat/總脂肪</td>
                             <td></td>
                             <td>${
-                                foodNutritionMap.get('Total fat')
-                                    ? foodNutritionMap.get('Total fat')
+                                foodNutritionMap.get('total_fat')
+                                    ? foodNutritionMap.get('total_fat')
                                     : 0
                             } g/克</td>
                         </tr>
@@ -114,8 +119,8 @@ async function loadFoodList() {
                             <td>Saturated fat/飽和脂肪</td>
                             <td></td>
                             <td>${
-                                foodNutritionMap.get('Saturated fat')
-                                    ? foodNutritionMap.get('Saturated fat')
+                                foodNutritionMap.get('saturated_fat')
+                                    ? foodNutritionMap.get('saturated_fat')
                                     : 0
                             } g/克</td>
                         </tr>
@@ -123,8 +128,8 @@ async function loadFoodList() {
                             <td>Trans fat/反式脂肪</td>
                             <td></td>
                             <td>${
-                                foodNutritionMap.get('Trans fat')
-                                    ? foodNutritionMap.get('Trans fat')
+                                foodNutritionMap.get('trans_fat')
+                                    ? foodNutritionMap.get('trans_fat')
                                     : 0
                             } g/克</td>
                         </tr>
@@ -132,8 +137,8 @@ async function loadFoodList() {
                             <td>Carbohydrates/碳水化合物</td>
                             <td></td>
                             <td>${
-                                foodNutritionMap.get('Carbohydrates')
-                                    ? foodNutritionMap.get('Carbohydrates')
+                                foodNutritionMap.get('carbohydrates')
+                                    ? foodNutritionMap.get('carbohydrates')
                                     : 0
                             } g/克</td>
                         </tr>
@@ -141,8 +146,8 @@ async function loadFoodList() {
                             <td>Sugar/糖</td>
                             <td></td>
                             <td>${
-                                foodNutritionMap.get('Sugar')
-                                    ? foodNutritionMap.get('Sugar')
+                                foodNutritionMap.get('sugars')
+                                    ? foodNutritionMap.get('sugars')
                                     : 0
                             } g/克</td>
                         </tr>
@@ -150,8 +155,8 @@ async function loadFoodList() {
                             <td>Sodium/鈉</td>
                             <td></td>
                             <td>${
-                                foodNutritionMap.get('Sodium')
-                                    ? foodNutritionMap.get('Sodium')
+                                foodNutritionMap.get('sodium')
+                                    ? foodNutritionMap.get('sodium')
                                     : 0
                             } mg/毫克</td>
                         </tr>
@@ -185,18 +190,25 @@ async function loadFoodList() {
     document.querySelector('#food-container').innerHTML = htmlStr
 }
 
-// let htmlStr = ``
-// for (const food of foodList) {
-//     htmlStr += /*html*/ `
-//         <div>${food.food_name}</div>
-//         <div><img src="../../uploads/${food.food_photo}"></div>
-//         <div>Energy: ${food.energy}</div>
-//         <div>Protein: ${food.protein}</div>
-//         <div>Carbohydrates: ${food.carbohydrates}</div>
-//         <div>Total fat: ${food.total_fat}</div>
-//         <div>Saturated fat: ${food.saturated_fat}</div>
-//         <div>Trans fat: ${food.trans_fat}</div>
-//         <div>Sodium: ${food.sodium}</div>
-//         <hr>
-//     `
-// }
+searchBar.addEventListener('input', (e) => {
+    const searchValue = searchBar.value.trim()
+
+    if (searchValue.length == 0) {
+        genHtmlStr(uniqueFoodId, foodList)
+        return
+    }
+
+    let matchSet = new Set()
+    for (let i of foodList) {
+        i.food_name.toLowerCase().includes(searchValue.toLowerCase()) &&
+            matchSet.add(i.food_id)
+    }
+
+    genHtmlStr(Array.from(matchSet), foodList)
+})
+
+clearButton.addEventListener('click', (e) => {
+    searchBar.value = ''
+    genHtmlStr(uniqueFoodId, foodList)
+    return
+})
