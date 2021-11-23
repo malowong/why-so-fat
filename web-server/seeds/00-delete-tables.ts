@@ -6,7 +6,6 @@ export async function seed(knex: Knex): Promise<void> {
     const keyArr = Object.values(tableObj);
     console.log(keyArr);
     for (let i = 0; i < keyArr.length; i++) {
-      console.log(keyArr[i]);
       await trx.raw(/*sql*/ `TRUNCATE ${keyArr[i]} RESTART IDENTITY CASCADE`);
     }
   }
