@@ -55,11 +55,19 @@ export class UserController {
     }
   };
 
-  profile = async (req: Request, res: Response) => {
+  getProfile = async (req: Request, res: Response) => {
     const userID = req.session["user"].id;
     const user = await this.userService.getUserProfile(userID);
 
     res.status(200).json(user);
+  };
+
+  editProfile = async (req: Request, res: Response) => {
+    const userID = req.session["user"].id;
+    const { height, weight } = req.body;
+    await this.userService.editUserProfile(userID, height, weight);
+
+    res.status(200).json({ message: "success edit" });
   };
 
   logout = async (req: Request, res: Response) => {

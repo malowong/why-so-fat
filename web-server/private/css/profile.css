@@ -18,7 +18,8 @@ main {
     align-items: center;
 }
 
-.logout-btn {
+.logout-btn,
+.edit-btn {
     margin-top: 2em;
 }
 
