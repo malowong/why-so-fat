@@ -24,3 +24,25 @@ h2 {
     justify-content: center;
     margin-top: 2em;
 }
+
+.date-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.more {
+    display: none;
+}
+
+.food-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.food-info {
+    width: 13ch;
+}
+
+main {
+    padding: 5%;
+}

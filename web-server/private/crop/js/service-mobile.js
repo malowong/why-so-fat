@@ -324,7 +324,8 @@ $btnRemoveActiveObject.on('click', function () {
   imageEditor.removeObject(activeObjectId);
 });
 
-import { sendOcr } from "./edit.js"
+// import { sendOcr } from "./edit.js"
+// let result;
 
 // Download action
 $btnDownload.on('click', async function () {
@@ -342,7 +343,35 @@ $btnDownload.on('click', async function () {
     // Library: FileSaver - saveAs
     // saveAs(blob, imageName); // eslint-disable-line
 
-    sendOcr(blob, imageName)
+    console.log(imageName)
+    const file = new File([blob], imageName); 
+    const formData = new FormData()
+    formData.append('image', file)
+
+    const header = document.querySelector('.header')
+    const loader = document.querySelector('.video-loader')
+    const footer = document.querySelector('.tui-image-editor-controls')
+
+    loader.style.display = 'flex'
+    header.innerHTML = /* html */ `<h1>LOADING</h1>`
+    footer.innerHTML = /* html */ `<h1>This may take a while...</h1>`
+
+    const resp = await fetch('/api/food/ocr', {
+        method: 'POST',
+        body: formData,
+    })
+
+    loader.style.display = 'none'
+    
+    const result = (await resp.json());
+    
+    window.location = '../../upload.html'
+
+    localStorage.setItem('result', JSON.stringify(result))
+    
+    // const result = sendOcr(blob, imageName)
+
+
 
   } else {
     alert('This browser needs a file-server');
@@ -350,6 +379,8 @@ $btnDownload.on('click', async function () {
     w.document.body.innerHTML = '<img src=' + dataURL + '>';
   }
 });
+
+
 
 // Crop menu action
 $btnCrop.on('click', function () {

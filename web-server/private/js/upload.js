@@ -19,7 +19,7 @@ form.addEventListener('submit', async (e) => {
     formData.append('carbohydrates', form.carbohydrates.value)
     formData.append('sugars', form.sugars.value)
     formData.append('sodium', form.sodium.value)
-    formData.append('is_consumed', consumedBtn.innerHTML.trim())
+    formData.append('is_consumed', form.is_consumed.value)
     formData.append('quantity', form.quantity.value)
     console.log(formData)
     form.reset()
@@ -44,15 +44,40 @@ document.querySelector('#per_unit').addEventListener('click', () => {
     }
 })
 
-consumedDropdownItem.addEventListener('click', () => {
-    const text = consumedBtn.innerHTML.trim()
-    if (text == 'YES') {
-        consumedBtn.innerHTML = 'NO'
-        quantity.hidden = true
-        consumedDropdownItem.innerHTML = 'YES'
-    } else {
-        consumedBtn.innerHTML = 'YES'
+document.querySelector('#is_consumed').addEventListener('click', () => {
+    if (form.is_consumed.value == 'YES') {
         quantity.hidden = false
-        consumedDropdownItem.innerHTML = 'NO'
+    } else if (form.is_consumed.value == 'NO') {
+        quantity.hidden = true
     }
 })
+
+const storage = localStorage.getItem('result')
+const result = JSON.parse(storage).data
+
+document.getElementById('energy').value = parseFloat(result.energy)
+document.getElementById('protein').value = parseFloat(result.protein)
+document.getElementById('total_fat').value = parseFloat(result.total_fat)
+document.getElementById('saturated_fat').value = parseFloat(
+    result.saturated_fat
+)
+document.getElementById('trans_fat').value = parseFloat(result.trans_fat)
+document.getElementById('carbohydrates').value = parseFloat(
+    result.carbohydrates
+)
+document.getElementById('sugars').value = parseFloat(result.sugar)
+document.getElementById('sodium').value = parseFloat(result.sodium)
+
+// consumedDropdownItem.addEventListener('click', () => {
+//     const text = consumedBtn.innerHTML.trim()
+//     console.log(text)
+//     if (text == 'YES') {
+//         consumedBtn.innerHTML = 'NO'
+//         quantity.hidden = true
+//         consumedDropdownItem.innerHTML = 'YES'
+//     } else {
+//         consumedBtn.innerHTML = 'YES'
+//         quantity.hidden = false
+//         consumedDropdownItem.innerHTML = 'NO'
+//     }
+// })

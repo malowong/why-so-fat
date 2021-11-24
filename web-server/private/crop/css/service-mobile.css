@@ -19,7 +19,7 @@ button {
   -moz-appearance: none;
   background-color: #fff;
 }
-input[type='file'] {
+/* input[type='file'] {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -30,13 +30,16 @@ input[type='file'] {
   cursor: pointer;
   opacity: 0;
   filter: alpha(opacity=0);
+} */
+h1{
+  color: #FFFFFF;
 }
 .header {
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
-  background-color: #fff;
+  background-color: #383838;
   text-align: center;
   z-index: 9999;
 }
@@ -50,11 +53,16 @@ input[type='file'] {
   font-weight: bold;
 }
 .header .menu {
-  padding: 10px;
-  background-color: #000;
+  padding: 20px 20px;
+  background-color: #383838;
+  display: flex;
+  justify-content: space-between;
 }
 .header .menu input {
   opacity: 0;
+}
+.header .menu span {
+  color: #fff;
 }
 .header .menu img {
   width: 20px;
@@ -70,7 +78,7 @@ input[type='file'] {
   width: 30px;
   height: 30px;
   border: 0;
-  background-color: #fff;
+  background-color: #383838;
   vertical-align: middle;
 }
 .header .button.disabled img {
@@ -81,7 +89,7 @@ input[type='file'] {
 }
 .tui-image-editor-canvas-container {
   margin: 0 auto;
-  top: 50%;
+  top: 38%;
   transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -93,7 +101,10 @@ input[type='file'] {
   width: 100%;
   left: 0;
   bottom: 0;
-  background-color: #fff;
+  background-color: #383838;
+}
+.scrollable::-webkit-scrollbar {
+  display: none;
 }
 .tui-image-editor-controls .scrollable {
   display: inline-block;
@@ -102,7 +113,7 @@ input[type='file'] {
   height: 100%;
   white-space: nowrap;
   font-size: 0;
-  background-color: #000;
+  background-color: #383838;
   vertical-align: middle;
 }
 .tui-image-editor-controls .no-scrollable {
@@ -110,17 +121,17 @@ input[type='file'] {
 }
 .tui-image-editor-controls .menu-item {
   display: inline-block;
-  height: 80px;
-  border-right: 1px solid #383838;
+  /* height: 80px; */
+  /* border-right: 1px solid #383838; */
   background-color: #ddd;
   vertical-align: middle;
 }
 .tui-image-editor-controls .menu-button {
   width: 80px;
-  height: 80px;
-  border: none;
+  height: 50px;
+  border: 0;
   vertical-align: middle;
-  background-color: #000;
+  background-color: #383838;
   color: #fff;
   font-size: 12px;
   font-weight: bold;
@@ -128,7 +139,7 @@ input[type='file'] {
 }
 .tui-image-editor-controls .submenu-button {
   width: 80px;
-  height: 80px;
+  height: 50px;
   border: none;
   background-color: #ddd;
   vertical-align: middle;
@@ -180,7 +191,7 @@ input[type='file'] {
   display: inline-block;
   width: 30px;
   height: 80px;
-  background-color: #000;
+  background-color: #383838;
   color: #fff;
   border: none;
   vertical-align: middle;
@@ -200,4 +211,13 @@ input[type='file'] {
 }
 .tui-image-editor-controls .msg.hide {
   display: none;
+}
+
+#take-photo>input{
+  display:none;
+}
+#take-photo{
+  padding-top: 5px;
+  padding-bottom: 40px;
+  text-align: center;
 }
