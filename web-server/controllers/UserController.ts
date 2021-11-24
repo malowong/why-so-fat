@@ -76,4 +76,11 @@ export class UserController {
     }
     res.status(200).json({ message: "success" });
   };
+
+  getHomePageRecord = async (req: Request, res: Response) => {
+    const userID = req.session["user"].id;
+    const result = await this.userService.getHomePageRecord(userID);
+
+    res.status(200).json(result);
+  };
 }

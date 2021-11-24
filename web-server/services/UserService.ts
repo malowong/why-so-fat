@@ -1,24 +1,6 @@
 import { Knex } from "knex";
 import { tables } from "../utils/freezedObj";
-
-export interface User {
-  id: number;
-  username: string;
-  password: string;
-  gender: string;
-  height: number;
-  weight: number;
-  created_at: Date;
-  updated_at: Date;
-}
-
-interface NewUser {
-  username: string;
-  password: string;
-  gender: string;
-  height: number;
-  weight: number;
-}
+import { User, NewUser, Consumptions } from "../utils/models";
 
 export class UserService {
   constructor(private knex: Knex) {}
@@ -29,7 +11,7 @@ export class UserService {
   };
 
   getUserProfile = async (userID: number) => {
-    const result = await this.knex<User>("users").where("id", userID).first();
+    const result = await this.knex<User>(tables.USER).where("id", userID).first();
     return result;
   };
 
@@ -47,5 +29,12 @@ export class UserService {
   insertNewUser = async (newUser: NewUser) => {
     await this.knex(tables.USER).insert(newUser);
     return true;
+  };
+
+  getHomePageRecord = async (userID: number) => {
+    const result = await this.knex<Consumptions>(tables.CONSUMPTION)
+      .join(tables.FOOD, `${tables.FOOD}.id`, `${tables.CONSUMPTION}.food_id`)
+      .where(`${tables.CONSUMPTION}.user_id`, userID);
+    return result;
   };
 }
