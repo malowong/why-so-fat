@@ -33,9 +33,15 @@
                     Total Weight:
                     <input type="text" name="total_weight" size="4" />
                 </label>
-                <label id="is_consumed"> Consumed? </label>
+                <label id="is_consumed"> Consumed? 
+                    <select name="is_consumed" id="is_consumed">
+                        <option value=YES >YES</option>
+                        <option value=NO >NO</option>
+                    </select>
+
+                </label>
                 <!-- Example single danger button -->
-                <div class="btn-group">
+                <!-- <div class="btn-group">
                     <button
                         type="button"
                         class="btn btn-primary dropdown-toggle"
@@ -52,7 +58,7 @@
                             >
                         </li>
                     </ul>
-                </div>
+                </div> -->
                 <label id="quantity"> Consumed Quantity
                     <select name="quantity" >
                         <option value=1>1</option>
