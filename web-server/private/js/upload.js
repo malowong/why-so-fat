@@ -1,3 +1,5 @@
+import result from '../crop/js/edit.js'
+
 const form = document.querySelector('#upload-form')
 const toggle = document.querySelector('.dropdown-toggle')
 const item = document.querySelector('.dropdown-item')

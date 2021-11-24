@@ -8,7 +8,14 @@ order by v.food_id ASC
 
 --  f.food_name, f.food_photo, f.total_weight , n.*, v.nutrition_value
 
-select  v.food_id, f.food_name, f.food_photo, f.total_weight , n.*, v.nutrition_value from nutrition_value v left join nutrition n on n.id = v.nutrition_id left join food f on f.id = v.food_id order by v.food_id ASC
+select  v.food_id, f.food_name, f.food_photo, f.total_weight , n.*, v.nutrition_value 
+from nutrition_value v 
+left join nutrition n on n.id = v.nutrition_id 
+left join food f on f.id = v.food_id 
+order by v.food_id ASC
 
 
 SELECT * FROM users;
+SELECT * FROM food;
+SELECT * FROM nutrition_value;
+SELECT * FROM nutrition;

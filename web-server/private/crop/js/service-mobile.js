@@ -324,8 +324,10 @@ $btnRemoveActiveObject.on('click', function () {
   imageEditor.removeObject(activeObjectId);
 });
 
+import { sendOcr } from "./edit.js"
+
 // Download action
-$btnDownload.on('click', function () {
+$btnDownload.on('click', async function () {
   var imageName = imageEditor.getImageName();
   var dataURL = imageEditor.toDataURL();
   var blob, type, w;
@@ -338,7 +340,10 @@ $btnDownload.on('click', function () {
     }
 
     // Library: FileSaver - saveAs
-    saveAs(blob, imageName); // eslint-disable-line
+    // saveAs(blob, imageName); // eslint-disable-line
+
+    sendOcr(blob, imageName)
+
   } else {
     alert('This browser needs a file-server');
     w = window.open();
