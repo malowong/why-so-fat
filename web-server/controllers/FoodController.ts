@@ -42,4 +42,9 @@ export class FoodController {
     res.json(data);
   };
 
+  // homePageFoodDetail = async (req: Request, res: Response) => {
+  //   const foodList = await this.foodService.getHomePageFoodDetail(req);
+
+  //   res.status(200).json(foodList).end();
+  // };
 }

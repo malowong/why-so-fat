@@ -83,4 +83,6 @@ export class FoodService {
 
     return result;
   };
+
+  // getHomePageFoodDetail
 }

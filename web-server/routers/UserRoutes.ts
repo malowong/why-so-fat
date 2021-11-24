@@ -14,4 +14,3 @@ userRoutes.get("/logout", AsyncWrapper(userController.logout));
 userRoutes.post("/signup", AsyncWrapper(userController.signup));
 userRoutes.get("/profile", AsyncWrapper(userController.getProfile));
 userRoutes.put("/profile", AsyncWrapper(userController.editProfile));
-userRoutes.get("/homePageRecord", AsyncWrapper(userController.getHomePageRecord));

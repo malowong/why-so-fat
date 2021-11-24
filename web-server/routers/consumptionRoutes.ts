@@ -10,3 +10,5 @@ const consumptionController = new ConsumptionController(consumptionService);
 export const consumptionRoutes = express.Router();
 
 consumptionRoutes.get("/history", AsyncWrapper(consumptionController.consumptionHistory));
+consumptionRoutes.get("/homePageRecord", AsyncWrapper(consumptionController.homePageRecord));
+consumptionRoutes.get("/consumptiondetails/:foodID", AsyncWrapper(consumptionController.consumptionDetails));

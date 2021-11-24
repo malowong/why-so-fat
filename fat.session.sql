@@ -19,3 +19,21 @@ SELECT * FROM users;
 SELECT * FROM food;
 SELECT * FROM nutrition_value;
 SELECT * FROM nutrition;
+
+
+
+SELECT 
+    c.food_id, 
+    json_agg(food_photo) AS food_photo,
+    json_agg(quantity) AS quantity,
+    json_agg(nutrition_value) AS nutrition_value,
+    json_agg(nutrition_name) AS nutrition_name
+    FROM consumptions c
+    INNER JOIN food f
+    ON c.food_id = f.id
+    INNER JOIN nutrition_value v
+    ON v.food_id = f.id
+    INNER JOIN nutrition n
+    ON n.id = v.nutrition_id
+    WHERE c.user_id = 2
+    GROUP BY c.food_id;

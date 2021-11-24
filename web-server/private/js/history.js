@@ -7,6 +7,7 @@ window.onload = async () => {
 async function loadHistory() {
     const resp = await fetch('/api/consumption/history')
     const consumptions = await resp.json()
+    console.log(consumptions)
 
     const consumptionMap = new Map()
     for (const consumption of consumptions) {
