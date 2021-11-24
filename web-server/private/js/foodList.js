@@ -1,5 +1,6 @@
 const searchBar = document.querySelector('.search-bar')
 const clearButton = document.querySelector('.clear-btn')
+const energySortButton = document.querySelector('#energy-sort-btn')
 
 window.onload = async () => {
     await loadFoodList()
@@ -350,3 +351,29 @@ async function convertFnc(foodId) {
     `
     document.querySelector(`#nutrition-table-${foodId}`).innerHTML = htmlStr
 }
+
+energySortButton.addEventListener('click', (e) => {
+    let sortedFoodSet = foodList.filter((element) => {
+        return element.nutrition_name === 'energy'
+    })
+
+    if (energySortButton.innerText === 'Highest energy') {
+        sortedFoodSet = sortedFoodSet
+            .sort((a, b) => {
+                return b.nutrition_value - a.nutrition_value
+            })
+            .reduce((acc, cur) => acc.add(cur.food_id), new Set())
+
+        energySortButton.innerText = 'Lowest energy'
+    } else {
+        sortedFoodSet = sortedFoodSet
+            .sort((a, b) => {
+                return a.nutrition_value - b.nutrition_value
+            })
+            .reduce((acc, cur) => acc.add(cur.food_id), new Set())
+
+        energySortButton.innerText = 'Highest energy'
+    }
+
+    genHtmlStr(sortedFoodSet, foodList)
+})
