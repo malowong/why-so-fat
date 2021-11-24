@@ -16,6 +16,8 @@ export class FoodService {
 
   upload = async (reqObj: Request) => {
     const body = reqObj.body;
+    console.log(body);
+    console.log(reqObj);
     const userInput = {
       food_name: body.food_name,
       food_photo: reqObj.file?.filename,
@@ -29,6 +31,7 @@ export class FoodService {
     }
 
     const foodID = await this.knex(tables.FOOD).insert(userInput).returning("id");
+
     if (body.per_unit == "per_package") {
       for (let i = 1; i <= nutritionMap.size; i++) {
         const nutritionValue = {
@@ -58,6 +61,15 @@ export class FoodService {
           await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
         }
       }
+    }
+
+    if (body.is_consumed == "YES") {
+      const consumptions = {
+        quantity: body["quantity"] * body["total_weight"],
+        user_id: reqObj.session["user"].id,
+        food_id: Number(foodID),
+      };
+      await this.knex(tables.CONSUMPTION).insert(consumptions);
     }
 
     return true;

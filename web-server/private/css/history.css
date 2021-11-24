@@ -1,0 +1,21 @@
+main {
+    padding: 5%;
+}
+
+.date-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.more {
+    display: none;
+}
+
+.food-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.food-info {
+    width: 13ch;
+}

@@ -1,4 +1,7 @@
 const form = document.querySelector('#upload-form')
+const consumedBtn = document.querySelector('#consumedBtn')
+const consumedDropdownItem = document.querySelector('#consumedDropdown')
+const quantity = document.querySelector('#quantity')
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -16,9 +19,10 @@ form.addEventListener('submit', async (e) => {
     formData.append('carbohydrates', form.carbohydrates.value)
     formData.append('sugars', form.sugars.value)
     formData.append('sodium', form.sodium.value)
+    formData.append('is_consumed', consumedBtn.innerHTML.trim())
+    formData.append('quantity', form.quantity.value)
     console.log(formData)
     form.reset()
-    document.getElementById('blah').removeAttribute('src')
     const resp = await fetch('/api/food/upload', {
         method: 'POST',
         body: formData,
@@ -52,3 +56,15 @@ document.getElementById("carbohydrates").value = parseInt(result.carbohydrates)
 document.getElementById("sugars").value = parseInt(result.sugar)
 document.getElementById("sodium").value = parseInt(result.sodium)
 
+consumedDropdownItem.addEventListener('click', () => {
+    const text = consumedBtn.innerHTML.trim()
+    if (text == 'YES') {
+        consumedBtn.innerHTML = 'NO'
+        quantity.hidden = true
+        consumedDropdownItem.innerHTML = 'YES'
+    } else {
+        consumedBtn.innerHTML = 'YES'
+        quantity.hidden = false
+        consumedDropdownItem.innerHTML = 'NO'
+    }
+})
