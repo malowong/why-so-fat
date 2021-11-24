@@ -20,9 +20,9 @@
           <img src="img/openImage.png" style="margin-top: 5px" />
           <input type="file" accept="image/*;capture=camera" id="input-image-file" />
         </span>
-        <button class="button disabled" id="btn-undo"><img src="img/undo.png" /></button>
-        <button class="button disabled" id="btn-redo"><img src="img/redo.png" /></button>
-        <button class="button" id="btn-remove-active-object"><img src="img/remove.png" /></button>
+        <!-- <button class="button disabled" id="btn-undo"><img src="img/undo.png" /></button> -->
+        <button class="button disabled" id="btn-redo" onclick="location.href='../upload.html'"><img src="img/redo.png" /></button>
+        <!-- <button class="button" id="btn-remove-active-object"><img src="img/remove.png" /></button> -->
         <button class="button" id="btn-download"><img src="img/download.png" /></button>
       </div>
     </div>
@@ -252,6 +252,6 @@
     ></script>
     <script type="text/javascript" src="./dist/tui-image-editor.js"></script>
     <script type="module" src="js/service-mobile.js"></script>
-    <script src="js/edit.js"></script>
+    <script type="module" src="js/edit.js"></script>
   </body>
 </html>

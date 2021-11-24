@@ -19,9 +19,9 @@ export async function sendOcr(blob, imageName) {
 
     loader.style.display = 'none'
     
-    const result = (await resp.json()).data;
+    export const result = (await resp.json()).data;
     
-    console.log(result)
+    // console.log(result)
     
     window.location = '../../upload.html'
 
