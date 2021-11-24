@@ -16,14 +16,14 @@
     <!-- Image editor controls - top area -->
     <div class="header">
       <div class="menu">
-        <span class="button">
+        <!-- <span class="button">
           <img src="img/openImage.png" style="margin-top: 5px" />
           <input type="file" accept="image/*;capture=camera" id="input-image-file" />
-        </span>
-        <!-- <button class="button disabled" id="btn-undo"><img src="img/undo.png" /></button> -->
-        <button class="button disabled" id="btn-redo" onclick="location.href='../upload.html'"><img src="img/redo.png" /></button>
+        </span> -->
+        <span onclick="location.href='../home-page.html'">Back</span>
+        <span onclick="location.href='../upload.html'">Skip</span>
         <!-- <button class="button" id="btn-remove-active-object"><img src="img/remove.png" /></button> -->
-        <button class="button" id="btn-download"><img src="img/download.png" /></button>
+        <span class="button" id="btn-download">Done</span>
       </div>
     </div>
     <!-- Image editor area -->
@@ -229,7 +229,14 @@
         </li>
       </ul>
       <p class="msg">Menu Scrolling <b>Left ⇔ Right</b></p>
+      <div class="button" id="take-photo">
+        <label for="input-image-file">
+          <img src="img/openImage.png"/>
+        </label>
+        <input type="file" accept="image/*;capture=camera" id="input-image-file" />
+      </div>
     </div>
+    <script type="text/javascript" src="js/theme/white-theme.js"></script>
     <script
       type="text/javascript"
       src="https://api-storage.cloud.toast.com/v1/AUTH_e18353c4ea5746c097143946d0644e61/toast-ui-cdn/tui-image-editor/v3.11.0/example/fabric-v4.2.0.js"
