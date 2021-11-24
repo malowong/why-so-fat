@@ -238,7 +238,7 @@ async function convertFnc(foodId) {
         <tr>
         <td></td>
         <td></td>
-            <td>Per <input type="text" value="${userInput}" size="1" name="convert" id="convert-${foodId}">g/克</td>
+            <td>Per <input type="text" value="${userInput}" size="1" name="convert" id="convert-${foodId}">g</td>
         </tr>
 
         <tr>
