@@ -84,6 +84,8 @@ def spell_checker(text):
         text = text.replace(",", ".")
     if "G" in text:
         text = text.replace("G", "6")
+    if "T" in text:
+        text = text.replace("T", "7")
     return text
 
 

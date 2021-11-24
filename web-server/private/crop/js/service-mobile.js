@@ -364,12 +364,13 @@ $btnDownload.on('click', async function () {
     loader.style.display = 'none'
     
     const result = (await resp.json());
+    
+    window.location = '../../upload.html'
 
     localStorage.setItem('result', JSON.stringify(result))
     
     // const result = sendOcr(blob, imageName)
 
-    window.location = '../../upload.html'
 
 
   } else {
