@@ -84,7 +84,7 @@ async function loadHistory() {
             <div class="food-info">
                 <h4>${mapValue.foodName}</h4>
                 <h6>Quantity: ${mapValue.quantity}</h6>
-                <h6>Total weight: ${mapValue.totalWeight}</h6>
+                <h6>Weight: ${mapValue.totalWeight}</h6>
             </div>
     
             <div class="ms-5"> 
@@ -106,8 +106,13 @@ async function loadHistory() {
     for (const mapValue of mapValues) {
         let moreStr = ``
         for (const nutrition of mapValue['nutrition']) {
+            console.log(mapValue)
             moreStr += /*html*/ `
-        <div>${Object.keys(nutrition)}: ${Object.values(nutrition)}</div>
+        <div>${Object.keys(nutrition)}: ${(
+                (Object.values(nutrition) / 100) *
+                mapValue.totalWeight *
+                mapValue.quantity
+            ).toFixed(1)}</div>
         `
         }
         document.querySelector(`[data-id='${j}']`).innerHTML = moreStr
