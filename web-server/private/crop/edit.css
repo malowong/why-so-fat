@@ -1,0 +1,9 @@
+.video-loader {
+    display: none;
+    height: 100%;
+    justify-content:center;
+}
+
+h1 {
+    text-align: center;
+}
