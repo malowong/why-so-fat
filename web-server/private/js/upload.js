@@ -1,5 +1,3 @@
-import result from "../crop/js/edit.js"
-
 const form = document.querySelector('#upload-form')
 
 form.addEventListener('submit', async (e) => {
@@ -41,3 +39,16 @@ document.querySelector('#per_unit').addEventListener('click', () => {
         document.getElementById('serving_size').hidden = true
     }
 })
+
+const storage = localStorage.getItem('result')
+const result = JSON.parse(storage).data
+
+document.getElementById("energy").value = parseInt(result.energy)
+document.getElementById("protein").value = parseInt(result.protein)
+document.getElementById("total_fat").value = parseInt(result.total_fat)
+document.getElementById("saturated_fat").value = parseInt(result.saturated_fat)
+document.getElementById("trans_fat").value = parseInt(result.trans_fat)
+document.getElementById("carbohydrates").value = parseInt(result.carbohydrates)
+document.getElementById("sugars").value = parseInt(result.sugar)
+document.getElementById("sodium").value = parseInt(result.sodium)
+
