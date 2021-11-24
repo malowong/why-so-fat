@@ -31,12 +31,15 @@ button {
   opacity: 0;
   filter: alpha(opacity=0);
 } */
+h1{
+  color: #FFFFFF;
+}
 .header {
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
-  background-color: #fff;
+  background-color: #383838;
   text-align: center;
   z-index: 9999;
 }
@@ -50,7 +53,7 @@ button {
   font-weight: bold;
 }
 .header .menu {
-  padding: 30px 20px;
+  padding: 20px 20px;
   background-color: #383838;
   display: flex;
   justify-content: space-between;
@@ -86,7 +89,7 @@ button {
 }
 .tui-image-editor-canvas-container {
   margin: 0 auto;
-  top: 43%;
+  top: 38%;
   transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -215,6 +218,6 @@ button {
 }
 #take-photo{
   padding-top: 5px;
-  padding-bottom: 25px;
+  padding-bottom: 40px;
   text-align: center;
 }
