@@ -1,16 +1,24 @@
 import Knex from "knex";
-const knexConfig = require("../../knexfile");
-const knex = Knex(knexConfig["test"]);
-import { FoodService } from "../../services/FoodService";
+import { ConsumptionService } from "../../services/ConsumptionService";
 import { tables } from "../../utils/freezedObj";
 import { truncateTable } from "../../utils/truncateTable";
+const knexConfig = require("../../knexfile");
+const knex = Knex(knexConfig["test"]);
 
-describe("FoodService + DB", () => {
-  let service: FoodService;
+describe("ConsumptionService", () => {
+  let service: ConsumptionService;
 
   beforeEach(async () => {
-    service = new FoodService(knex);
+    service = new ConsumptionService(knex);
     await truncateTable(tables);
+
+    await knex(tables.USER).insert({
+      username: "matt",
+      password: "159753",
+      gender: "male",
+      height: 153,
+      weight: 80.6,
+    });
 
     await knex
       .insert([
@@ -27,10 +35,8 @@ describe("FoodService + DB", () => {
 
     await knex
       .insert([
-        { food_name: "魚仔餅", food_photo: "1.jpg", total_weight: 33 },
-        { food_name: "可口可樂", food_photo: "2.jpg", total_weight: 250 },
-        { food_name: "金莎朱古力", food_photo: "3.jpg", total_weight: 17 },
-        { food_name: "卡樂B薯條", food_photo: "4.jpg", total_weight: 43 },
+        { food_name: "熱浪薯片", food_photo: "1.jpg", total_weight: 33 },
+        { food_name: "百事可樂", food_photo: "2.jpg", total_weight: 250 },
       ])
       .into(tables.FOOD);
 
@@ -49,14 +55,30 @@ describe("FoodService + DB", () => {
         { nutrition_value: 4, food_id: 2, nutrition_id: 8 },
       ])
       .into(tables.NUTRITION_VALUE);
+
+    await knex
+      .insert([
+        {
+          quantity: 1,
+          user_id: 1,
+          food_id: 1,
+        },
+        {
+          quantity: 2,
+          user_id: 1,
+          food_id: 2,
+        },
+      ])
+      .into(tables.CONSUMPTION);
   });
 
-  it("test getFoodInfo - Food Found", async () => {
-    const food = (await service.getFoodInfo()).rows;
+  it("test getConsumptionHistory - Consumptions Found", async () => {
+    const consumptions = await service.getConsumptionHistory(1);
 
-    expect(food).toBeDefined();
-    expect(food[0].nutrition_name).toBe("Energy");
-    expect(food[1].nutrition_value).toBe(5.3);
+    expect(consumptions).toBeDefined();
+    expect(consumptions[0].food_name).toEqual("熱浪薯片");
+    expect(consumptions[0].nutrition_value).toBe(405);
+    expect(consumptions[1].nutrition_name).toEqual("Protein");
   });
 
   afterAll(async () => {

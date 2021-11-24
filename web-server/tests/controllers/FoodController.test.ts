@@ -15,19 +15,7 @@ describe("FoodController", () => {
   beforeEach(() => {
     service = new FoodService({} as Knex);
     service.getFoodInfo = jest.fn(
-      () =>
-        Promise.resolve({
-          // {
-          //   food_id: 3,
-          //   food_name: "chips",
-          //   food_photo: "1.jpg",
-          //   total_weight: 10.8,
-          //   id: 4,
-          //   nutrition_name: "sugar",
-          //   nutrition_value: 52.3,
-          //   per_unit: 230,
-          // },
-        } as any) //
+      () => Promise.resolve({} as any) //
     );
 
     req = {
@@ -35,6 +23,7 @@ describe("FoodController", () => {
         user: {} as any,
       } as any,
     } as Request;
+
     res = {
       status: jest.fn(() => res),
       json: jest.fn(() => res),
@@ -46,6 +35,7 @@ describe("FoodController", () => {
 
   it("test get food info success", async () => {
     await controller.foodListInfo(req, res);
+
     expect(service.getFoodInfo).toBeCalledWith();
     expect(res.status).toBeCalledWith(200);
     expect(res.end).toBeCalled();
