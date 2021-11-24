@@ -1,4 +1,7 @@
 const form = document.querySelector('#upload-form')
+const toggle = document.querySelector('.dropdown-toggle')
+const item = document.querySelector('.dropdown-item')
+const quantity = document.querySelector('#quantity')
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -16,9 +19,9 @@ form.addEventListener('submit', async (e) => {
     formData.append('carbohydrates', form.carbohydrates.value)
     formData.append('sugars', form.sugars.value)
     formData.append('sodium', form.sodium.value)
+    formData.append('is_consumed', toggle.innerHTML)
     console.log(formData)
     form.reset()
-    document.getElementById('blah').removeAttribute('src')
     const resp = await fetch('/api/food/upload', {
         method: 'POST',
         body: formData,
@@ -37,5 +40,18 @@ document.querySelector('#per_unit').addEventListener('click', () => {
         document.getElementById('serving_size').hidden = true
     } else {
         document.getElementById('serving_size').hidden = true
+    }
+})
+
+item.addEventListener('click', () => {
+    const text = toggle.innerHTML.trim()
+    if (text == 'YES') {
+        toggle.innerHTML = 'NO'
+        quantity.hidden = true
+        item.innerHTML = 'YES'
+    } else {
+        toggle.innerHTML = 'YES'
+        quantity.hidden = false
+        item.innerHTML = 'NO'
     }
 })
