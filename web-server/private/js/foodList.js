@@ -223,7 +223,6 @@ async function convertFnc(foodId) {
     const resp = await fetch(`/api/food/convert/${foodId}`)
 
     const foodInfo = await resp.json()
-    console.log(foodInfo)
 
     let convertedNutritionMap = new Map()
     for (const eachInfo of foodInfo) {
