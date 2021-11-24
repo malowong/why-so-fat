@@ -1,3 +1,7 @@
+h2 {
+    text-align: center;
+}
+
 #first-row {
     display: flex;
     justify-content: center;

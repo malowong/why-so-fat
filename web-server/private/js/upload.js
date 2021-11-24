@@ -1,8 +1,6 @@
-import result from '../crop/js/edit.js'
-
 const form = document.querySelector('#upload-form')
-const toggle = document.querySelector('.dropdown-toggle')
-const item = document.querySelector('.dropdown-item')
+const consumedBtn = document.querySelector('#consumedBtn')
+const consumedDropdownItem = document.querySelector('#consumedDropdown')
 const quantity = document.querySelector('#quantity')
 
 form.addEventListener('submit', async (e) => {
@@ -21,7 +19,8 @@ form.addEventListener('submit', async (e) => {
     formData.append('carbohydrates', form.carbohydrates.value)
     formData.append('sugars', form.sugars.value)
     formData.append('sodium', form.sodium.value)
-    formData.append('is_consumed', toggle.innerHTML)
+    formData.append('is_consumed', consumedBtn.innerHTML.trim())
+    formData.append('quantity', form.quantity.value)
     console.log(formData)
     form.reset()
     const resp = await fetch('/api/food/upload', {
@@ -45,15 +44,15 @@ document.querySelector('#per_unit').addEventListener('click', () => {
     }
 })
 
-item.addEventListener('click', () => {
-    const text = toggle.innerHTML.trim()
+consumedDropdownItem.addEventListener('click', () => {
+    const text = consumedBtn.innerHTML.trim()
     if (text == 'YES') {
-        toggle.innerHTML = 'NO'
+        consumedBtn.innerHTML = 'NO'
         quantity.hidden = true
-        item.innerHTML = 'YES'
+        consumedDropdownItem.innerHTML = 'YES'
     } else {
-        toggle.innerHTML = 'YES'
+        consumedBtn.innerHTML = 'YES'
         quantity.hidden = false
-        item.innerHTML = 'NO'
+        consumedDropdownItem.innerHTML = 'NO'
     }
 })
