@@ -15,13 +15,51 @@ export class FoodService {
   };
 
   upload = async (reqObj: Request) => {
+    const body = reqObj.body;
     const userInput = {
-      food_name: reqObj.body.food_name,
+      food_name: body.food_name,
       food_photo: reqObj.file?.filename,
-      total_weight: reqObj.body.total_weight,
+      total_weight: body.total_weight,
     };
 
-    await this.knex(tables.FOOD).insert(userInput);
+    const nutritionArr = await this.knex(tables.NUTRITION).select();
+    const nutritionMap = new Map<number, string>();
+    for (const nutrition of nutritionArr) {
+      nutritionMap.set(nutrition.id, nutrition.nutrition_name);
+    }
+
+    const foodID = await this.knex(tables.FOOD).insert(userInput).returning("id");
+    if (body.per_unit == "per_package") {
+      for (let i = 1; i <= nutritionMap.size; i++) {
+        const nutritionValue = {
+          nutrition_value: (body[`${nutritionMap.get(i)}`] / body["total_weight"]) * 100,
+          food_id: Number(foodID),
+          nutrition_id: i,
+        };
+        await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
+      }
+    } else if (body.per_unit == "per_serving") {
+      for (let i = 1; i <= nutritionMap.size; i++) {
+        const nutritionValue = {
+          nutrition_value: (body[`${nutritionMap.get(i)}`] / body["serving_size"]) * 100,
+          food_id: Number(foodID),
+          nutrition_id: i,
+        };
+        await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
+      }
+    } else {
+      for (let i = 1; i <= nutritionMap.size; i++) {
+        for (let i = 1; i <= nutritionMap.size; i++) {
+          const nutritionValue = {
+            nutrition_value: body[`${nutritionMap.get(i)}`],
+            food_id: Number(foodID),
+            nutrition_id: i,
+          };
+          await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
+        }
+      }
+    }
+
     return true;
   };
 

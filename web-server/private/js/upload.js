@@ -1,3 +1,5 @@
+import result from "../crop/js/edit.js"
+
 const form = document.querySelector('#upload-form')
 
 form.addEventListener('submit', async (e) => {
