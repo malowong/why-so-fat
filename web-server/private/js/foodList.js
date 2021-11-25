@@ -1,6 +1,6 @@
 const searchBar = document.querySelector('.search-bar')
 const clearButton = document.querySelector('.clear-btn')
-const energySortButton = document.querySelector('#energy-sort-btn')
+const sortButtons = document.querySelectorAll('.sort-btn')
 
 window.onload = async () => {
     await loadFoodList()
@@ -166,7 +166,6 @@ function genHtmlStr(uniqueFoodId, foodList) {
                                 </tr>
 
                                 </tr>
-
                         </table>
             
                         </div>
@@ -174,8 +173,7 @@ function genHtmlStr(uniqueFoodId, foodList) {
                             <button
                                 type="button"
                                 class="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                                onclick="genHtmlStr(uniqueFoodId, foodList)"                                
+                                data-bs-dismiss="modal"                    
                             >
                                 Close
                             </button>
@@ -352,28 +350,38 @@ async function convertFnc(foodId) {
     document.querySelector(`#nutrition-table-${foodId}`).innerHTML = htmlStr
 }
 
-energySortButton.addEventListener('click', (e) => {
+sortButtons.forEach((sortButton) => {
+    sortButton.addEventListener('click', (e) => {
+        sortByNutrition(
+            sortButton,
+            sortButton.classList[3][0].toUpperCase() +
+                sortButton.classList[3].slice(1)
+        )
+    })
+})
+
+function sortByNutrition(sortButton, nutritionName) {
     let sortedFoodSet = foodList.filter((element) => {
-        return element.nutrition_name === 'energy'
+        return element.nutrition_name === nutritionName.toLowerCase()
     })
 
-    if (energySortButton.innerText === 'Highest energy') {
-        sortedFoodSet = sortedFoodSet
-            .sort((a, b) => {
-                return b.nutrition_value - a.nutrition_value
-            })
-            .reduce((acc, cur) => acc.add(cur.food_id), new Set())
-
-        energySortButton.innerText = 'Lowest energy'
-    } else {
+    if (sortButton.innerText === `${nutritionName} \u2193`) {
         sortedFoodSet = sortedFoodSet
             .sort((a, b) => {
                 return a.nutrition_value - b.nutrition_value
             })
             .reduce((acc, cur) => acc.add(cur.food_id), new Set())
 
-        energySortButton.innerText = 'Highest energy'
+        sortButton.innerText = `${nutritionName} \u2191`
+    } else {
+        sortedFoodSet = sortedFoodSet
+            .sort((a, b) => {
+                return b.nutrition_value - a.nutrition_value
+            })
+            .reduce((acc, cur) => acc.add(cur.food_id), new Set())
+
+        sortButton.innerText = `${nutritionName} \u2193`
     }
 
     genHtmlStr(sortedFoodSet, foodList)
-})
+}
