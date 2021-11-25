@@ -1,7 +1,7 @@
 import express from "express";
 import { consumptionRoutes } from "./routers/ConsumptionRoutes";
 import { foodRoutes } from "./routers/FoodRoutes";
-import { userRoutes } from "./routers/UserRoutes";
+import { userRoutes } from "./routers/userRoutes";
 
 export const routes = express.Router();
 
