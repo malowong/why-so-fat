@@ -1,4 +1,3 @@
-const todayContainer = document.querySelector('#today-container')
 let quotaMap = new Map()
 
 const intakeStandard = {
@@ -7,7 +6,7 @@ const intakeStandard = {
   total_fat: 60,
   sugars: 50,
   saturated_fat: 20,
-  trans_fat: 22,
+  trans_fat: 2.2,
   sodium: 2000,
   protein: 0,
 }
@@ -25,10 +24,8 @@ async function loadQuota() {
   console.log(quota)
 
   function calHelper(a, b, c) {
-    return (Math.round((a / 100) * b * c * 100) / 100).toFixed(2)
+    return Math.round((a / 100) * b * c)
   }
-
-  //   const sortedIntakeStandardKeys = quota
 
   for (let i = 0; i < quota.length; i++) {
     if (quota[i].nutrition_name !== 'protein') {
@@ -97,7 +94,7 @@ async function loadProfile() {
 
     `
   }
-  todayContainer.innerHTML += htmlStr
+  document.querySelector('#today-container').innerHTML += htmlStr
 }
 
 async function getConsumptionDetails(foodID, userID) {
