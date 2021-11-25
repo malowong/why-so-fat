@@ -5,7 +5,7 @@ body {
   height: 100%;
   overflow: hidden;
   background-color: #383838;
-  font-family: Sans-Serif;
+  /* font-family: Sans-Serif; */
 }
 ul,
 li {
@@ -33,11 +33,18 @@ button {
 } */
 h1{
   color: #FFFFFF;
+  padding: 0;
+}
+h2{
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    color: white;
 }
 .header {
   position: fixed;
   left: 0;
-  top: 0;
+  top: 10%;
   width: 100%;
   background-color: #383838;
   text-align: center;
@@ -53,7 +60,7 @@ h1{
   font-weight: bold;
 }
 .header .menu {
-  padding: 20px 20px;
+  padding: 15px 20px;
   background-color: #383838;
   display: flex;
   justify-content: space-between;
@@ -72,11 +79,11 @@ h1{
 .header .button {
   position: relative;
   display: inline-block;
-  margin: 0 5px;
+  /* margin: 0 5px; */
   padding: 0;
   border-radius: 5px 5px;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 20px;
   border: 0;
   background-color: #383838;
   vertical-align: middle;
@@ -89,7 +96,7 @@ h1{
 }
 .tui-image-editor-canvas-container {
   margin: 0 auto;
-  top: 38%;
+  top: 47%;
   transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -100,7 +107,7 @@ h1{
   position: fixed;
   width: 100%;
   left: 0;
-  bottom: 0;
+  bottom: 10%;
   background-color: #383838;
 }
 .scrollable::-webkit-scrollbar {
@@ -141,7 +148,9 @@ h1{
   width: 80px;
   height: 50px;
   border: none;
-  background-color: #ddd;
+  color: yellow;
+  font-size: 12px;
+  background-color: #383838;
   vertical-align: middle;
 }
 .tui-image-editor-controls .hiddenmenu-button {
@@ -154,7 +163,7 @@ h1{
 .tui-image-editor-controls .submenu {
   display: none;
   position: absolute;
-  top: 0;
+  top: -15px;
   left: 0;
   width: 100%;
   font-size: 0;
@@ -191,8 +200,10 @@ h1{
   display: inline-block;
   width: 30px;
   height: 80px;
+  font-size: 12px;
+  padding: 0 25px;
   background-color: #383838;
-  color: #fff;
+  color: yellow;
   border: none;
   vertical-align: middle;
 }
@@ -204,7 +215,7 @@ h1{
   margin-left: 50%;
   padding: 5px 10px;
   left: -86px;
-  top: -50px;
+  top: -35px;
   border-radius: 5px 5px;
   background-color: rgba(255, 255, 255, 0.5);
   font-size: 12px;
@@ -220,4 +231,5 @@ h1{
   padding-top: 5px;
   padding-bottom: 40px;
   text-align: center;
+  z-index: 102;
 }

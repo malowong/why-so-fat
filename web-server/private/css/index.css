@@ -8,7 +8,7 @@ body {
 } */
 main{
     background-color: #FFFFFF;
-    padding: 15vh 12px 12px;
+    /* padding-top: 80px; */
     /* height: 100%; */
 }
 header {
@@ -52,4 +52,7 @@ footer svg {
 }
 footer div div a {
     text-decoration: none;
+}
+.bg-success{
+    background-color: #488747 !important;
 }

@@ -61,12 +61,9 @@ async function loadQuota() {
   //   console.log(quotaMap)
   //   document.querySelector('#kcal-display').children[0].innerHTML =
   //     quotaMap.get('energy')
-  document.querySelector('#carbs-display').children[1].innerHTML =
-    quotaMap.get('carbohydrates')
-  document.querySelector('#sugars-display').children[1].innerHTML =
-    quotaMap.get('sugars')
-  document.querySelector('#protein-display').children[1].innerHTML =
-    quotaMap.get('protein')
+  document.querySelector('#carbs-display').children[1].innerHTML = `<p>${parseInt(quotaMap.get('carbohydrates'))} g left</p>`
+  document.querySelector('#sugars-display').children[1].innerHTML = `<p>${parseInt(quotaMap.get('sugars'))} g left</p>`
+  document.querySelector('#protein-display').children[1].innerHTML = `<p>${parseInt(quotaMap.get('protein'))} g left</p>`
 }
 
 async function loadProfile() {
@@ -298,28 +295,28 @@ function loadAnimation() {
           splitNumber: 2,
           lineStyle: {
             width: 2,
-            color: '#999',
+            color: '#fff',
           },
         },
         splitLine: {
           length: 12,
           lineStyle: {
             width: 3,
-            color: '#999',
+            color: '#fff',
           },
         },
         axisLabel: {
           distance: 30,
-          color: '#999',
+          color: '#fff',
           fontSize: 20,
         },
         title: {
           show: false,
         },
         detail: {
-          backgroundColor: '#fff',
-          borderColor: '#999',
-          borderWidth: 2,
+          backgroundColor: '#488747',
+          borderColor: '#fff',
+          borderWidth: 0,
           width: '60%',
           lineHeight: 40,
           height: 40,
@@ -327,17 +324,17 @@ function loadAnimation() {
           offsetCenter: [0, '35%'],
           valueAnimation: true,
           formatter: function (value) {
-            return '{value|' + value.toFixed(0) + '}{unit|kcal}'
+            return '{value|' + value.toFixed(0) + '}{unit|kcal left}'
           },
           rich: {
             value: {
               fontSize: 50,
               fontWeight: 'bolder',
-              color: '#777',
+              color: '#fff',
             },
             unit: {
               fontSize: 20,
-              color: '#999',
+              color: '#fff',
               padding: [0, 0, -20, 10],
             },
           },

@@ -1,11 +1,27 @@
+main{
+  padding-top: 80px;
+}
+
 h2 {
   text-align: center;
+}
+
+#intake-display{
+  background-color: #488747;
 }
 
 #first-row {
   display: flex;
   justify-content: center;
-  margin-top: 4em;
+  padding: 0 12px;
+}
+
+#kcal-display{
+  position: relative;
+    top: -40px;
+    width: 600px;
+    height: 220px;
+    user-select: none;
 }
 
 #second-row {
@@ -13,6 +29,8 @@ h2 {
   flex-direction: row;
   justify-content: space-around;
   margin-top: 2em;
+  color: #fff;
+  padding: 0 12px;
 }
 
 #second-row div {
@@ -22,7 +40,15 @@ h2 {
 #third-row {
   display: flex;
   justify-content: center;
-  margin-top: 2em;
+  height: 3em;
+}
+
+#profile-container {
+  padding: 20px 12px;
+  position: relative;
+  top: -45px;
+  border-radius: 50px;
+  background: white;
 }
 
 .date-row {

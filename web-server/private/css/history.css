@@ -1,3 +1,7 @@
+main{
+    padding: 100px 12px;
+}
+
 .date-row {
     display: flex;
     justify-content: space-between;

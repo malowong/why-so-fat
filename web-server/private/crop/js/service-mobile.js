@@ -353,20 +353,20 @@ $btnDownload.on('click', async function () {
     const footer = document.querySelector('.tui-image-editor-controls')
 
     loader.style.display = 'flex'
-    header.innerHTML = /* html */ `<h1>LOADING</h1>`
-    footer.innerHTML = /* html */ `<h1>This may take a while...</h1>`
+    header.innerHTML = /* html */ `<h2>loading</h2>`
+    footer.innerHTML = /* html */ `<h2>this may take a while...</h2>`
 
     const resp = await fetch('/api/food/ocr', {
         method: 'POST',
         body: formData,
     })
 
-    loader.style.display = 'none'
     
     const result = (await resp.json());
     
     window.location = '../../upload.html'
-
+    // loader.style.display = 'none'
+    
     localStorage.setItem('result', JSON.stringify(result))
     
     // const result = sendOcr(blob, imageName)
