@@ -20,25 +20,6 @@ async function loadFoodList() {
 }
 
 function genHtmlStr(uniqueFoodId, foodList) {
-<<<<<<< HEAD
-    let htmlStr = ``
-
-    for (const i of Array.from(uniqueFoodId)) {
-        let foodNutritionMap = new Map()
-        for (const foodItem of foodList) {
-            if (foodItem.food_id == i) {
-                foodNutritionMap.set(
-                    foodItem.nutrition_name,
-                    foodItem.nutrition_value
-                )
-            }
-        }
-
-        for (const foodItem of foodList) {
-            if (foodItem.food_id == i) {
-                htmlStr += /*html*/ `
-                <div class="card">
-=======
   let htmlStr = ``
 
   for (const i of Array.from(uniqueFoodId)) {
@@ -53,7 +34,6 @@ function genHtmlStr(uniqueFoodId, foodList) {
       if (foodItem.food_id == i) {
         htmlStr += /*html*/ `
                 <div class="card mt-3" style="width: 18rem">
->>>>>>> 75d18bb69a60af77207a71a999c5f317f35c2492
                 <img
                     class="card-img-top"
                     src="${foodItem.food_photo}"
