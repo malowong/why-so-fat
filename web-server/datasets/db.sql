@@ -17,7 +17,6 @@ order by v.food_id ASC
 
 SELECT * FROM users;
 SELECT * FROM food;
-SELECT * FROM consumptions;
 SELECT * FROM nutrition_value;
 SELECT * FROM nutrition;
 

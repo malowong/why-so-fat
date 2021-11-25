@@ -16,12 +16,11 @@ export class FoodService {
 
   upload = async (reqObj: Request) => {
     const body = reqObj.body;
-    console.log(body);
-    console.log(reqObj);
+
     const userInput = {
       food_name: body.food_name,
-      food_photo: reqObj.file?.filename,
-      total_weight: body.total_weight,
+      food_photo: String(reqObj.file?.filename),
+      total_weight: parseInt(body.total_weight),
     };
 
     const nutritionArr = await this.knex(tables.NUTRITION).select();
