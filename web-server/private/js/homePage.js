@@ -6,7 +6,7 @@ window.onload = async () => {
 
 async function loadProfile() {
     const resp = await fetch('/api/consumption/homePageRecord')
-    const homePageRecord = await resp.json()
+    const homePageRecord = (await resp.json()).rows
     console.log(homePageRecord)
 
     let htmlStr = ``
@@ -26,7 +26,7 @@ async function loadProfile() {
             >
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-body" id="nutrition-table-${eachRecord.food_id}">
+                        <div class="modal-body" id="nutrition-table-${eachRecord.food_id}"></div>
                     </div>
                 </div>
             </div>
@@ -46,8 +46,11 @@ async function getConsumptionDetails(foodID) {
     const nutritionValue = details.nutrition_value
     const totalWeight = details.total_weight[0]
     const quantity = details.quantity[0]
+    const foodName = details.food_name[0]
+    const totalGrams = totalWeight * quantity
 
-    modalStr = /*HTML*/ ` 
+    modalStr = /*HTML*/ `
+        <h3>Nutrition of ${totalGrams}g of ${foodName}</<h3> 
         <img 
         class="card-img-top"
         src="${details.food_photo[0]}"

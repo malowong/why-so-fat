@@ -17,9 +17,12 @@ export class ConsumptionService {
   };
 
   getHomePageRecord = async (userID: number) => {
-    const result = await this.knex(tables.CONSUMPTION)
-      .join(tables.FOOD, `${tables.FOOD}.id`, `${tables.CONSUMPTION}.food_id`)
-      .where(`${tables.CONSUMPTION}.user_id`, userID);
+    const result = await this.knex.raw(`SELECT * FROM consumptions c
+      INNER JOIN food f
+      ON c.food_id = f.id
+      WHERE c.user_id = ${userID}
+      AND c.created_at >= current_date::timestamp
+      AND c.created_at < current_date::timestamp + interval '1 day'`);
     return result;
   };
 
@@ -30,7 +33,8 @@ export class ConsumptionService {
     json_agg(quantity) AS quantity,
     json_agg(nutrition_value) AS nutrition_value,
     json_agg(nutrition_name) AS nutrition_name,
-    json_agg(total_weight) AS total_weight
+    json_agg(total_weight) AS total_weight,
+    json_agg(food_name) AS food_name
     FROM consumptions c
     INNER JOIN food f
     ON c.food_id = f.id
@@ -38,7 +42,9 @@ export class ConsumptionService {
     ON v.food_id = f.id
     INNER JOIN nutrition n
     ON n.id = v.nutrition_id
-    WHERE c.user_id = ${foodId}
+    WHERE c.food_id = ${foodId}
+    AND c.created_at >= current_date::timestamp
+    AND c.created_at < current_date::timestamp + interval '1 day'
     GROUP BY c.food_id;`);
     return result;
   };

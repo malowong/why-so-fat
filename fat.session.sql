@@ -21,6 +21,14 @@ SELECT * FROM nutrition_value;
 SELECT * FROM nutrition;
 
 
+SELECT * FROM consumptions c
+    INNER JOIN food f
+    ON c.food_id = f.id
+    WHERE c.user_id = ${userID}
+    AND c.created_at >= current_date::timestamp
+    AND c.created_at < current_date::timestamp + interval '1 day'
+
+
 
 SELECT 
     c.food_id, 
@@ -36,4 +44,13 @@ SELECT
     INNER JOIN nutrition n
     ON n.id = v.nutrition_id
     WHERE c.user_id = 2
+    AND c.created_at >= current_date::timestamp 
+    AND c.created_at < current_date::timestamp + interval '1 day' 
     GROUP BY c.food_id;
+
+
+    insert into consumptions (quantity, user_id, food_id) VALUES (1/3, 1, 1);
+    insert into consumptions (quantity, user_id, food_id) VALUES (2, 1, 2);
+        insert into consumptions (quantity, user_id, food_id) VALUES (1, 1, 3);
+    INSERT INTO table_name(column1, column2, …)
+VALUES (value1, value2, …);
