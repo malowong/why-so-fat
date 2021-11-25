@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, height=812, initial-scale=1.0, shrink-to-fit=no, user-scalable=no, viewport-fit=cover">
         <title>Food List</title>
 
         <link
@@ -16,53 +16,56 @@
         <link rel="stylesheet" href="./css/index.css" />
     </head>
     <body>
-        <div class="search-engine">
-            <div class="input-group">
-                <input
-                    type="text"
-                    placeholder="Search food"
-                    class="form-control search-bar"
-                    aria-label="Default"
-                    aria-describedby="inputGroup-sizing-default"
-                />
-                <button type="button" class="btn btn-secondary clear-btn">
-                    Clear
+        <header class="container-fluid bg-success">
+            <h1>whysofat?</h1>
+        </header>
+        
+        <main>
+            <div class="search-engine">
+                <div class="input-group">
+                    <input
+                        type="text"
+                        placeholder="Search food"
+                        class="form-control search-bar"
+                        aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default"
+                    />
+                    <button type="button" class="btn btn-secondary clear-btn">
+                        Clear
+                    </button>
+                </div>
+            </div>
+            <div class="sort-engine mb-3">
+                <button
+                    type="button"
+                    id="energy-sort-btn"
+                    class="btn btn-success sort-btn energy"
+                >
+                    Energy &uarr;
+                </button>
+                <button
+                    type="button"
+                    id="protein-sort-btn"
+                    class="btn btn-success sort-btn protein"
+                >
+                    Protein &uarr;
+                </button>
+                <button
+                    type="button"
+                    id="protein-sort-btn"
+                    class="btn btn-success sort-btn carbohydrates"
+                >
+                    Carbohydrates &uarr;
+                </button>
+                <button
+                    type="button"
+                    id="protein-sort-btn"
+                    class="btn btn-success sort-btn sugar"
+                >
+                    Sugar &uarr;
                 </button>
             </div>
-        </div>
-        <div class="sort-engine mb-3">
-            <button
-                type="button"
-                id="energy-sort-btn"
-                class="btn btn-success sort-btn energy"
-            >
-                Energy &uarr;
-            </button>
-            <button
-                type="button"
-                id="protein-sort-btn"
-                class="btn btn-success sort-btn protein"
-            >
-                Protein &uarr;
-            </button>
-            <button
-                type="button"
-                id="protein-sort-btn"
-                class="btn btn-success sort-btn carbohydrates"
-            >
-                Carbohydrates &uarr;
-            </button>
-            <button
-                type="button"
-                id="protein-sort-btn"
-                class="btn btn-success sort-btn sugar"
-            >
-                Sugar &uarr;
-            </button>
-        </div>
-
-        <main>
-            <div id="food-container" class="m-2"></div>
+            <div id="food-container"></div>
         </main>
 
         <footer class="container-fluid bg-success p-0">
@@ -83,6 +86,7 @@
                     ><i class="fa fa-user" aria-hidden="true"></i
                 ></a>
             </div>
+            <div class="safe-area bg-success"></div>
         </footer>
 
         <script

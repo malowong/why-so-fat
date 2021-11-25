@@ -23,7 +23,6 @@ table {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 1;
 }
 
 .search-bar {
@@ -36,10 +35,6 @@ table {
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
-}
-
-#food-container {
-    z-index: 0;
 }
 
 .sort-btn {

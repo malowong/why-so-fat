@@ -1,17 +1,43 @@
-html,
+/* html,
 body {
     min-height: 100%;
+    background: #198754;
+} */
+/* body{
+    background-color: #198754;
+} */
+main{
+    background-color: #FFFFFF;
+    padding: 15vh 12px 12px;
+    /* height: 100%; */
 }
-
+header {
+    position: fixed;
+    top: 0;
+    height: 12%;
+    padding-top: 15%;
+    z-index: 100;
+}
+header h1 {
+    color: #FFFFFF;
+}
 footer {
     position: fixed;
-    bottom: 0;
+    bottom: 2%;
     height: 8%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
+.safe-area{
+    bottom: 0;
+    width: 100%;
+    height: 3%;
+    position: fixed;
+}
+footer svg {
+    font-size: 25px;
+}
 footer div div a {
     text-decoration: none;
 }
