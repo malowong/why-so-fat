@@ -20,10 +20,16 @@ table {
 }
 
 .search-engine {
+<<<<<<< HEAD
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+=======
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1;
+>>>>>>> 75d18bb69a60af77207a71a999c5f317f35c2492
 }
 
 .search-bar {
@@ -38,10 +44,13 @@ table {
   -webkit-box-shadow: none;
 }
 
+<<<<<<< HEAD
+=======
 #food-container {
   z-index: 0;
 }
 
+>>>>>>> 75d18bb69a60af77207a71a999c5f317f35c2492
 .sort-btn {
   margin-top: 0.5em;
   font-size: 1em;

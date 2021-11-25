@@ -177,6 +177,7 @@ function genHtmlStr(uniqueFoodId, foodList) {
                     </div>
                 </div>
             </div>
+        </div>
         `
         break
       }
