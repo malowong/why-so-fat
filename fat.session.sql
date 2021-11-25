@@ -50,8 +50,8 @@ SELECT
     GROUP BY c.food_id;
 
 
-    insert into consumptions (quantity, user_id, food_id) VALUES (1/3, 1, 1);
+    insert into consumptions (quantity, user_id, food_id) VALUES (1/3, 2, 1);
     insert into consumptions (quantity, user_id, food_id) VALUES (2, 1, 2);
-        insert into consumptions (quantity, user_id, food_id) VALUES (1, 1, 3);
+        insert into consumptions (quantity, user_id, food_id) VALUES (3, 2, 4);
     INSERT INTO table_name(column1, column2, …)
 VALUES (value1, value2, …);
