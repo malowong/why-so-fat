@@ -7,7 +7,6 @@ window.onload = async () => {
 async function loadProfile() {
     const resp = await fetch('/api/consumption/homePageRecord')
     const homePageRecord = (await resp.json()).rows
-    console.log(homePageRecord)
 
     let htmlStr = ``
     for (const eachRecord of homePageRecord) {
