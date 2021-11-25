@@ -16,10 +16,6 @@ export class FoodService {
 
   upload = async (reqObj: Request) => {
     const body = reqObj.body;
-    console.log(body);
-    console.log(reqObj);
-    console.log(`filename:${reqObj.file?.filename}`);
-    console.log(`weight:${body.total_weight}`);
 
     const userInput = {
       food_name: body.food_name,
@@ -56,20 +52,18 @@ export class FoodService {
       }
     } else {
       for (let i = 1; i <= nutritionMap.size; i++) {
-        for (let i = 1; i <= nutritionMap.size; i++) {
-          const nutritionValue = {
-            nutrition_value: body[`${nutritionMap.get(i)}`],
-            food_id: Number(foodID),
-            nutrition_id: i,
-          };
-          await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
-        }
+        const nutritionValue = {
+          nutrition_value: body[`${nutritionMap.get(i)}`],
+          food_id: Number(foodID),
+          nutrition_id: i,
+        };
+        await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
       }
     }
 
     if (body.is_consumed == "YES") {
       const consumptions = {
-        quantity: body["quantity"] * body["total_weight"],
+        quantity: body["quantity"],
         user_id: reqObj.session["user"].id,
         food_id: Number(foodID),
       };

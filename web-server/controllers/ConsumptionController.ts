@@ -20,7 +20,14 @@ export class ConsumptionController {
 
   consumptionDetails = async (req: Request, res: Response) => {
     const foodID = Number(req.params.foodID);
-    const data = await this.consumptionService.getConsumptionDetails(foodID);
+    const userID = Number(req.params.userID);
+    const data = await this.consumptionService.getConsumptionDetails(foodID, userID);
     res.json(data);
+  };
+
+  quota = async (req: Request, res: Response) => {
+    // const userID = req.session["user"].id;
+    const quotaData = await this.consumptionService.getQuotaData();
+    res.json(quotaData);
   };
 }

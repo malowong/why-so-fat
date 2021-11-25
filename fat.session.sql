@@ -18,9 +18,15 @@ order by v.food_id ASC
 SELECT * FROM users;
 SELECT * FROM food;
 SELECT * FROM consumptions;
-SELECT * FROM nutrition_value;
+SELECT * FROM nutrition_value WHERE food_id = 30;
 SELECT * FROM nutrition;
 
+SELECT nutrition_value.nutrition_value
+FROM consumptions 
+INNER JOIN food ON food.id = consumptions.food_id
+INNER JOIN nutrition_value ON nutrition_value.food_id = food.id
+INNER JOIN nutrition ON nutrition_value.nutrition_id = nutrition.id
+WHERE food.id = 28;
 
 SELECT * FROM consumptions c
     INNER JOIN food f
@@ -50,8 +56,8 @@ SELECT
     GROUP BY c.food_id;
 
 
-    insert into consumptions (quantity, user_id, food_id) VALUES (1/3, 1, 1);
+    insert into consumptions (quantity, user_id, food_id) VALUES (1/3, 2, 1);
     insert into consumptions (quantity, user_id, food_id) VALUES (2, 1, 2);
-        insert into consumptions (quantity, user_id, food_id) VALUES (1, 1, 3);
+        insert into consumptions (quantity, user_id, food_id) VALUES (3, 2, 4);
     INSERT INTO table_name(column1, column2, …)
 VALUES (value1, value2, …);
