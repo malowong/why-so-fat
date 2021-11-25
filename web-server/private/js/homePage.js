@@ -47,13 +47,14 @@ async function getConsumptionDetails(foodID) {
     const totalWeight = details.total_weight[0]
     const quantity = details.quantity[0]
     const foodName = details.food_name[0]
+    const foodPhoto = details.food_photo[0]
     const totalGrams = totalWeight * quantity
 
     modalStr = /*HTML*/ `
-        <h3>Nutrition of ${totalGrams}g of ${foodName}</<h3> 
+        <h3><strong>${totalGrams}g ${foodName} Contains...</strong></<h3> 
         <img 
         class="card-img-top"
-        src="${details.food_photo[0]}"
+        src="${foodPhoto}"
         alt="Card image cap"
         />
         <table>  

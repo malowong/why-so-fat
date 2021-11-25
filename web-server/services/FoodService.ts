@@ -18,6 +18,9 @@ export class FoodService {
     const body = reqObj.body;
     console.log(body);
     console.log(reqObj);
+    console.log(`filename:${reqObj.file?.filename}`);
+    console.log(`weight:${body.total_weight}`);
+
     const userInput = {
       food_name: body.food_name,
       food_photo: reqObj.file?.filename,
@@ -31,6 +34,7 @@ export class FoodService {
     }
 
     const foodID = await this.knex(tables.FOOD).insert(userInput).returning("id");
+    console.log(`foodID:${foodID}`);
 
     if (body.per_unit == "per_package") {
       for (let i = 1; i <= nutritionMap.size; i++) {
