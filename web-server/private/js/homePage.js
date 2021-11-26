@@ -122,7 +122,7 @@ async function loadProfile() {
     `
   }
   document.querySelector('#today-container').innerHTML += htmlStr
-  if (document.getElementById("today-container").innerHTML != '') {
+  if (document.getElementById('today-container').innerHTML != '') {
     document.getElementById('my-modal-container').innerHTML += modalStr
   }
 }
@@ -144,12 +144,12 @@ async function getConsumptionDetails(foodID, userID) {
   const totalGrams = totalWeight * quantity
 
   modalStr = /*HTML*/ `
-        <h3><strong>${totalGrams}g ${foodName} Contains...</strong></<h3> 
-        <img 
-        class="card-img-top"
-        src="${foodPhoto}"
-        alt="Card image cap"
-        />
+          <img 
+          class="card-img-top"
+          src="${foodPhoto}"
+          alt="Card image cap"
+          />
+          <h3><strong>${totalGrams}g ${foodName} contains...</strong></<h3> 
         <table>  
         <tr>
             <td>Energy/能量</td>

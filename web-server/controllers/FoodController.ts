@@ -13,7 +13,7 @@ export class FoodController {
   upload = async (req: Request, res: Response) => {
     const checkFoodNameResult = await this.foodService.uploadForm(req);
     checkFoodNameResult.length > 0
-      ? res.status(409).json({ message: "Duplicate Food Product!" })
+      ? res.status(409).json({ message: "Existing Food Product!" })
       : res.status(200).json({ message: "Successfully uploaded" });
   };
 
@@ -41,15 +41,6 @@ export class FoodController {
   convert = async (req: Request, res: Response) => {
     const foodId = Number(req.params.foodId);
     const data = await this.foodService.convert(foodId);
-    res.json(data);
+    res.status(200).json(data);
   };
-
-  // checkfoodname = async (req: Request, res: Response) => {
-  //   const inputFoodName = req.body.foodName;
-  //   const dbFoodName = await this.foodService.checkDuplicateFoodName(inputFoodName);
-
-  //   dbFoodName[0].food_name === inputFoodName
-  //     ? res.status(409).json({ message: "Duplicate Food Product!" })
-  //     : res.status(200).json({ message: "Form submitted" });
-  // };
 }
