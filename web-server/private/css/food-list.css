@@ -21,9 +21,9 @@ table {
 }
 
 .search-engine {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 .search-bar {
@@ -40,7 +40,7 @@ table {
 
 .sort-btn {
   margin-top: 0.5em;
-  font-size: 1em;
+  font-size: 0.9em;
   padding: 4px;
   border-radius: 10px;
 }
