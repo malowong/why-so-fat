@@ -32,3 +32,9 @@ yarn add knex @types/knex
 yarn add --dev jest
 yarn ts-jest config:init
 ```
+
+### Usage
+
+```
+HELLO WORLD
+```
