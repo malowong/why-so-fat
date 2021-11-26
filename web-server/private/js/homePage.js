@@ -12,9 +12,18 @@ const intakeStandard = {
 }
 
 window.onload = async () => {
+  await setProteinStandard()
   await loadQuota()
   await loadProfile()
   loadAnimation()
+  changeBarLength()
+}
+
+async function setProteinStandard() {
+  const bodyWeightResp = await fetch('/api/consumption/userbodyweight')
+  const bodyWeight = (await bodyWeightResp.json()).weight
+  console.log(bodyWeight)
+  intakeStandard['protein'] = bodyWeight
 }
 
 async function loadQuota() {
@@ -22,9 +31,9 @@ async function loadQuota() {
   const quota = (await quotaResp.json()).rows
   console.log(quota)
 
-  const bodyWeightResp = await fetch('/api/consumption/userbodyweight')
-  const bodyWeight = (await bodyWeightResp.json()).weight
-  console.log(bodyWeight)
+  // const bodyWeightResp = await fetch('/api/consumption/userbodyweight')
+  // const bodyWeight = (await bodyWeightResp.json()).weight
+  // console.log(bodyWeight)
 
   const sortedIntakeStandardKeys = Object.keys(intakeStandard).sort()
 
@@ -60,22 +69,26 @@ async function loadQuota() {
       }
     }
   } else {
-    quotaMap.set('energy', intakeStandard['energy'])
-    quotaMap.set('protein', bodyWeight)
-    quotaMap.set('carbohydrates', intakeStandard['carbohydrates'])
-    quotaMap.set('total_fat', intakeStandard['total_fat'])
-    quotaMap.set('sugars', intakeStandard['sugars'])
-    quotaMap.set('saturated_fat', intakeStandard['saturated_fat'])
-    quotaMap.set('trans_fat', intakeStandard['trans_fat'])
-    quotaMap.set('sodium', intakeStandard['sodium'])
+    for (let i = 0; i < sortedIntakeStandardKeys.length; i++) {
+      let key = sortedIntakeStandardKeys[i]
+      quotaMap.set(key, intakeStandard[`${key}`])
+    }
   }
 
   console.log(quotaMap)
   //   document.querySelector('#kcal-display').children[0].innerHTML =
   //     quotaMap.get('energy')
-  document.querySelector('#carbs-display').children[1].innerHTML = `<p>${parseInt(quotaMap.get('carbohydrates'))} g left</p>`
-  document.querySelector('#sugars-display').children[1].innerHTML = `<p>${parseInt(quotaMap.get('sugars'))} g left</p>`
-  document.querySelector('#protein-display').children[1].innerHTML = `<p>${parseInt(quotaMap.get('protein'))} g left</p>`
+  document.querySelector(
+    '#carbs-display'
+  ).children[2].innerHTML = `<p>${parseInt(
+    quotaMap.get('carbohydrates')
+  )} g left</p>`
+  document.querySelector(
+    '#sugars-display'
+  ).children[2].innerHTML = `<p>${parseInt(quotaMap.get('sugars'))} g left</p>`
+  document.querySelector(
+    '#protein-display'
+  ).children[2].innerHTML = `<p>${parseInt(quotaMap.get('protein'))} g left</p>`
 }
 
 async function loadProfile() {
@@ -336,6 +349,7 @@ function loadAnimation() {
           offsetCenter: [0, '35%'],
           valueAnimation: true,
           formatter: function (value) {
+            value = 2000 - value
             return '{value|' + value.toFixed(0) + '}{unit|kcal left}'
           },
           rich: {
@@ -361,4 +375,28 @@ function loadAnimation() {
   }
 
   myChart.setOption(option)
+}
+
+function changeBarLength() {
+  carbsLength =
+    ((intakeStandard['carbohydrates'] - quotaMap.get('carbohydrates')) /
+      intakeStandard['carbohydrates']) *
+    100
+
+  sugarsLength =
+    ((intakeStandard['sugars'] - quotaMap.get('sugars')) /
+      intakeStandard['sugars']) *
+    100
+
+  proteinLength =
+    ((intakeStandard['protein'] - quotaMap.get('protein')) /
+      intakeStandard['protein']) *
+    100
+
+  console.log(intakeStandard['protein'])
+  console.log(quotaMap.get('protein'))
+
+  document.querySelector('#carbs-bar').style.width = `${carbsLength}%`
+  document.querySelector('#sugars-bar').style.width = `${sugarsLength}%`
+  document.querySelector('#protein-bar').style.width = `${proteinLength}%`
 }
