@@ -405,3 +405,5 @@ function changeBarLength() {
   document.querySelector('#sugars-bar').style.width = `${sugarsLength}%`
   document.querySelector('#protein-bar').style.width = `${proteinLength}%`
 }
+
+// test
