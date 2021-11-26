@@ -340,11 +340,12 @@ async function convertFnc(foodId) {
 }
 
 sortButtons.forEach((sortButton) => {
+  console.log(sortButton.classList[2])
   sortButton.addEventListener('click', (e) => {
     sortByNutrition(
       sortButton,
-      sortButton.classList[3][0].toUpperCase() +
-        sortButton.classList[3].slice(1)
+      sortButton.classList[2][0].toUpperCase() +
+        sortButton.classList[2].slice(1)
     )
   })
 })

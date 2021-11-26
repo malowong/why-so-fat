@@ -30,22 +30,26 @@ form.addEventListener('submit', async (e) => {
   if (resp.status === 200) {
     console.log('OK')
     form.reset()
+    window.location = '/home-page.html'
   } else {
     console.log('error')
   }
 })
 
-document.querySelector('#per_unit').addEventListener('click', () => {
+document.querySelector('#per_unit').addEventListener('input', () => {
   if (form.per_unit.value == 'per_serving') {
     document.getElementById('serving_size').hidden = false
+    document.getElementById('serving_size').setAttribute('required', "")
   } else if (form.per_unit.value == 'per_package') {
     document.getElementById('serving_size').hidden = true
+    document.getElementById('serving_size').removeAttribute('required')
   } else {
     document.getElementById('serving_size').hidden = true
+    document.getElementById('serving_size').removeAttribute('required')
   }
 })
 
-document.querySelector('#is_consumed').addEventListener('click', () => {
+document.querySelector('#is_consumed').addEventListener('input', () => {
   if (form.is_consumed.value == 'YES') {
     quantity.hidden = false
   } else if (form.is_consumed.value == 'NO') {
@@ -73,21 +77,21 @@ if (storage != null) {
 }
 
 
-document.querySelector('#upload-btn').addEventListener('submit', () => {
-  window.location = '/home-page.html'
-})
+// document.querySelector('#upload-btn').addEventListener('submit', () => {
+//   window.location = '/home-page.html'
+// })
 
-document.querySelector('#per_serving').addEventListener('click', () => {
-  form.serving_size.attributes['required'] = true
-})
+// document.querySelector('#per_serving').addEventListener('input', () => {
+//   form.serving_size.attributes['required'] = true
+// })
 
-document.querySelector('#per_package').addEventListener('click', () => {
-  form.serving_size.attributes['required'] = false
-})
+// document.querySelector('#per_package').addEventListener('input', () => {
+//   form.serving_size.attributes['required'] = false
+// })
 
-document.querySelector('#per_100').addEventListener('click', () => {
-  form.serving_size.attributes['required'] = false
-})
+// document.querySelector('#per_100').addEventListener('click', () => {
+//   form.serving_size.attributes['required'] = false
+// })
 
 // consumedDropdownItem.addEventListener('click', () => {
 //     const text = consumedBtn.innerHTML.trim()
