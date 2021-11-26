@@ -3,7 +3,7 @@ import http from "http";
 import Knex from "knex";
 import path from "path";
 import { Server as SocketIO } from "socket.io";
-import { isLoggedIn } from "./utils/guards";
+import { isLoggedInStatic } from "./utils/guards";
 import { logger } from "./utils/logger";
 import expressSession from "express-session";
 
@@ -34,8 +34,8 @@ const API_VERSION = "/api";
 app.use(API_VERSION, routes);
 
 app.use(express.static(path.join(__dirname, "public"), { index: "login-page.html" }));
-app.use(isLoggedIn, express.static(path.join(__dirname, "uploads")));
-app.use(isLoggedIn, express.static(path.join(__dirname, "private")));
+app.use(isLoggedInStatic, express.static(path.join(__dirname, "uploads")));
+app.use(isLoggedInStatic, express.static(path.join(__dirname, "private")));
 
 const PORT = 8080;
 server.listen(PORT, () => {

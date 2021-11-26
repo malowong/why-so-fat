@@ -33,7 +33,7 @@ function genHtmlStr(uniqueFoodId, foodList) {
     for (const foodItem of foodList) {
       if (foodItem.food_id == i) {
         htmlStr += /*html*/ `
-                <div class="card mt-3" style="width: 18rem">
+                <div class="card mb-3">
                 <img
                     class="card-img-top"
                     src="${foodItem.food_photo}"
