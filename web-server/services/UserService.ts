@@ -27,7 +27,7 @@ export class UserService {
   };
 
   insertNewUser = async (newUser: NewUser) => {
-    await this.knex(tables.USER).insert(newUser);
-    return true;
+    const newUserID = await this.knex(tables.USER).insert(newUser).returning("id");
+    return newUserID;
   };
 }

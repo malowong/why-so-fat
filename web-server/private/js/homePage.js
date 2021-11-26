@@ -96,28 +96,36 @@ async function loadProfile() {
   const homePageRecord = (await resp.json()).rows
   console.log(homePageRecord)
   let htmlStr = ``
+  let modalStr = ``
   for (const eachRecord of homePageRecord) {
     htmlStr += /*html*/ `
         <div class="date-row"><h3>${eachRecord.food_name}</h3>
             <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.food_id}" onclick="getConsumptionDetails(${eachRecord.food_id}, ${eachRecord.user_id})">
                 Details
             </button></div>
-         <!-- Modal -->
-            <div
-                class="modal fade"
-                id="target-${eachRecord.food_id}"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-            >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body" id="nutrition-table-${eachRecord.food_id}"></div>
-                    </div>
-                </div>
-            </div>
+         
 
     `
+
+    modalStr += /* html */ `
+        <!-- Modal -->
+        <div
+            class="modal fade"
+            id="target-${eachRecord.food_id}"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" id="nutrition-table-${eachRecord.food_id}"></div>
+                </div>
+            </div>
+        </div>
+    `
+    if (document.getElementById("today-container").innerHTML != '') {
+      document.querySelector('body').innerHTML += modalStr
+    }
   }
   document.querySelector('#today-container').innerHTML += htmlStr
 }
@@ -400,3 +408,5 @@ function changeBarLength() {
   document.querySelector('#sugars-bar').style.width = `${sugarsLength}%`
   document.querySelector('#protein-bar').style.width = `${proteinLength}%`
 }
+
+// test
