@@ -103,10 +103,7 @@ async function loadProfile() {
             <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.food_id}" onclick="getConsumptionDetails(${eachRecord.food_id}, ${eachRecord.user_id})">
                 Details
             </button></div>
-         
-
     `
-
     modalStr += /* html */ `
         <!-- Modal -->
         <div
@@ -123,11 +120,11 @@ async function loadProfile() {
             </div>
         </div>
     `
-    if (document.getElementById("today-container").innerHTML != '') {
-      document.querySelector('body').innerHTML += modalStr
-    }
   }
   document.querySelector('#today-container').innerHTML += htmlStr
+  if (document.getElementById("today-container").innerHTML != '') {
+    document.getElementById('my-modal-container').innerHTML += modalStr
+  }
 }
 
 async function getConsumptionDetails(foodID, userID) {
