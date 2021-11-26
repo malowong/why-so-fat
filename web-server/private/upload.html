@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, height=812, initial-scale=1.0, shrink-to-fit=no, user-scalable=no, viewport-fit=cover">
-        <title>Upload</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-            crossorigin="anonymous"
-        />
-        <link rel="stylesheet" href="./css/upload.css" />
-        <link rel="stylesheet" href="./css/index.css" />
-    </head>
-    <body>
-        <header class="container-fluid bg-success p-0">
-            <div class="safe-area bg-success"></div>
-            <h1>upload</h1>
-        </header>
-        <main>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=812, initial-scale=1.0, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Upload</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/upload.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <header class="container-fluid bg-success p-0">
+      <div class="safe-area bg-success"></div>
+      <h1>upload</h1>
+    </header>
+    <main>
       <form id="upload-form">
         <label>
           Food name:
-          <input type="text" name="food_name" />
+          <input type="text" name="food_name" required />
         </label>
         <label> Per unit: </label>
-        <select name="per_unit" id="per_unit">
-          <option value="per_100">Per 100g</option>
-          <option value="per_serving">Per serving</option>
-          <option value="per_package">Per package</option>
+        <select name="per_unit" id="per_unit" required>
+          <option value="per_100" id="per_100">Per 100g</option>
+          <option value="per_serving" id="per_serving">Per serving</option>
+          <option value="per_package" id="per_package">Per package</option>
         </select>
 
         <label id="total_weight">
           Total Weight:
-          <input type="text" name="total_weight" size="4" />
+          <input type="number" name="total_weight" size="4" required />
         </label>
         <label id="is_consumed">
           Consumed?
@@ -44,25 +46,6 @@
             <option value="NO">NO</option>
           </select>
         </label>
-        <!-- Example single danger button -->
-        <!-- <div class="btn-group">
-                    <button
-                        type="button"
-                        class="btn btn-primary dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        id="consumedBtn"
-                    >
-                        YES
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" id="consumedDropdown"
-                                >NO</a
-                            >
-                        </li>
-                    </ul>
-                </div> -->
         <label id="quantity">
           Consumed Quantity
           <select name="quantity">
@@ -77,7 +60,7 @@
 
         <label id="serving_size" hidden="true">
           Serving size:
-          <input type="text" name="serving_size" />
+          <input type="number" name="serving_size" required="false" />
         </label>
 
         <label class="input-group mb-3">
@@ -89,66 +72,91 @@
             id="label-img"
             required
             onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
+            required
           />
           <img id="blah" width="200" height="200" />
         </label>
         <label>
           Energy/能量:
-          <input type="text" name="energy" id="energy" size="4" />
+          <input type="number" name="energy" id="energy" size="4" required />
         </label>
         <label>
           Protein/蛋白質:
-          <input type="text" name="protein" id="protein" size="4" />
+          <input type="number" name="protein" id="protein" size="4" required />
         </label>
         <label>
           Total fat/總脂肪:
-          <input type="text" name="total_fat" id="total_fat" size="4" />
+          <input
+            type="number"
+            name="total_fat"
+            id="total_fat"
+            size="4"
+            required
+          />
         </label>
         <label>
           Saturated fat/飽和脂肪:
-          <input type="text" name="saturated_fat" id="saturated_fat" size="4" />
+          <input
+            type="number"
+            name="saturated_fat"
+            id="saturated_fat"
+            size="4"
+            required
+          />
         </label>
         <label>
           Trans fat/反式脂肪:
-          <input type="text" name="trans_fat" id="trans_fat" size="4" />
+          <input
+            type="number"
+            name="trans_fat"
+            id="trans_fat"
+            size="4"
+            required
+          />
         </label>
         <label>
           Carbohydrates/碳水化合物:
-          <input type="text" name="carbohydrates" id="carbohydrates" size="4" />
+          <input
+            type="number"
+            name="carbohydrates"
+            id="carbohydrates"
+            size="4"
+            required
+          />
         </label>
         <label>
           Sugars/糖:
-          <input type="text" name="sugars" id="sugars" size="4" />
+          <input type="number" name="sugars" id="sugars" size="4" required />
         </label>
         <label>
           Sodium/鈉:
-          <input type="text" name="sodium" id="sodium" size="4" />
+          <input type="number" name="sodium" id="sodium" size="4" required />
         </label>
 
         <input type="submit" value="Upload" id="upload-btn" />
       </form>
     </main>
 
-        <footer class="container-fluid bg-success p-0">
-            <div class="d-flex justify-content-around w-100">
-                <a href="/food-list.html" class="text-light"
-                    ><i class="fa fa-cutlery" aria-hidden="true"></i
-                ></a>
-                <a href="crop/edit.html" class="text-light"
-                    ><i class="fa fa-upload" aria-hidden="true"></i
-                ></a>
-                <a href="/home-page.html" class="text-light"
-                    ><i class="fa fa-home" aria-hidden="true"></i
-                ></a>
-                <a href="/history.html" class="text-light"
-                    ><i class="fa fa-history" aria-hidden="true"></i
-                ></a>
-                <a href="/profile.html" class="text-light"
-                    ><i class="fa fa-user" aria-hidden="true"></i
-                ></a>
-            </div>
-            <div class="safe-area bg-success"></div>
-        </footer>
+    <footer class="container-fluid bg-success p-0">
+      <div class="d-flex justify-content-around w-100">
+        <a href="/food-list.html" class="text-light"
+          ><i class="fa fa-cutlery" aria-hidden="true"></i
+        ></a>
+        <a href="crop/edit.html" class="text-light"
+          ><i class="fa fa-upload" aria-hidden="true"></i
+        ></a>
+        <a href="/home-page.html" class="text-light"
+          ><i class="fa fa-home" aria-hidden="true"></i
+        ></a>
+        <a href="/history.html" class="text-light"
+          ><i class="fa fa-history" aria-hidden="true"></i
+        ></a>
+        <a href="/profile.html" class="text-light"
+          ><i class="fa fa-user" aria-hidden="true"></i
+        ></a>
+      </div>
+      <div class="safe-area bg-success"></div>
+    </footer>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
