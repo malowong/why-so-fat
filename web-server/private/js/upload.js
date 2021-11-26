@@ -73,6 +73,22 @@ if (storage != null) {
 }
 
 
+document.querySelector('#upload-btn').addEventListener('submit', () => {
+  window.location = '/home-page.html'
+})
+
+document.querySelector('#per_serving').addEventListener('click', () => {
+  form.serving_size.attributes['required'] = true
+})
+
+document.querySelector('#per_package').addEventListener('click', () => {
+  form.serving_size.attributes['required'] = false
+})
+
+document.querySelector('#per_100').addEventListener('click', () => {
+  form.serving_size.attributes['required'] = false
+})
+
 // consumedDropdownItem.addEventListener('click', () => {
 //     const text = consumedBtn.innerHTML.trim()
 //     console.log(text)

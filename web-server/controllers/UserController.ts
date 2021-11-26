@@ -33,7 +33,7 @@ export class UserController {
       res.status(400).json({ message: "Password must contain at least 6 characters" });
       return;
     }
-    if (gender != "M" && gender != "F") {
+    if (gender != "male" && gender != "female") {
       res.status(400).json({ message: "Invalid gender" });
       return;
     }
@@ -50,7 +50,9 @@ export class UserController {
     if (isExist) {
       res.status(400).json({ message: "Username has been used" });
     } else {
-      await this.userService.insertNewUser(resultObj);
+      const newUserID = await this.userService.insertNewUser(resultObj);
+      console.log(newUserID);
+      req.session["user"] = { id: newUserID[0], username };
       res.status(200).json({ message: "Successfully registered" });
     }
   };
