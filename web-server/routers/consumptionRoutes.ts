@@ -13,3 +13,4 @@ consumptionRoutes.get("/history", AsyncWrapper(consumptionController.consumption
 consumptionRoutes.get("/homePageRecord", AsyncWrapper(consumptionController.homePageRecord));
 consumptionRoutes.get("/consumptiondetails/:foodID/:userID", AsyncWrapper(consumptionController.consumptionDetails));
 consumptionRoutes.get("/quota", AsyncWrapper(consumptionController.quota));
+consumptionRoutes.get("/userbodyweight", AsyncWrapper(consumptionController.userBodyWeight));

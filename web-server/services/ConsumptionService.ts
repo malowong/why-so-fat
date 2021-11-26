@@ -50,7 +50,7 @@ export class ConsumptionService {
     return result;
   };
 
-  getQuotaData = async () => {
+  getQuotaData = async (userID: number) => {
     const result = await this.knex.raw(`SELECT 
     n.nutrition_name, 
     json_agg(quantity) AS quantity,
@@ -67,10 +67,15 @@ export class ConsumptionService {
     ON n.id = v.nutrition_id
     INNER JOIN users u
     ON u.id = c.user_id
-    WHERE c.user_id = 2
+    WHERE c.user_id = ${userID}
     AND c.created_at >= current_date::timestamp
     AND c.created_at < current_date::timestamp + interval '1 day'
     GROUP BY n.nutrition_name`);
+    return result;
+  };
+
+  getBodyWeight = async (userID: number) => {
+    const result = await this.knex(tables.USER).where("id", userID).select("weight").first();
     return result;
   };
 }

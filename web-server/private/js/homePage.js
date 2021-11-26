@@ -18,44 +18,59 @@ window.onload = async () => {
 }
 
 async function loadQuota() {
-  const resp = await fetch('/api/consumption/quota')
-  const quota = (await resp.json()).rows
-  const sortedIntakeStandardKeys = Object.keys(intakeStandard).sort()
+  const quotaResp = await fetch('/api/consumption/quota')
+  const quota = (await quotaResp.json()).rows
   console.log(quota)
+
+  const bodyWeightResp = await fetch('/api/consumption/userbodyweight')
+  const bodyWeight = (await bodyWeightResp.json()).weight
+  console.log(bodyWeight)
+
+  const sortedIntakeStandardKeys = Object.keys(intakeStandard).sort()
 
   function calHelper(a, b, c) {
     return Math.round((a / 100) * b * c)
   }
-
-  for (let i = 0; i < quota.length; i++) {
-    if (quota[i].nutrition_name !== 'protein') {
-      let key = sortedIntakeStandardKeys[i]
-      let initialQuota = intakeStandard[`${key}`]
-      for (let j = 0; j < quota[i].food_name.length; j++) {
-        initialQuota -= calHelper(
-          quota[i].nutrition_value[j],
-          quota[i].quantity[j],
-          quota[i].total_weight[j]
-        )
-        console.log(initialQuota)
-      }
-      quotaMap.set(sortedIntakeStandardKeys[i], initialQuota)
-    } else {
-      let proteinQuota = quota[i].weight[0]
-      for (let j = 0; j < quota[i].food_name.length; j++) {
-        proteinQuota -= calHelper(
-          quota[i].nutrition_value[j],
-          quota[i].quantity[j],
-          quota[i].total_weight[j]
-        )
-        console.log(proteinQuota)
-        quotaMap.set(sortedIntakeStandardKeys[i], proteinQuota)
-        // console.log(quotaMap)
+  if (quota.length > 0) {
+    for (let i = 0; i < quota.length; i++) {
+      if (quota[i].nutrition_name !== 'protein') {
+        let key = sortedIntakeStandardKeys[i]
+        let initialQuota = intakeStandard[`${key}`]
+        for (let j = 0; j < quota[i].food_name.length; j++) {
+          initialQuota -= calHelper(
+            quota[i].nutrition_value[j],
+            quota[i].quantity[j],
+            quota[i].total_weight[j]
+          )
+          console.log(initialQuota)
+        }
+        quotaMap.set(sortedIntakeStandardKeys[i], initialQuota)
+      } else {
+        let proteinQuota = quota[i].weight[0]
+        for (let j = 0; j < quota[i].food_name.length; j++) {
+          proteinQuota -= calHelper(
+            quota[i].nutrition_value[j],
+            quota[i].quantity[j],
+            quota[i].total_weight[j]
+          )
+          console.log(proteinQuota)
+          quotaMap.set(sortedIntakeStandardKeys[i], proteinQuota)
+          // console.log(quotaMap)
+        }
       }
     }
+  } else {
+    quotaMap.set('energy', intakeStandard['energy'])
+    quotaMap.set('protein', bodyWeight)
+    quotaMap.set('carbohydrates', intakeStandard['carbohydrates'])
+    quotaMap.set('total_fat', intakeStandard['total_fat'])
+    quotaMap.set('sugars', intakeStandard['sugars'])
+    quotaMap.set('saturated_fat', intakeStandard['saturated_fat'])
+    quotaMap.set('trans_fat', intakeStandard['trans_fat'])
+    quotaMap.set('sodium', intakeStandard['sodium'])
   }
 
-  //   console.log(quotaMap)
+  console.log(quotaMap)
   //   document.querySelector('#kcal-display').children[0].innerHTML =
   //     quotaMap.get('energy')
   document.querySelector('#carbs-display').children[1].innerHTML =
