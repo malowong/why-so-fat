@@ -33,7 +33,7 @@ export class UserController {
       res.status(400).json({ message: "Password must contain at least 6 characters" });
       return;
     }
-    if (gender != "M" && gender != "F") {
+    if (gender != "male" && gender != "female") {
       res.status(400).json({ message: "Invalid gender" });
       return;
     }
