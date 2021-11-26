@@ -15,7 +15,7 @@ testing:
     - postgres:latest
 
   before_script:
-    - cd c17-bad-project-10-tw/web-server/
+    - cd c17-bad-project-10-tw/web-server
     - yarn install
     - yarn knex migrate:latest --env test
   stage: testing
