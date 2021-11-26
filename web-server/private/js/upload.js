@@ -54,20 +54,24 @@ document.querySelector('#is_consumed').addEventListener('click', () => {
 })
 
 const storage = localStorage.getItem('result')
-const result = JSON.parse(storage).data
 
-document.getElementById('energy').value = parseFloat(result.energy)
-document.getElementById('protein').value = parseFloat(result.protein)
-document.getElementById('total_fat').value = parseFloat(result.total_fat)
-document.getElementById('saturated_fat').value = parseFloat(
-  result.saturated_fat
-)
-document.getElementById('trans_fat').value = parseFloat(result.trans_fat)
-document.getElementById('carbohydrates').value = parseFloat(
-  result.carbohydrates
-)
-document.getElementById('sugars').value = parseFloat(result.sugar)
-document.getElementById('sodium').value = parseFloat(result.sodium)
+if (storage != null) {
+  const result = JSON.parse(storage).data
+  document.getElementById('energy').value = parseFloat(result.energy)
+  document.getElementById('protein').value = parseFloat(result.protein)
+  document.getElementById('total_fat').value = parseFloat(result.total_fat)
+  document.getElementById('saturated_fat').value = parseFloat(
+    result.saturated_fat
+  )
+  document.getElementById('trans_fat').value = parseFloat(result.trans_fat)
+  document.getElementById('carbohydrates').value = parseFloat(
+    result.carbohydrates
+  )
+  document.getElementById('sugars').value = parseFloat(result.sugar)
+  document.getElementById('sodium').value = parseFloat(result.sodium)
+
+}
+
 
 // consumedDropdownItem.addEventListener('click', () => {
 //     const text = consumedBtn.innerHTML.trim()
