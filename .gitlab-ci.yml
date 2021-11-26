@@ -23,7 +23,7 @@ testing:
 
 deploy:
   before_script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > private.pem
     - chmod 400 private.pem
@@ -38,6 +38,7 @@ deploy:
   script:
     - ssh ubuntu@13.251.231.193
       "cd c17-bad-project-10-tw;
+      cd web-server;
       git checkout production;
       git pull origin production;
       yarn install;
