@@ -40,6 +40,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 footer > .safe-area{
     bottom: 0;
@@ -49,6 +50,7 @@ footer > .safe-area{
 }
 footer svg {
     font-size: 25px;
+    padding: 20px;
 }
 footer div div a {
     text-decoration: none;

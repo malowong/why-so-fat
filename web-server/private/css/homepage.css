@@ -8,6 +8,10 @@ h2 {
 
 #intake-display{
   background-color: #488747;
+  position: fixed;
+  top: 10%;
+  width: 100vw;
+  z-index: 1;
 }
 
 #first-row {
@@ -37,18 +41,24 @@ h2 {
   text-align: center;
 }
 
-#third-row {
+#separator {
   display: flex;
   justify-content: center;
-  height: 3em;
+  height: 30vh;
+  width: 100vw;
+  top: 20vh;
+  z-index: 0;
+  position: relative;
+  background-color: #488747;
 }
 
 #profile-container {
-  padding: 20px 12px;
+  padding: 20px 12px 100px;
   position: relative;
-  top: -45px;
-  border-radius: 50px;
+  top: 88px;
+  border-radius: 50px 50px 0 0;
   background: white;
+  z-index: 2;
 }
 
 .date-row {
