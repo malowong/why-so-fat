@@ -1,71 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- <meta name="apple-mobile-web-app-capable" content="yes">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="viewport" content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"> -->
-        <title>Document</title>
-        <link rel="stylesheet" href="./css/loginPage.css" />
-        <!-- <link rel="manifest" href="/web-server/manifest.json"> -->
-    </head>
-    <body>
-        <div class="wrapper fadeIn">
-            <div id="formContent">
-                <!-- Tabs Titles -->
-                <h2 class="inactive underlineHover" onclick="redirectLoginIn()">
-                    LOGIN
-                </h2>
-                <h2 class="active">Sign Up</h2>
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/loginPage.css" />
+    <!-- <link rel="manifest" href="/web-server/manifest.json"> -->
+  </head>
+  <body>
+    <div class="wrapper fadeIn">
+      <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 class="inactive underlineHover" onclick="redirectLoginIn()">
+          LOGIN
+        </h2>
+        <h2 class="active">Sign Up</h2>
 
-                <!-- Login Form -->
-                <form id="signUpForm">
-                    <input
-                        type="text"
-                        id="username"
-                        class="fadeIn second"
-                        name="username"
-                        placeholder="Username"
-                    />
-                    <input
-                        type="text"
-                        id="password"
-                        class="fadeIn third"
-                        name="password"
-                        placeholder="Password"
-                    />
+        <!-- Login Form -->
+        <form id="signUpForm">
+          <input
+            type="text"
+            id="username"
+            class="fadeIn second"
+            name="username"
+            placeholder="Username"
+          />
+          <input
+            type="password"
+            id="password"
+            class="fadeIn third"
+            name="password"
+            placeholder="Password"
+          />
 
-                    <select name="gender" id="dropbtn">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
+          <select name="gender" id="dropbtn">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
 
-                    <input
-                        type="text"
-                        id="height"
-                        class="fadeIn third"
-                        id="height"
-                        placeholder="Height (cm) "
-                    />
+          <input
+            type="text"
+            id="height"
+            class="fadeIn third"
+            id="height"
+            placeholder="Height (cm) "
+          />
 
-                    <input
-                        type="text"
-                        id="weight"
-                        class="fadeIn third"
-                        name="weight"
-                        placeholder="Weight (kg) "
-                    />
-                    <input
-                        type="submit"
-                        class="fadeIn fourth"
-                        value="Register"
-                    />
-                    <div class="reminder"></div>
-                </form>
-            </div>
-        </div>
-        <script src="./js/signUp.js"></script>
-    </body>
+          <input
+            type="text"
+            id="weight"
+            class="fadeIn third"
+            name="weight"
+            placeholder="Weight (kg) "
+          />
+          <input type="submit" class="fadeIn fourth" value="Register" />
+          <div class="reminder"></div>
+        </form>
+      </div>
+    </div>
+    <script src="./js/signUp.js"></script>
+  </body>
 </html>
