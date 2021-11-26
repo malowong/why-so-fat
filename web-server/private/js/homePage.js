@@ -1,4 +1,3 @@
-const todayContainer = document.querySelector('#today-container')
 let quotaMap = new Map()
 
 const intakeStandard = {
@@ -7,63 +6,89 @@ const intakeStandard = {
   total_fat: 60,
   sugars: 50,
   saturated_fat: 20,
-  trans_fat: 22,
+  trans_fat: 2.2,
   sodium: 2000,
   protein: 0,
 }
 
 window.onload = async () => {
+  await setProteinStandard()
   await loadQuota()
   await loadProfile()
   loadAnimation()
+  changeBarLength()
+}
+
+async function setProteinStandard() {
+  const bodyWeightResp = await fetch('/api/consumption/userbodyweight')
+  const bodyWeight = (await bodyWeightResp.json()).weight
+  console.log(bodyWeight)
+  intakeStandard['protein'] = bodyWeight
 }
 
 async function loadQuota() {
-  const resp = await fetch('/api/consumption/quota')
-  const quota = (await resp.json()).rows
-  const sortedIntakeStandardKeys = Object.keys(intakeStandard).sort()
+  const quotaResp = await fetch('/api/consumption/quota')
+  const quota = (await quotaResp.json()).rows
   console.log(quota)
 
+  // const bodyWeightResp = await fetch('/api/consumption/userbodyweight')
+  // const bodyWeight = (await bodyWeightResp.json()).weight
+  // console.log(bodyWeight)
+
+  const sortedIntakeStandardKeys = Object.keys(intakeStandard).sort()
+
   function calHelper(a, b, c) {
-    return (Math.round((a / 100) * b * c * 100) / 100).toFixed(2)
+    return Math.round((a / 100) * b * c)
   }
-
-  //   const sortedIntakeStandardKeys = quota
-
-  for (let i = 0; i < quota.length; i++) {
-    if (quota[i].nutrition_name !== 'protein') {
+  if (quota.length > 0) {
+    for (let i = 0; i < quota.length; i++) {
+      if (quota[i].nutrition_name !== 'protein') {
+        let key = sortedIntakeStandardKeys[i]
+        let initialQuota = intakeStandard[`${key}`]
+        for (let j = 0; j < quota[i].food_name.length; j++) {
+          initialQuota -= calHelper(
+            quota[i].nutrition_value[j],
+            quota[i].quantity[j],
+            quota[i].total_weight[j]
+          )
+          console.log(initialQuota)
+        }
+        quotaMap.set(sortedIntakeStandardKeys[i], initialQuota)
+      } else {
+        let proteinQuota = quota[i].weight[0]
+        for (let j = 0; j < quota[i].food_name.length; j++) {
+          proteinQuota -= calHelper(
+            quota[i].nutrition_value[j],
+            quota[i].quantity[j],
+            quota[i].total_weight[j]
+          )
+          console.log(proteinQuota)
+          quotaMap.set(sortedIntakeStandardKeys[i], proteinQuota)
+          // console.log(quotaMap)
+        }
+      }
+    }
+  } else {
+    for (let i = 0; i < sortedIntakeStandardKeys.length; i++) {
       let key = sortedIntakeStandardKeys[i]
-      let initialQuota = intakeStandard[`${key}`]
-      for (let j = 0; j < quota[i].food_name.length; j++) {
-        initialQuota -= calHelper(
-          quota[i].nutrition_value[j],
-          quota[i].quantity[j],
-          quota[i].total_weight[j]
-        )
-        console.log(initialQuota)
-      }
-      quotaMap.set(sortedIntakeStandardKeys[i], initialQuota)
-    } else {
-      let proteinQuota = quota[i].weight[0]
-      for (let j = 0; j < quota[i].food_name.length; j++) {
-        proteinQuota -= calHelper(
-          quota[i].nutrition_value[j],
-          quota[i].quantity[j],
-          quota[i].total_weight[j]
-        )
-        console.log(proteinQuota)
-        quotaMap.set(sortedIntakeStandardKeys[i], proteinQuota)
-        // console.log(quotaMap)
-      }
+      quotaMap.set(key, intakeStandard[`${key}`])
     }
   }
 
-  //   console.log(quotaMap)
+  console.log(quotaMap)
   //   document.querySelector('#kcal-display').children[0].innerHTML =
   //     quotaMap.get('energy')
-  document.querySelector('#carbs-display').children[1].innerHTML = `<p>${parseInt(quotaMap.get('carbohydrates'))} g left</p>`
-  document.querySelector('#sugars-display').children[1].innerHTML = `<p>${parseInt(quotaMap.get('sugars'))} g left</p>`
-  document.querySelector('#protein-display').children[1].innerHTML = `<p>${parseInt(quotaMap.get('protein'))} g left</p>`
+  document.querySelector(
+    '#carbs-display'
+  ).children[2].innerHTML = `<p>${parseInt(
+    quotaMap.get('carbohydrates')
+  )} g left</p>`
+  document.querySelector(
+    '#sugars-display'
+  ).children[2].innerHTML = `<p>${parseInt(quotaMap.get('sugars'))} g left</p>`
+  document.querySelector(
+    '#protein-display'
+  ).children[2].innerHTML = `<p>${parseInt(quotaMap.get('protein'))} g left</p>`
 }
 
 async function loadProfile() {
@@ -98,8 +123,8 @@ async function loadProfile() {
         </div>
     `
   }
-  todayContainer.innerHTML += htmlStr
   document.querySelector('body').innerHTML += modalStr
+  document.querySelector('#today-container').innerHTML += htmlStr
 }
 
 async function getConsumptionDetails(foodID, userID) {
@@ -329,6 +354,7 @@ function loadAnimation() {
           offsetCenter: [0, '35%'],
           valueAnimation: true,
           formatter: function (value) {
+            value = 2000 - value
             return '{value|' + value.toFixed(0) + '}{unit|kcal left}'
           },
           rich: {
@@ -354,4 +380,28 @@ function loadAnimation() {
   }
 
   myChart.setOption(option)
+}
+
+function changeBarLength() {
+  carbsLength =
+    ((intakeStandard['carbohydrates'] - quotaMap.get('carbohydrates')) /
+      intakeStandard['carbohydrates']) *
+    100
+
+  sugarsLength =
+    ((intakeStandard['sugars'] - quotaMap.get('sugars')) /
+      intakeStandard['sugars']) *
+    100
+
+  proteinLength =
+    ((intakeStandard['protein'] - quotaMap.get('protein')) /
+      intakeStandard['protein']) *
+    100
+
+  console.log(intakeStandard['protein'])
+  console.log(quotaMap.get('protein'))
+
+  document.querySelector('#carbs-bar').style.width = `${carbsLength}%`
+  document.querySelector('#sugars-bar').style.width = `${sugarsLength}%`
+  document.querySelector('#protein-bar').style.width = `${proteinLength}%`
 }

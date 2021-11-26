@@ -1,12 +1,27 @@
-main{
+main {
   padding-top: 80px;
+}
+
+#carbs {
+  background-color: yellow;
+  height: 15px;
+}
+
+#sugars {
+  background-color: red;
+  height: 15px;
+}
+
+#protein {
+  background-color: blue;
+  height: 15px;
 }
 
 h2 {
   text-align: center;
 }
 
-#intake-display{
+#intake-display {
   background-color: #488747;
   position: fixed;
   top: 10%;
@@ -20,12 +35,12 @@ h2 {
   padding: 0 12px;
 }
 
-#kcal-display{
+#kcal-display {
   position: relative;
-    top: -40px;
-    width: 600px;
-    height: 220px;
-    user-select: none;
+  top: -40px;
+  width: 600px;
+  height: 220px;
+  user-select: none;
 }
 
 #second-row {
