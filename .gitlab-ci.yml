@@ -37,8 +37,7 @@ deploy:
     - production
   script:
     - ssh ubuntu@13.251.231.193
-      "cd c17-bad-project-10-tw;
-      cd web-server;
+      "cd c17-bad-project-10-tw/web-server/;
       git checkout production;
       git pull origin production;
       yarn install;
