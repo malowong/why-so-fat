@@ -96,6 +96,7 @@ async function loadProfile() {
   const homePageRecord = (await resp.json()).rows
   console.log(homePageRecord)
   let htmlStr = ``
+  let modalStr = ``
   for (const eachRecord of homePageRecord) {
     htmlStr += /*html*/ `
         <div class="date-row"><h3>${eachRecord.food_name}</h3>
@@ -106,7 +107,7 @@ async function loadProfile() {
 
     `
 
-    modalStr = /* html */ `
+    modalStr += /* html */ `
         <!-- Modal -->
         <div
             class="modal fade"
@@ -122,8 +123,10 @@ async function loadProfile() {
             </div>
         </div>
     `
+    if (document.getElementById("today-container").innerHTML != '') {
+      document.querySelector('body').innerHTML += modalStr
+    }
   }
-  document.querySelector('body').innerHTML += modalStr
   document.querySelector('#today-container').innerHTML += htmlStr
 }
 
