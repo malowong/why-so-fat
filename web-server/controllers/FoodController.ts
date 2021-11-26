@@ -11,8 +11,10 @@ export class FoodController {
   };
 
   upload = async (req: Request, res: Response) => {
-    await this.foodService.upload(req);
-    res.status(200).json({ message: "Successfully uploaded" });
+    const checkFoodNameResult = await this.foodService.uploadForm(req);
+    checkFoodNameResult.length > 0
+      ? res.status(409).json({ message: "Duplicate Food Product!" })
+      : res.status(200).json({ message: "Successfully uploaded" });
   };
 
   ocr = async (req: Request, res: Response) => {
@@ -33,7 +35,7 @@ export class FoodController {
     }
 
     const data = await resp.json();
-    res.json(data);
+    res.status(200).json(data);
   };
 
   convert = async (req: Request, res: Response) => {
@@ -42,9 +44,12 @@ export class FoodController {
     res.json(data);
   };
 
-  // homePageFoodDetail = async (req: Request, res: Response) => {
-  //   const foodList = await this.foodService.getHomePageFoodDetail(req);
+  // checkfoodname = async (req: Request, res: Response) => {
+  //   const inputFoodName = req.body.foodName;
+  //   const dbFoodName = await this.foodService.checkDuplicateFoodName(inputFoodName);
 
-  //   res.status(200).json(foodList).end();
+  //   dbFoodName[0].food_name === inputFoodName
+  //     ? res.status(409).json({ message: "Duplicate Food Product!" })
+  //     : res.status(200).json({ message: "Form submitted" });
   // };
 }

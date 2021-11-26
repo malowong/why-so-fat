@@ -4,6 +4,7 @@ const consumedDropdownItem = document.querySelector('#consumedDropdown')
 const quantity = document.querySelector('#quantity')
 
 form.addEventListener('submit', async (e) => {
+  console.log(e)
   e.preventDefault()
 
   const formData = new FormData()
@@ -27,11 +28,14 @@ form.addEventListener('submit', async (e) => {
     method: 'POST',
     body: formData,
   })
+
   if (resp.status === 200) {
     console.log('OK')
     form.reset()
   } else {
-    console.log('error')
+    document.querySelector('#db-feedback-msg').innerHTML = `<h3>${
+      (await resp.json()).message
+    }</h3>`
   }
 })
 
@@ -69,9 +73,7 @@ if (storage != null) {
   )
   document.getElementById('sugars').value = parseFloat(result.sugar)
   document.getElementById('sodium').value = parseFloat(result.sodium)
-
 }
-
 
 document.querySelector('#upload-btn').addEventListener('submit', () => {
   window.location = '/home-page.html'
@@ -88,17 +90,3 @@ document.querySelector('#per_package').addEventListener('click', () => {
 document.querySelector('#per_100').addEventListener('click', () => {
   form.serving_size.attributes['required'] = false
 })
-
-// consumedDropdownItem.addEventListener('click', () => {
-//     const text = consumedBtn.innerHTML.trim()
-//     console.log(text)
-//     if (text == 'YES') {
-//         consumedBtn.innerHTML = 'NO'
-//         quantity.hidden = true
-//         consumedDropdownItem.innerHTML = 'YES'
-//     } else {
-//         consumedBtn.innerHTML = 'YES'
-//         quantity.hidden = false
-//         consumedDropdownItem.innerHTML = 'NO'
-//     }
-// })
