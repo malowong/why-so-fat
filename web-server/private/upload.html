@@ -24,10 +24,49 @@
     </header>
     <main>
       <form id="upload-form">
-        <label>
-          Food name:
-          <input type="text" name="food_name" required />
-        </label>
+        <div class="form-group mb-3">
+          <label for="food_name">Food Name</label>
+          <input type="text" class="form-control" id="food_name" name="food_name" required />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="image">Food Photo</label>
+          <input type="file" accept="image/*;capture=camera" name="image" id="image" style="display: none;" 
+          onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" required/>
+          <!-- <input type="file" name="image" id="food_photo"
+            onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" required/> -->
+          <div>
+            <img id="blah" width="200" height="200" src="crop/dummy-image-square.jpeg"/>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="total_weight">Total Weight</label>
+          <input type="number" class="form-control" name="total_weight" id="total_weight" required />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="is_consumed">Consumed?</label>
+            <select name="is_consumed" id="is_consumed" class="form-control">
+              <option value="YES">YES</option>
+              <option value="NO">NO</option>
+            </select>
+        </div>
+
+        <div class="input-group mb-3" id="quantity">
+          <label for="quantity" style="width: 100%;">
+            Consumed Quantity
+          </label>
+            <select name="quantity" class="form-select">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>0.25</option>
+              <option>0.5</option>
+            </select>
+            <label class="input-group-text" for="quantity">pack</label>
+        </div>
+
         <label> Per unit: </label>
         <select name="per_unit" id="per_unit" required>
           <option value="per_100" id="per_100">Per 100g</option>
@@ -35,46 +74,10 @@
           <option value="per_package" id="per_package">Per package</option>
         </select>
 
-        <label id="total_weight">
-          Total Weight:
-          <input type="number" name="total_weight" size="2" required />
-        </label>
-        <label id="is_consumed">
-          Consumed?
-          <select name="is_consumed" id="is_consumed">
-            <option value="YES">YES</option>
-            <option value="NO">NO</option>
-          </select>
-        </label>
-        <label id="quantity">
-          Consumed Quantity
-          <select name="quantity">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>0.25</option>
-            <option>0.5</option>
-          </select>
-          pack
-        </label>
 
         <label id="serving_size" hidden="true">
           Serving size:
           <input type="number" name="serving_size" />
-        </label>
-
-        <label class="input-group mb-3">
-          Upload nutrition label
-          <input
-            type="file"
-            class="form-control"
-            name="image"
-            id="label-img"
-            required
-            onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
-            required
-          />
-          <img id="blah" width="200" height="200" />
         </label>
         <label>
           Energy/能量:
