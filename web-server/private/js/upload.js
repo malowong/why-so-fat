@@ -4,6 +4,7 @@ const consumedDropdownItem = document.querySelector('#consumedDropdown')
 const quantity = document.querySelector('#quantity')
 
 form.addEventListener('submit', async (e) => {
+  console.log(e)
   e.preventDefault()
 
   const formData = new FormData()
@@ -27,19 +28,22 @@ form.addEventListener('submit', async (e) => {
     method: 'POST',
     body: formData,
   })
+
   if (resp.status === 200) {
     console.log('OK')
     form.reset()
     window.location = '/home-page.html'
   } else {
-    console.log('error')
+    document.querySelector('#db-feedback-msg').innerHTML = `<h3>${
+      (await resp.json()).message
+    }</h3>`
   }
 })
 
 document.querySelector('#per_unit').addEventListener('input', () => {
   if (form.per_unit.value == 'per_serving') {
     document.getElementById('serving_size').hidden = false
-    document.getElementById('serving_size').setAttribute('required', "")
+    document.getElementById('serving_size').setAttribute('required', '')
   } else if (form.per_unit.value == 'per_package') {
     document.getElementById('serving_size').hidden = true
     document.getElementById('serving_size').removeAttribute('required')
@@ -73,7 +77,6 @@ if (storage != null) {
   )
   document.getElementById('sugars').value = parseFloat(result.sugar)
   document.getElementById('sodium').value = parseFloat(result.sodium)
-
 }
 
 document.getElementById('blah').addEventListener('click', () => {

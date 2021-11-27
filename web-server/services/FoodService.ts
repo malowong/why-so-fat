@@ -14,63 +14,67 @@ export class FoodService {
     return result;
   };
 
-  upload = async (reqObj: Request) => {
+  uploadForm = async (reqObj: Request) => {
     const body = reqObj.body;
 
-    const userInput = {
-      food_name: body.food_name,
-      food_photo: String(reqObj.file?.filename),
-      total_weight: parseInt(body.total_weight),
-    };
+    const checkFoodNameResult = await this.knex(tables.FOOD).where("food_name", body.food_name);
 
-    const nutritionArr = await this.knex(tables.NUTRITION).select();
-    const nutritionMap = new Map<number, string>();
-    for (const nutrition of nutritionArr) {
-      nutritionMap.set(nutrition.id, nutrition.nutrition_name);
-    }
-
-    const foodID = await this.knex(tables.FOOD).insert(userInput).returning("id");
-    console.log(`foodID:${foodID}`);
-
-    if (body.per_unit == "per_package") {
-      for (let i = 1; i <= nutritionMap.size; i++) {
-        const nutritionValue = {
-          nutrition_value: (body[`${nutritionMap.get(i)}`] / body["total_weight"]) * 100,
-          food_id: Number(foodID),
-          nutrition_id: i,
-        };
-        await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
-      }
-    } else if (body.per_unit == "per_serving") {
-      for (let i = 1; i <= nutritionMap.size; i++) {
-        const nutritionValue = {
-          nutrition_value: (body[`${nutritionMap.get(i)}`] / body["serving_size"]) * 100,
-          food_id: Number(foodID),
-          nutrition_id: i,
-        };
-        await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
-      }
-    } else {
-      for (let i = 1; i <= nutritionMap.size; i++) {
-        const nutritionValue = {
-          nutrition_value: body[`${nutritionMap.get(i)}`],
-          food_id: Number(foodID),
-          nutrition_id: i,
-        };
-        await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
-      }
-    }
-
-    if (body.is_consumed == "YES") {
-      const consumptions = {
-        quantity: body["quantity"],
-        user_id: reqObj.session["user"].id,
-        food_id: Number(foodID),
+    if (checkFoodNameResult.length == 0) {
+      const userInput = {
+        food_name: body.food_name,
+        food_photo: String(reqObj.file?.filename),
+        total_weight: parseInt(body.total_weight),
       };
-      await this.knex(tables.CONSUMPTION).insert(consumptions);
+
+      const nutritionArr = await this.knex(tables.NUTRITION).select();
+      const nutritionMap = new Map<number, string>();
+      for (const nutrition of nutritionArr) {
+        nutritionMap.set(nutrition.id, nutrition.nutrition_name);
+      }
+
+      const foodID = await this.knex(tables.FOOD).insert(userInput).returning("id");
+      console.log(`foodID:${foodID}`);
+
+      if (body.per_unit == "per_package") {
+        for (let i = 1; i <= nutritionMap.size; i++) {
+          const nutritionValue = {
+            nutrition_value: (body[`${nutritionMap.get(i)}`] / body["total_weight"]) * 100,
+            food_id: Number(foodID),
+            nutrition_id: i,
+          };
+          await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
+        }
+      } else if (body.per_unit == "per_serving") {
+        for (let i = 1; i <= nutritionMap.size; i++) {
+          const nutritionValue = {
+            nutrition_value: (body[`${nutritionMap.get(i)}`] / body["serving_size"]) * 100,
+            food_id: Number(foodID),
+            nutrition_id: i,
+          };
+          await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
+        }
+      } else {
+        for (let i = 1; i <= nutritionMap.size; i++) {
+          const nutritionValue = {
+            nutrition_value: body[`${nutritionMap.get(i)}`],
+            food_id: Number(foodID),
+            nutrition_id: i,
+          };
+          await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
+        }
+      }
+
+      if (body.is_consumed == "YES") {
+        const consumptions = {
+          quantity: body["quantity"],
+          user_id: reqObj.session["user"].id,
+          food_id: Number(foodID),
+        };
+        await this.knex(tables.CONSUMPTION).insert(consumptions);
+      }
     }
 
-    return true;
+    return checkFoodNameResult;
   };
 
   convert = async (foodId: Number) => {
@@ -81,6 +85,4 @@ export class FoodService {
 
     return result;
   };
-
-  // getHomePageFoodDetail
 }

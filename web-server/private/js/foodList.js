@@ -188,6 +188,7 @@ function genHtmlStr(uniqueFoodId, foodList) {
 }
 
 searchBar.addEventListener('input', (e) => {
+  console.log(e)
   const searchValue = searchBar.value.trim()
 
   if (searchValue.length == 0) {
@@ -340,7 +341,9 @@ async function convertFnc(foodId) {
 }
 
 sortButtons.forEach((sortButton) => {
-  console.log(sortButton.classList[2])
+  console.log(sortButton)
+  // console.log(sortButton.classList)
+  // console.log(sortButton.classList[2][0])
   sortButton.addEventListener('click', (e) => {
     sortByNutrition(
       sortButton,
@@ -354,7 +357,7 @@ function sortByNutrition(sortButton, nutritionName) {
   let sortedFoodSet = foodList.filter((element) => {
     return element.nutrition_name === nutritionName.toLowerCase()
   })
-
+  console.log(sortedFoodSet)
   if (sortButton.innerText === `${nutritionName} \u2193`) {
     sortedFoodSet = sortedFoodSet
       .sort((a, b) => {

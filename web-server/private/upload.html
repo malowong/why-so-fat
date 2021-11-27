@@ -85,12 +85,20 @@
         </label>
         <label>
           Protein/蛋白質:
-          <input type="number" name="protein" id="protein" size="4" required />
+          <input
+            type="number"
+            step="any"
+            name="protein"
+            id="protein"
+            size="4"
+            required
+          />
         </label>
         <label>
           Total fat/總脂肪:
           <input
             type="number"
+            step="any"
             name="total_fat"
             id="total_fat"
             size="4"
@@ -101,6 +109,7 @@
           Saturated fat/飽和脂肪:
           <input
             type="number"
+            step="any"
             name="saturated_fat"
             id="saturated_fat"
             size="4"
@@ -111,6 +120,7 @@
           Trans fat/反式脂肪:
           <input
             type="number"
+            step="any"
             name="trans_fat"
             id="trans_fat"
             size="4"
@@ -121,6 +131,7 @@
           Carbohydrates/碳水化合物:
           <input
             type="number"
+            step="any"
             name="carbohydrates"
             id="carbohydrates"
             size="4"
@@ -129,14 +140,29 @@
         </label>
         <label>
           Sugars/糖:
-          <input type="number" name="sugars" id="sugars" size="4" required />
+          <input
+            type="number"
+            step="any"
+            name="sugars"
+            id="sugars"
+            size="4"
+            required
+          />
         </label>
         <label>
           Sodium/鈉:
-          <input type="number" name="sodium" id="sodium" size="4" required />
+          <input
+            type="number"
+            step="any"
+            name="sodium"
+            id="sodium"
+            size="4"
+            required
+          />
         </label>
 
         <input type="submit" value="Upload" id="upload-btn" />
+        <div id="db-feedback-msg"></div>
       </form>
     </main>
 
