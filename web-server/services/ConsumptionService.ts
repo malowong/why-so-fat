@@ -17,7 +17,7 @@ export class ConsumptionService {
   };
 
   getHomePageRecord = async (userID: number) => {
-    const result = await this.knex.raw(`SELECT * FROM consumptions c
+    const result = await this.knex.raw(/*SQL*/ `SELECT * FROM consumptions c
       INNER JOIN food f
       ON c.food_id = f.id
       WHERE c.user_id = ${userID}
@@ -27,7 +27,7 @@ export class ConsumptionService {
   };
 
   getConsumptionDetails = async (foodID: number, userID: number) => {
-    const result = await this.knex.raw(`SELECT 
+    const result = await this.knex.raw(/*SQL*/ `SELECT 
     c.food_id, 
     json_agg(food_photo) AS food_photo,
     json_agg(quantity) AS quantity,
@@ -51,7 +51,7 @@ export class ConsumptionService {
   };
 
   getQuotaData = async (userID: number) => {
-    const result = await this.knex.raw(`SELECT 
+    const result = await this.knex.raw(/*SQL*/ `SELECT 
     n.nutrition_name, 
     json_agg(quantity) AS quantity,
     json_agg(nutrition_value) AS nutrition_value,

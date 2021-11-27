@@ -59,5 +59,6 @@ SELECT
     insert into consumptions (quantity, user_id, food_id) VALUES (1/3, 2, 1);
     insert into consumptions (quantity, user_id, food_id) VALUES (2, 1, 2);
         insert into consumptions (quantity, user_id, food_id) VALUES (3, 2, 4);
-    INSERT INTO table_name(column1, column2, …)
-VALUES (value1, value2, …);
+
+
+insert into food (food_name, food_photo, total_weight, created_at) values ('薯片3', 'test.jpg', 100,current_date::timestamp - interval '1 day');
