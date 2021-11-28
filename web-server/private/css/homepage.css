@@ -81,6 +81,10 @@ h2 {
   justify-content: space-between;
 }
 
+#name-container {
+  flex: 1;
+}
+
 .more {
   display: none;
 }
