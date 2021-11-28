@@ -39,21 +39,42 @@ h2 {
   position: relative;
   top: -40px;
   width: 600px;
-  height: 220px;
+  height: 205px;
   user-select: none;
+}
+
+#kcal-display div div {
+  position: unset !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+#kcal-display canvas {
+  width: unset !important;
+  height: unset !important;
+  display: block !important;
+  max-width: 375px !important;
+  max-height: 350px !important;
+  left: unset !important;
 }
 
 #second-row {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 2em;
   color: #fff;
   padding: 0 12px;
 }
 
 #second-row div {
   text-align: center;
+}
+
+#third-row {
+  z-index: 1000;
+  position: fixed;
+  width: 100vw;
+  top: 375px;
 }
 
 #separator {
@@ -70,7 +91,7 @@ h2 {
 #profile-container {
   padding: 20px 12px 100px;
   position: relative;
-  top: 88px;
+  top: 110px;
   border-radius: 50px 50px 0 0;
   background: white;
   z-index: 2;
