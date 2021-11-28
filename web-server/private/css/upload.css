@@ -9,6 +9,12 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+#upload-btn {
+  margin-left: auto;
+  margin-right: 0;
+  display: block
+}
 /* 
 input[type="number"],input[type="text"] {
   width: 20%;
