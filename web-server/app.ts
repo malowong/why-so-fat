@@ -17,6 +17,8 @@ app.use(
   })
 );
 
+console.log("hello");
+
 const server = new http.Server(app);
 export const io = new SocketIO(server);
 

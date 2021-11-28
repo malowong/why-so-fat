@@ -11,8 +11,10 @@ export class FoodController {
   };
 
   upload = async (req: Request, res: Response) => {
-    await this.foodService.upload(req);
-    res.status(200).json({ message: "Successfully uploaded" });
+    const checkFoodNameResult = await this.foodService.uploadForm(req);
+    checkFoodNameResult.length > 0
+      ? res.status(409).json({ message: "Existing Food Product!" })
+      : res.status(200).json({ message: "Successfully uploaded" });
   };
 
   ocr = async (req: Request, res: Response) => {
@@ -33,18 +35,12 @@ export class FoodController {
     }
 
     const data = await resp.json();
-    res.json(data);
+    res.status(200).json(data);
   };
 
   convert = async (req: Request, res: Response) => {
     const foodId = Number(req.params.foodId);
     const data = await this.foodService.convert(foodId);
-    res.json(data);
+    res.status(200).json(data);
   };
-
-  // homePageFoodDetail = async (req: Request, res: Response) => {
-  //   const foodList = await this.foodService.getHomePageFoodDetail(req);
-
-  //   res.status(200).json(foodList).end();
-  // };
 }

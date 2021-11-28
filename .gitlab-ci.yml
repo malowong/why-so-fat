@@ -19,6 +19,8 @@ testing:
     - yarn install
     - yarn knex migrate:latest --env test
   stage: testing
+  only:
+    - production
   script:
     - yarn test --runInBand --forceExit
 
