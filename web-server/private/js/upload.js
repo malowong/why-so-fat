@@ -79,6 +79,11 @@ if (storage != null) {
   document.getElementById('sodium').value = parseFloat(result.sodium)
 }
 
+document.getElementById('blah').addEventListener('click', () => {
+  document.getElementById('image').click();
+})
+
+
 // document.querySelector('#upload-btn').addEventListener('submit', () => {
 //   window.location = '/home-page.html'
 // })

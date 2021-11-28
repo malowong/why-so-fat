@@ -130,25 +130,23 @@ async function getConsumptionDetails(foodID, userID) {
   const foodPhoto = details.food_photo[0]
   const totalGrams = totalWeight * quantity
 
+  console.log(Math.round(nutritionValue[0] * quantity))
+  console.log(quantity * totalWeight)
+
   modalStr = /*HTML*/ `
           <img 
           class="card-img-top"
           src="${foodPhoto}"
           alt="Card image cap"
           />
-          <h3><strong>${totalGrams}g ${foodName} contains...</strong></<h3> 
+          <h4><strong>${totalGrams}g ${foodName} contain...</strong></<h4> 
         <table>  
         <tr>
             <td>Energy/能量</td>
             <td></td>
             <td>${
               nutritionName.includes('energy')
-                ? Math.round(
-                    (nutritionValue[nutritionName.indexOf('energy')] / 100) *
-                      totalWeight *
-                      quantity *
-                      100
-                  ) / 100
+                ? Math.round(nutritionValue[0] * quantity)
                 : 0
             } kcal/千卡</td>
         </tr>
@@ -157,12 +155,7 @@ async function getConsumptionDetails(foodID, userID) {
             <td></td>
             <td>${
               nutritionName.includes('protein')
-                ? Math.round(
-                    (nutritionValue[nutritionName.indexOf('protein')] / 100) *
-                      totalWeight *
-                      quantity *
-                      100
-                  ) / 100
+                ? Math.round(nutritionValue[1] * quantity)
                 : 0
             } g/克</td>
         </tr>
@@ -171,12 +164,7 @@ async function getConsumptionDetails(foodID, userID) {
             <td></td>
             <td>${
               nutritionName.includes('total_fat')
-                ? Math.round(
-                    (nutritionValue[nutritionName.indexOf('total_fat')] / 100) *
-                      totalWeight *
-                      quantity *
-                      100
-                  ) / 100
+                ? Math.round(nutritionValue[2] * quantity)
                 : 0
             } g/克</td>
         </tr>
@@ -185,13 +173,7 @@ async function getConsumptionDetails(foodID, userID) {
             <td></td>
             <td>${
               nutritionName.includes('saturated_fat')
-                ? Math.round(
-                    (nutritionValue[nutritionName.indexOf('saturated_fat')] /
-                      100) *
-                      totalWeight *
-                      quantity *
-                      100
-                  ) / 100
+                ? Math.round(nutritionValue[3] * quantity)
                 : 0
             } g/克</td>
         </tr>
@@ -200,12 +182,7 @@ async function getConsumptionDetails(foodID, userID) {
             <td></td>
             <td>${
               nutritionName.includes('trans_fat')
-                ? Math.round(
-                    (nutritionValue[nutritionName.indexOf('trans_fat')] / 100) *
-                      totalWeight *
-                      quantity *
-                      100
-                  ) / 100
+                ? Math.round(nutritionValue[4] * quantity)
                 : 0
             } g/克</td>
         </tr>
@@ -214,27 +191,16 @@ async function getConsumptionDetails(foodID, userID) {
             <td></td>
             <td>${
               nutritionName.includes('carbohydrates')
-                ? Math.round(
-                    (nutritionValue[nutritionName.indexOf('carbohydrates')] /
-                      100) *
-                      totalWeight *
-                      quantity *
-                      100
-                  ) / 100
+                ? Math.round(nutritionValue[5] * quantity)
                 : 0
             } g/克</td>
         </tr>
         <tr>
-            <td>Sugar/糖</td>
+            <td>Sugars/糖</td>
             <td></td>
             <td>${
               nutritionName.includes('sugars')
-                ? Math.round(
-                    (nutritionValue[nutritionName.indexOf('sugars')] / 100) *
-                      totalWeight *
-                      quantity *
-                      100
-                  ) / 100
+                ? Math.round(nutritionValue[6] * quantity)
                 : 0
             } g/克</td>
         </tr>
@@ -243,12 +209,7 @@ async function getConsumptionDetails(foodID, userID) {
             <td></td>
             <td>${
               nutritionName.includes('sodium')
-                ? Math.round(
-                    (nutritionValue[nutritionName.indexOf('sodium')] / 100) *
-                      totalWeight *
-                      quantity *
-                      100
-                  ) / 100
+                ? Math.round(nutritionValue[7] * quantity)
                 : 0
             } mg/毫克</td>
         </tr>
@@ -293,7 +254,7 @@ function loadAnimation() {
         },
         progress: {
           show: true,
-          roundCap: true,
+          roundCap: false,
           width: 18,
         },
         pointer: {
@@ -338,7 +299,7 @@ function loadAnimation() {
           lineHeight: 40,
           height: 40,
           borderRadius: 8,
-          offsetCenter: [0, '35%'],
+          offsetCenter: [0, '30%'],
           valueAnimation: true,
           formatter: function (value) {
             value = 2000 - value
@@ -388,6 +349,145 @@ function changeBarLength() {
   document.querySelector('#carbs-bar').style.width = `${carbsLength}%`
   document.querySelector('#sugars-bar').style.width = `${sugarsLength}%`
   document.querySelector('#protein-bar').style.width = `${proteinLength}%`
+}
+
+function getIntakeStandard() {
+  var chartDom = document.querySelector('#quota-display').children[0]
+  var myChart = echarts.init(chartDom)
+  var option
+
+  const gaugeData = [
+    {
+      value: Math.round(
+        ((intakeStandard['total_fat'] - quotaMap.get('total_fat')) /
+          intakeStandard['total_fat']) *
+          100
+      ),
+      name: 'Total fat',
+      title: {
+        offsetCenter: ['0%', '-52%'],
+      },
+      detail: {
+        valueAnimation: true,
+        offsetCenter: ['0%', '-40%'],
+      },
+    },
+    {
+      value: Math.round(
+        ((intakeStandard['saturated_fat'] - quotaMap.get('saturated_fat')) /
+          intakeStandard['saturated_fat']) *
+          100
+      ),
+      name: 'Saturated fat',
+      title: {
+        offsetCenter: ['0%', '-22%'],
+      },
+      detail: {
+        valueAnimation: true,
+        offsetCenter: ['0%', '-10%'],
+      },
+    },
+    {
+      value: Math.round(
+        ((intakeStandard['trans_fat'] - quotaMap.get('trans_fat')) /
+          intakeStandard['trans_fat']) *
+          100
+      ),
+      name: 'Trans fat',
+      title: {
+        offsetCenter: ['0%', '10%'],
+      },
+      detail: {
+        valueAnimation: true,
+        offsetCenter: ['0%', '22%'],
+      },
+    },
+    {
+      value: Math.round(
+        ((intakeStandard['sodium'] - quotaMap.get('sodium')) /
+          intakeStandard['sodium']) *
+          100
+      ),
+      name: 'Sodium',
+      title: {
+        offsetCenter: ['0%', '40%'],
+      },
+      detail: {
+        valueAnimation: true,
+        offsetCenter: ['0%', '52%'],
+      },
+    },
+  ]
+  option = {
+    series: [
+      {
+        type: 'gauge',
+        startAngle: 90,
+        endAngle: -270,
+        pointer: {
+          show: false,
+        },
+        progress: {
+          show: true,
+          overlap: false,
+          roundCap: true,
+          clip: false,
+          itemStyle: {
+            borderWidth: 1,
+            borderColor: '#464646',
+          },
+        },
+        axisLine: {
+          lineStyle: {
+            width: 40,
+          },
+        },
+        splitLine: {
+          show: false,
+          distance: 0,
+          length: 10,
+        },
+        axisTick: {
+          show: false,
+        },
+        axisLabel: {
+          show: false,
+          distance: 50,
+        },
+        data: gaugeData,
+        title: {
+          fontSize: 10,
+        },
+        detail: {
+          width: 30,
+          height: 8,
+          fontSize: 10,
+          color: 'auto',
+          borderColor: 'auto',
+          borderRadius: 20,
+          borderWidth: 1,
+          formatter: '{value}%',
+        },
+      },
+    ],
+  }
+  // setInterval(function () {
+  //   gaugeData[0].value = +(Math.random() * 100).toFixed(2)
+  //   gaugeData[1].value = +(Math.random() * 100).toFixed(2)
+  //   gaugeData[2].value = +(Math.random() * 100).toFixed(2)
+  //   myChart.setOption({
+  //     series: [
+  //       {
+  //         data: gaugeData,
+  //         pointer: {
+  //           show: false,
+  //         },
+  //       },
+  //     ],
+  //   })
+  // }, 2000)
+
+  myChart.setOption(option)
 }
 
 // test
