@@ -22,18 +22,12 @@ window.onload = async () => {
 async function setProteinStandard() {
   const bodyWeightResp = await fetch('/api/consumption/userbodyweight')
   const bodyWeight = (await bodyWeightResp.json()).weight
-  console.log(bodyWeight)
   intakeStandard['protein'] = bodyWeight
 }
 
 async function loadQuota() {
   const quotaResp = await fetch('/api/consumption/quota')
   const quota = (await quotaResp.json()).rows
-  console.log(quota)
-
-  // const bodyWeightResp = await fetch('/api/consumption/userbodyweight')
-  // const bodyWeight = (await bodyWeightResp.json()).weight
-  // console.log(bodyWeight)
 
   const sortedIntakeStandardKeys = Object.keys(intakeStandard).sort()
 
@@ -51,7 +45,6 @@ async function loadQuota() {
             quota[i].quantity[j],
             quota[i].total_weight[j]
           )
-          console.log(initialQuota)
         }
         quotaMap.set(sortedIntakeStandardKeys[i], initialQuota)
       } else {
@@ -62,9 +55,7 @@ async function loadQuota() {
             quota[i].quantity[j],
             quota[i].total_weight[j]
           )
-          console.log(proteinQuota)
           quotaMap.set(sortedIntakeStandardKeys[i], proteinQuota)
-          // console.log(quotaMap)
         }
       }
     }
@@ -75,9 +66,6 @@ async function loadQuota() {
     }
   }
 
-  console.log(quotaMap)
-  //   document.querySelector('#kcal-display').children[0].innerHTML =
-  //     quotaMap.get('energy')
   document.querySelector(
     '#carbs-display'
   ).children[2].innerHTML = `<p>${parseInt(
@@ -94,7 +82,6 @@ async function loadQuota() {
 async function loadProfile() {
   const resp = await fetch('/api/consumption/homePageRecord')
   const homePageRecord = (await resp.json()).rows
-  console.log(homePageRecord)
   let htmlStr = ``
   let modalStr = ``
   for (const eachRecord of homePageRecord) {
@@ -398,12 +385,38 @@ function changeBarLength() {
       intakeStandard['protein']) *
     100
 
-  console.log(intakeStandard['protein'])
-  console.log(quotaMap.get('protein'))
-
   document.querySelector('#carbs-bar').style.width = `${carbsLength}%`
   document.querySelector('#sugars-bar').style.width = `${sugarsLength}%`
   document.querySelector('#protein-bar').style.width = `${proteinLength}%`
 }
 
 // test
+
+async function getFoodData() {
+  const resp = await fetch('/api/food/info/name')
+  const foodList = await resp.json()
+
+  let htmlStr = ``
+  for (const food of foodList) {
+    htmlStr += /*html*/ `
+    <div class="food-row">
+      <div class="form-food-name">${food.food_name}</div>
+      <label id="quantity">
+          <select name="quantity">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>0.25</option>
+            <option>0.5</option>
+          </select>
+          pack
+      </label>
+      <label id="eaten">
+        <input type="checkbox" name="eaten">
+      </label>
+    </div>
+    `
+  }
+
+  document.querySelector('#eaten-food-form').innerHTML = htmlStr
+}

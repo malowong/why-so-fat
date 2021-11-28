@@ -110,3 +110,19 @@ table {
 #today-container {
   margin-bottom: 20%;
 }
+
+.food-list-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.food-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.form-food-name {
+  width: 5ch;
+}
