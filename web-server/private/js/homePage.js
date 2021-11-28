@@ -499,9 +499,9 @@ async function getFoodData() {
   let htmlStr = ``
   for (const food of foodList) {
     htmlStr += /*html*/ `
-    <div class="food-row">
+    <div class="food-row" id="food-id-${food.id}" data-id=${food.id}>
       <div class="form-food-name">${food.food_name}</div>
-      <label id="quantity">
+      <label class="quantity">
           <select name="quantity">
             <option>1</option>
             <option>2</option>
@@ -511,12 +511,49 @@ async function getFoodData() {
           </select>
           pack
       </label>
-      <label id="eaten">
+      <label class="eaten">
         <input type="checkbox" name="eaten">
       </label>
     </div>
     `
   }
 
-  document.querySelector('#eaten-food-form').innerHTML = htmlStr
+  const eatenFoodForm = document.querySelector('#eaten-food-form')
+
+  eatenFoodForm.innerHTML = htmlStr
+
+  eatenFoodForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const foodList = document.querySelectorAll('.food-row')
+
+    let formObj = {
+      foodList: [],
+    }
+
+    for (const food of foodList) {
+      if (food.querySelector('.eaten').querySelector('input').checked == true) {
+        formObj.foodList.push({
+          food_id: parseInt(food.dataset.id),
+          quantity: parseFloat(
+            food.querySelector('.quantity').querySelector('[name=quantity')
+              .value
+          ),
+        })
+      }
+    }
+
+    const resp = await fetch('/api/consumption/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formObj),
+    })
+
+    if (resp.status === 200) {
+      console.log('Success add consumption')
+      window.location = '/home-page.html'
+    }
+  })
 }

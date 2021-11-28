@@ -78,4 +78,9 @@ export class ConsumptionService {
     const result = await this.knex(tables.USER).where("id", userID).select("weight").first();
     return result;
   };
+
+  addConsumption = async (foodList: any[]) => {
+    await this.knex(tables.CONSUMPTION).insert(foodList);
+    return true;
+  };
 }
