@@ -97,12 +97,13 @@ async function loadQuota() {
 async function loadFoodProfile() {
   const resp = await fetch('/api/consumption/homePageRecord')
   const homePageRecord = (await resp.json()).rows
+  console.log(homePageRecord)
   let htmlStr = ``
   let modalStr = ``
   for (const eachRecord of homePageRecord) {
     htmlStr += /*html*/ `
         <div class="date-row">
-            <h3>${eachRecord.food_name}</h3>
+            <h3>${eachRecord.food_name} X ${eachRecord.sum}</h3>
             <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.food_id}" onclick="getConsumptionDetails(${eachRecord.food_id}, ${eachRecord.user_id})">
                 Details
             </button>

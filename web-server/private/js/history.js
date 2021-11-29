@@ -5,32 +5,32 @@ window.onload = async () => {
 }
 
 nameMap = new Map([
-  ['energy', "Energy"],
-  ['protein', "Protein"],
-  ['total_fat', "Total Fat"],
-  ['saturated_fat', "Saturated Fat"],
-  ['trans_fat', "Trans Fat"],
-  ['carbohydrates', "Carbohydrates"],
-  ['sugars', "Sugar"],
-  ['sodium', "Sodium"]
+  ['energy', 'Energy'],
+  ['protein', 'Protein'],
+  ['total_fat', 'Total Fat'],
+  ['saturated_fat', 'Saturated Fat'],
+  ['trans_fat', 'Trans Fat'],
+  ['carbohydrates', 'Carbohydrates'],
+  ['sugars', 'Sugar'],
+  ['sodium', 'Sodium'],
 ])
 
 const unitMap = new Map([
-  ['energy', "Kcal"],
-  ['protein', "g"],
-  ['total_fat', "g"],
-  ['saturated_fat', "g"],
-  ['trans_fat', "g"],
-  ['carbohydrates', "g"],
-  ['sugars', "g"],
-  ['sodium', "mg"]
-]);
+  ['energy', 'Kcal'],
+  ['protein', 'g'],
+  ['total_fat', 'g'],
+  ['saturated_fat', 'g'],
+  ['trans_fat', 'g'],
+  ['carbohydrates', 'g'],
+  ['sugars', 'g'],
+  ['sodium', 'mg'],
+])
 
-unitMap.set('energy', "Kcal");
+unitMap.set('energy', 'Kcal')
 
 async function loadHistory() {
   const resp = await fetch('/api/consumption/history')
-  const consumptions = await resp.json()
+  const consumptions = (await resp.json()).rows
 
   console.log(consumptions)
 

@@ -37,12 +37,12 @@ SELECT * FROM consumptions c
 
 
 -- 29/11
-SELECT c.quantity, c.food_id, c.created_at, food.food_name, nutrition_value.nutrition_value, nutrition.nutrition_name
+SELECT DISTINCT ON (c.food_id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name
 FROM consumptions c
 INNER JOIN food ON food.id = c.food_id
-RIGHT JOIN nutrition_value ON food.id = nutrition_value.food_id
-INNER JOIN nutrition ON nutrition_value.nutrition_id = nutrition.id
-WHERE c.user_id = 4;
+RIGHT JOIN nutrition_value v ON food.id = v.food_id
+INNER JOIN nutrition ON v.nutrition_id = nutrition.id
+WHERE c.user_id = 1;
 
 
 
