@@ -32,6 +32,7 @@ form.addEventListener('submit', async (e) => {
   if (resp.status === 200) {
     console.log('OK')
     form.reset()
+    localStorage.removeItem('result')
     window.location = '/home-page.html'
   } else {
     document.querySelector('#db-feedback-msg').innerHTML = `<h3>${
@@ -81,6 +82,23 @@ if (storage != null) {
 
 document.getElementById('blah').addEventListener('click', () => {
   document.getElementById('image').click();
+})
+
+document.getElementById('next-btn').addEventListener('click', () => {
+  const a = document.querySelector('#upload-form').food_name.reportValidity();
+  const b = document.querySelector('#upload-form').total_weight.reportValidity();
+  const c = document.querySelector('#upload-form').is_consumed.reportValidity();
+
+  if (a == true && b == true && c == true){
+    console.log("hi")
+    document.querySelector('.first-page').hidden = true;
+    document.querySelector('.second-page').hidden = false;
+  }
+})
+
+document.getElementById('back-btn').addEventListener('click', () => {
+  document.querySelector('.second-page').hidden = true;
+  document.querySelector('.first-page').hidden = false;
 })
 
 

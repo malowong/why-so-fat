@@ -71,7 +71,7 @@ h2 {
 }
 
 #third-row {
-  z-index: 1000;
+  z-index: 1;
   position: fixed;
   width: 100vw;
   top: 375px;
