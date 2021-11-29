@@ -87,6 +87,7 @@ async function loadProfile() {
   let htmlStr = ``
   let modalStr = ``
   for (const eachRecord of homePageRecord) {
+    console.log(eachRecord)
     htmlStr += /*html*/ `
         <div class="date-row"><h3>${eachRecord.food_name}</h3>
             <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.food_id}" onclick="getConsumptionDetails(${eachRecord.food_id}, ${eachRecord.user_id})">
