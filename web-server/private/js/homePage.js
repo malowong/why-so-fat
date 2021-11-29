@@ -101,6 +101,7 @@ async function loadFoodProfile() {
   let htmlStr = ``
   let modalStr = ``
   for (const eachRecord of homePageRecord) {
+    console.log(eachRecord)
     htmlStr += /*html*/ `
         <div class="date-row">
             <h3>${eachRecord.food_name} X ${eachRecord.sum}</h3>
