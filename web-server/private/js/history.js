@@ -36,12 +36,15 @@ async function loadHistory() {
 
   const consumptionMap = new Map()
   for (const consumption of consumptions) {
-    const consumptionDate = consumption['created_at'].slice(0, 10)
+    const consumptionDate = Date.parse(
+      new Date(consumption['created_at'])
+    ).toString('yyyy-MM-dd')
     const foodName = consumption.food_name
     const nutritionName = consumption.nutrition_name
     const nutritionValue = consumption.nutrition_value
     const quantity = consumption.quantity
     const totalWeight = consumption.total_weight
+    console.log(consumptionDate)
 
     if (consumptionMap.has(consumptionDate)) {
       if (

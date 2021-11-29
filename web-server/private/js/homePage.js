@@ -102,6 +102,7 @@ async function loadFoodProfile() {
   let htmlStr = ``
   let modalStr = ``
   for (const eachRecord of homePageRecord) {
+    console.log(eachRecord)
     htmlStr += /*html*/ `
         <div class="date-row">
             <h3>${eachRecord.food_name} x ${eachRecord.sum}</h3>
@@ -556,25 +557,6 @@ async function getFoodData() {
 
   eatenFoodForm.addEventListener('submit', async (e) => {
     e.preventDefault()
-
-    // const foodList = document.querySelectorAll('.food-row')
-    // console.log(foodList)
-    // let formObj = {
-    //   foodList: [],
-    // }
-    // console.log(formObj)
-
-    // for (const food of foodList) {
-    //   if (food.querySelector('.eaten').querySelector('input').checked == true) {
-    //     formObj.foodList.push({
-    //       food_id: parseInt(food.dataset.id),
-    //       quantity: parseFloat(
-    //         food.querySelector('.quantity').querySelector('[name=quantity')
-    //           .value
-    //       ),
-    //     })
-    //   }
-    // }
 
     const resp = await fetch('/api/consumption/add', {
       method: 'POST',
