@@ -4,8 +4,14 @@ import fetch from "node-fetch";
 export class FoodController {
   constructor(private foodService: FoodService) {}
 
-  foodListInfo = async (req: Request, res: Response) => {
-    const foodList = await this.foodService.getFoodInfo();
+  foodNameListInfo = async (req: Request, res: Response) => {
+    const foodList = await this.foodService.getFoodNameList();
+
+    res.status(200).json(foodList).end();
+  };
+
+  foodListInfoWithNutrition = async (req: Request, res: Response) => {
+    const foodList = await this.foodService.getFoodAndNutritionInfo();
 
     res.status(200).json(foodList).end();
   };

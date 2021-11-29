@@ -36,4 +36,19 @@ export class ConsumptionController {
     const bodyWeightData = await this.consumptionService.getBodyWeight(userID);
     res.status(200).json(bodyWeightData);
   };
+
+  add = async (req: Request, res: Response) => {
+    const foodInfo = req.body;
+    const userID = req.session["user"].id;
+    console.log(req.body);
+    // // const foodList = req.body.foodList;
+
+    // // for (const food of foodList) {
+    // //   food["user_id"] = userID;
+    // // }
+
+    await this.consumptionService.addConsumption(foodInfo, userID);
+
+    res.status(200).json({ message: "success add" }).end();
+  };
 }

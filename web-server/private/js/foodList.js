@@ -31,6 +31,10 @@ function genHtmlStr(uniqueFoodId, foodList) {
     }
 
     for (const foodItem of foodList) {
+      if (foodItem.food_photo == "undefined"){
+        foodItem.food_photo = "../crop/dummy-image-square.jpeg"
+      }
+
       if (foodItem.food_id == i) {
         htmlStr += /*html*/ `
                 <div class="card mb-3">
@@ -78,9 +82,9 @@ function genHtmlStr(uniqueFoodId, foodList) {
                                 <tr>
                                 <td></td>
                                 <td></td>
-                                    <td>Per <input type="text" value="100" size="1" name="convert" id="convert-${
+                                    <td>Per <input type="text" value="100" size="3" name="convert" id="convert-${
                                       foodItem.food_id
-                                    }">g</td>
+                                    }"> g</td>
                                 </tr>
 
                                 <tr>

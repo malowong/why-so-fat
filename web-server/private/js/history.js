@@ -4,9 +4,35 @@ window.onload = async () => {
   await loadHistory()
 }
 
+nameMap = new Map([
+  ['energy', 'Energy'],
+  ['protein', 'Protein'],
+  ['total_fat', 'Total Fat'],
+  ['saturated_fat', 'Saturated Fat'],
+  ['trans_fat', 'Trans Fat'],
+  ['carbohydrates', 'Carbohydrates'],
+  ['sugars', 'Sugar'],
+  ['sodium', 'Sodium'],
+])
+
+const unitMap = new Map([
+  ['energy', 'Kcal'],
+  ['protein', 'g'],
+  ['total_fat', 'g'],
+  ['saturated_fat', 'g'],
+  ['trans_fat', 'g'],
+  ['carbohydrates', 'g'],
+  ['sugars', 'g'],
+  ['sodium', 'mg'],
+])
+
+unitMap.set('energy', 'Kcal')
+
 async function loadHistory() {
   const resp = await fetch('/api/consumption/history')
-  const consumptions = await resp.json()
+  const consumptions = (await resp.json()).rows
+
+  console.log(consumptions)
 
   const consumptionMap = new Map()
   for (const consumption of consumptions) {
@@ -16,6 +42,7 @@ async function loadHistory() {
     const nutritionValue = consumption.nutrition_value
     const quantity = consumption.quantity
     const totalWeight = consumption.total_weight
+    console.log(consumptionDate)
 
     if (consumptionMap.has(consumptionDate)) {
       if (
@@ -49,8 +76,6 @@ async function loadHistory() {
 
   const mapKeys = Array.from(consumptionMap.keys()).reverse()
   const mapValues = Array.from(consumptionMap.values())
-  //   const consumptionArray = Array.from(consumptionMap)
-  //   console.log(consumptionArray)
 
   let htmlStr = ``
 
@@ -61,13 +86,13 @@ async function loadHistory() {
           </button></div>
 
           <div class="modal fade" id="exampleModal-${mapKey}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="top: 80px">
+    <div class="modal-dialog" style="top: 80px; overflow-y: initial !important;">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="exampleModalLabel">Details</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div id="d-${mapKey}" class="modal-body">
+        <div id="d-${mapKey}" class="modal-body" style="height: 61vh; overflow-y: auto;">
 
         </div>
         <div class="modal-footer">
@@ -90,10 +115,10 @@ async function loadHistory() {
                 <div class="food-info">
                     <h4>${mapValue.foodName}</h4>
                     <h6>Quantity: ${mapValue.quantity}</h6>
-                    <h6>Weight: ${mapValue.totalWeight}</h6>
+                    <h6>Weight: ${mapValue.totalWeight} g</h6>
                 </div>
         
-                <div class="ms-5"> 
+                <div> 
                     <button type="button" id="more-btn-${mapKeys[i]}-${y}" class="btn btn-info" onclick="showNutritionDetails('${mapKeys[i]}',${y})">
                         More
                     </button>
@@ -114,13 +139,14 @@ async function loadHistory() {
 
     for (const mapValue of mapValues[i]) {
       let moreStr = ``
+
       for (const nutrition of mapValue['nutrition']) {
         moreStr += /*html*/ `
-        <div>${Object.keys(nutrition)}: ${(
+        <div>${nameMap.get(Object.keys(nutrition).toString())}: ${(
           (Object.values(nutrition) / 100) *
           mapValue.totalWeight *
           mapValue.quantity
-        ).toFixed(1)}</div>
+        ).toFixed(1)} ${unitMap.get(Object.keys(nutrition).toString())}</div>
         `
       }
       document.querySelector(`[data-id='${mapKeys[i]}-${j}']`).innerHTML =
