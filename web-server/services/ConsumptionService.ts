@@ -17,12 +17,14 @@ export class ConsumptionService {
   };
 
   getHomePageRecord = async (userID: number) => {
-    const result = await this.knex.raw(/*SQL*/ `SELECT * FROM consumptions c
+    const result = await this.knex.raw(/*SQL*/ `
+    SELECT * FROM consumptions c
       INNER JOIN food f
       ON c.food_id = f.id
       WHERE c.user_id = ${userID}
       AND c.created_at >= current_date::timestamp
       AND c.created_at < current_date::timestamp + interval '1 day'`);
+
     return result;
   };
 
@@ -88,10 +90,12 @@ export class ConsumptionService {
     for (const i in foodIdArr) {
       if (foodInfo[foodIdArr[i]] == 0) {
       } else {
+        console.log("food_id: ", foodIdArr[i]);
+        console.log("quantity: ", foodInfo[foodIdArr[i]]);
         const foodList = {
           quantity: foodInfo[foodIdArr[i]],
           user_id: userID,
-          food_id: i,
+          food_id: parseInt(foodIdArr[i]),
         };
         await this.knex(tables.CONSUMPTION).insert(foodList);
       }
