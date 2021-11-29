@@ -42,6 +42,7 @@ async function loadHistory() {
     const nutritionValue = consumption.nutrition_value
     const quantity = consumption.quantity
     const totalWeight = consumption.total_weight
+    console.log(consumptionDate)
 
     console.log(consumption)
     if (consumptionMap.has(consumptionDate)) {
@@ -74,7 +75,7 @@ async function loadHistory() {
     }
   }
 
-  const mapKeys = Array.from(consumptionMap.keys()).reverse()
+  const mapKeys = Array.from(consumptionMap.keys())
   const mapValues = Array.from(consumptionMap.values())
 
   let htmlStr = ``

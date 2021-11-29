@@ -51,8 +51,8 @@ describe("FoodService + DB", () => {
       .into(tables.NUTRITION_VALUE);
   });
 
-  it("test getFoodInfo - Food Found", async () => {
-    const food = (await service.getFoodInfo()).rows;
+  it("test getFoodAndNutritionInfo - Food Found", async () => {
+    const food = (await service.getFoodAndNutritionInfo()).rows;
 
     expect(food).toBeDefined();
     expect(food[0].nutrition_name).toBe("Energy");
