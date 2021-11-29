@@ -11,6 +11,15 @@ export class ConsumptionController {
     res.status(200).json(consumptionHistory).end();
   };
 
+  // getFoodWithDate = async (req: Request, res: Response) => {
+  //   const userID = req.session["user"].id;
+  //   const consumptionDate = req.params.date;
+  //   console.log(consumptionDate);
+  //   const foodList = await this.consumptionService.getFoodWithDate(userID, consumptionDate);
+
+  //   res.status(200).json(foodList).end();
+  // };
+
   homePageRecord = async (req: Request, res: Response) => {
     const userID = req.session["user"].id;
     const result = await this.consumptionService.getHomePageRecord(userID);
