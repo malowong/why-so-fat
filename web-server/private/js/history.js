@@ -34,7 +34,6 @@ async function loadHistory() {
 
   const consumptionMap = new Map()
 
-  console.log(consumptions)
   for (const consumption of consumptions) {
     const consumptionDate = consumption['created_at'].slice(0, 10)
     const foodName = consumption.food_name
@@ -42,9 +41,7 @@ async function loadHistory() {
     const nutritionValue = consumption.nutrition_value
     const quantity = consumption.quantity
     const totalWeight = consumption.total_weight
-    console.log(consumptionDate)
 
-    console.log(consumption)
     if (consumptionMap.has(consumptionDate)) {
       if (
         consumptionMap
@@ -60,7 +57,7 @@ async function loadHistory() {
           foodName: foodName,
           nutrition: [{ [nutritionName]: nutritionValue }],
           totalWeight: totalWeight,
-          quantity: quantity,
+          // quantity: quantity,
         })
       }
     } else {
@@ -69,7 +66,7 @@ async function loadHistory() {
           foodName: foodName,
           nutrition: [{ [nutritionName]: nutritionValue }],
           totalWeight: totalWeight,
-          quantity: quantity,
+          // quantity: quantity,
         },
       ])
     }
@@ -111,11 +108,11 @@ async function loadHistory() {
     let modalStr = ``
 
     for (const mapValue of mapValues[i]) {
+      // <h6>Quantity: ${mapValue.quantity}</h6>
       modalStr += /*html*/ `
             <div class="food-row"> 
                 <div class="food-info">
                     <h4>${mapValue.foodName}</h4>
-                    <h6>Quantity: ${mapValue.quantity}</h6>
                     <h6>Weight: ${mapValue.totalWeight} g</h6>
                 </div>
         
@@ -141,13 +138,13 @@ async function loadHistory() {
     for (const mapValue of mapValues[i]) {
       let moreStr = ``
 
+      // mapValue.totalWeight *
+      // mapValue.quantity
       for (const nutrition of mapValue['nutrition']) {
         moreStr += /*html*/ `
-        <div>${nameMap.get(Object.keys(nutrition).toString())}: ${(
-          (Object.values(nutrition) / 100) *
-          mapValue.totalWeight *
-          mapValue.quantity
-        ).toFixed(1)} ${unitMap.get(Object.keys(nutrition).toString())}</div>
+        <div>${nameMap.get(Object.keys(nutrition).toString())}: ${Object.values(
+          nutrition
+        )} ${unitMap.get(Object.keys(nutrition).toString())}</div>
         `
       }
       document.querySelector(`[data-id='${mapKeys[i]}-${j}']`).innerHTML =
