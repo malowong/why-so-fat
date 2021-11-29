@@ -66,17 +66,19 @@ async function loadQuota() {
     }
   }
 
+  carbohydratesValue = parseInt(quotaMap.get('carbohydrates')) < 0 ? 0 : parseInt(quotaMap.get('carbohydrates'))
+  sugarsValue = parseInt(quotaMap.get('sugars')) < 0 ? 0 : parseInt(quotaMap.get('sugars'))
+  proteinValue = parseInt(quotaMap.get('protein')) < 0 ? 0 : parseInt(quotaMap.get('protein'))
+
   document.querySelector(
     '#carbs-display'
-  ).children[2].innerHTML = `<p>${parseInt(
-    quotaMap.get('carbohydrates')
-  )} g left</p>`
+  ).children[2].innerHTML = `<p>${carbohydratesValue} g left</p>`
   document.querySelector(
     '#sugars-display'
-  ).children[2].innerHTML = `<p>${parseInt(quotaMap.get('sugars'))} g left</p>`
+  ).children[2].innerHTML = `<p>${sugarsValue} g left</p>`
   document.querySelector(
     '#protein-display'
-  ).children[2].innerHTML = `<p>${parseInt(quotaMap.get('protein'))} g left</p>`
+  ).children[2].innerHTML = `<p>${proteinValue} g left</p>`
 }
 
 async function loadProfile() {
@@ -127,8 +129,13 @@ async function getConsumptionDetails(foodID, userID) {
   const totalWeight = details.total_weight[0]
   const quantity = details.quantity[0]
   const foodName = details.food_name[0]
-  const foodPhoto = details.food_photo[0]
+  let foodPhoto = details.food_photo[0]
   const totalGrams = totalWeight * quantity
+  
+  if (foodPhoto == "undefined") {
+    foodPhoto = "../crop/dummy-image-square.jpeg"
+  }
+
 
   console.log(Math.round(nutritionValue[0] * quantity))
   console.log(quantity * totalWeight)
@@ -302,7 +309,7 @@ function loadAnimation() {
           offsetCenter: [0, '30%'],
           valueAnimation: true,
           formatter: function (value) {
-            value = 2000 - value
+            value = (2000 - value) < 0 ? 0 : value
             return '{value|' + value.toFixed(0) + '}{unit|kcal left}'
           },
           rich: {

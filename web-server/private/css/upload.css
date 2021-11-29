@@ -10,11 +10,19 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-#upload-btn {
-  margin-left: auto;
-  margin-right: 0;
-  display: block
+#upload-btn, #next-btn {
+  position: absolute;
+  bottom: 13vh;
+  right: 12px;
 }
+
+#back-btn {
+  position: absolute;
+  bottom: 13vh;
+  left: 12px;
+}
+
+
 /* 
 input[type="number"],input[type="text"] {
   width: 20%;
