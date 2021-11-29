@@ -16,11 +16,12 @@ const storage = multer.diskStorage({
     cb(null, `${file.fieldname}-${Date.now()}.${file.mimetype.split("/")[1]}`);
   },
 });
-const upload = multer({ storage, limits: { fileSize: 30000000 } });
+const upload = multer({ storage, limits: { fileSize: 30000000, 
+  fieldSize: 30000000 } });
 
 const ocrStorage = multer.memoryStorage();
 const ocrUpload = multer({ storage: ocrStorage, limits: { fileSize: 30000000 }});
-
+ 
 export const foodRoutes = express.Router();
 
 foodRoutes.get("/info", AsyncWrapper(foodController.foodListInfoWithNutrition));

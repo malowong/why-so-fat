@@ -31,13 +31,14 @@ unitMap.set('energy', 'Kcal')
 async function loadHistory() {
   const resp = await fetch('/api/consumption/history')
   const consumptions = (await resp.json()).rows
-
+  console.log(consumptions)
   const consumptionMap = new Map()
 
   for (const consumption of consumptions) {
     const consumptionDate = Date.parse(
       new Date(consumption['created_at'])
     ).toString('yyyy-MM-dd')
+    console.log(consumptionDate)
     const foodName = consumption.food_name
     const nutritionName = consumption.nutrition_name
     const nutritionValue = consumption.nutrition_value
@@ -73,12 +74,16 @@ async function loadHistory() {
       ])
     }
   }
-
-  const mapKeys = Array.from(consumptionMap.keys()).sort(
-    (a, b) => new Date(b) - new Date(a)
+  console.log(consumptionMap)
+  const sortConsumptionMap = new Map(
+    [...consumptionMap.entries()].sort().reverse()
   )
+
+  console.log(sortConsumptionMap)
+  const mapKeys = Array.from(sortConsumptionMap.keys())
+
   console.log(mapKeys)
-  const mapValues = Array.from(consumptionMap.values())
+  const mapValues = Array.from(sortConsumptionMap.values())
 
   let htmlStr = ``
 
@@ -107,12 +112,13 @@ async function loadHistory() {
   }
 
   historyContainer.innerHTML = htmlStr
-
+  console.log(mapValues.length)
   for (let i = 0; i < mapValues.length; i++) {
     let y = 0
     let modalStr = ``
 
     for (const mapValue of mapValues[i]) {
+      console.log(mapValue)
       // <h6>Quantity: ${mapValue.quantity}</h6>
       modalStr += /*html*/ `
             <div class="food-row"> 
