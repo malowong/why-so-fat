@@ -102,6 +102,10 @@ h2 {
   justify-content: space-between;
 }
 
+#name-container {
+  flex: 1;
+}
+
 .more {
   display: none;
 }
@@ -130,6 +134,17 @@ table {
 
 #today-container {
   margin-bottom: 20%;
+}
+
+.progress-bar {
+  position: relative;
+}
+
+span {
+  position: absolute;
+  left: 25px;
+  text-align: center;
+  color: black;
 }
 
 .food-list-title {

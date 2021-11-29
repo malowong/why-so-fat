@@ -79,8 +79,23 @@ export class ConsumptionService {
     return result;
   };
 
-  addConsumption = async (foodList: any[]) => {
-    await this.knex(tables.CONSUMPTION).insert(foodList);
+  addConsumption = async (foodInfo: Object, userID: number) => {
+    console.log(Object.keys(foodInfo));
+    const foodIdArr = Object.keys(foodInfo);
+    // for (const i in foodIdArr) {
+    //   console.log(foodIdArr[i]);
+    // }
+    for (const i in foodIdArr) {
+      if (foodInfo[foodIdArr[i]] == 0) {
+      } else {
+        const foodList = {
+          quantity: foodInfo[foodIdArr[i]],
+          user_id: userID,
+          food_id: i,
+        };
+        await this.knex(tables.CONSUMPTION).insert(foodList);
+      }
+    }
     return true;
   };
 }

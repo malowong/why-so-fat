@@ -14,7 +14,7 @@ const intakeStandard = {
 window.onload = async () => {
   await setProteinStandard()
   await loadQuota()
-  await loadProfile()
+  await loadFoodProfile()
   loadAnimation()
   changeBarLength()
 }
@@ -66,22 +66,35 @@ async function loadQuota() {
     }
   }
 
-  carbohydratesValue = parseInt(quotaMap.get('carbohydrates')) < 0 ? 0 : parseInt(quotaMap.get('carbohydrates'))
-  sugarsValue = parseInt(quotaMap.get('sugars')) < 0 ? 0 : parseInt(quotaMap.get('sugars'))
-  proteinValue = parseInt(quotaMap.get('protein')) < 0 ? 0 : parseInt(quotaMap.get('protein'))
+  console.log(quotaMap)
 
+  carbohydratesValue =
+    parseInt(quotaMap.get('carbohydrates')) < 0
+      ? 0
+      : parseInt(quotaMap.get('carbohydrates'))
+  sugarsValue =
+    parseInt(quotaMap.get('sugars')) < 0 ? 0 : parseInt(quotaMap.get('sugars'))
+  proteinValue =
+    parseInt(quotaMap.get('protein')) < 0
+      ? 0
+      : parseInt(quotaMap.get('protein'))
+
+  const carbsInfo = document.querySelector('#carbs-display')
+  const sugarsInfo = document.querySelector('#sugars-display')
+  const proteinInfo = document.querySelector('#protein-display')
+
+  // document.querySelector('')children[2].innerHTML = `${Math.round(carbsLength)}%`
+  // carbsInfo.children[2].innerHTML = `<p>${parseInt(
   document.querySelector(
     '#carbs-display'
   ).children[2].innerHTML = `<p>${carbohydratesValue} g left</p>`
-  document.querySelector(
-    '#sugars-display'
-  ).children[2].innerHTML = `<p>${sugarsValue} g left</p>`
-  document.querySelector(
-    '#protein-display'
-  ).children[2].innerHTML = `<p>${proteinValue} g left</p>`
+  // sugarsInfo.children[1].innerHTML = `${Math.round(sugarsLength)}%`
+  sugarsInfo.children[2].innerHTML = `<p>${sugarsValue} g left</p>`
+  // proteinInfo.children[1].innerHTML = `${Math.round(proteinLength)}%`
+  proteinInfo.children[2].innerHTML = `<p>${proteinValue} g left</p>`
 }
 
-async function loadProfile() {
+async function loadFoodProfile() {
   const resp = await fetch('/api/consumption/homePageRecord')
   const homePageRecord = (await resp.json()).rows
   let htmlStr = ``
@@ -89,10 +102,12 @@ async function loadProfile() {
   for (const eachRecord of homePageRecord) {
     console.log(eachRecord)
     htmlStr += /*html*/ `
-        <div class="date-row"><h3>${eachRecord.food_name}</h3>
+        <div class="date-row">
+            <h3>${eachRecord.food_name}</h3>
             <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.food_id}" onclick="getConsumptionDetails(${eachRecord.food_id}, ${eachRecord.user_id})">
                 Details
-            </button></div>
+            </button>
+        </div>
     `
     modalStr += /* html */ `
         <!-- Modal -->
@@ -132,11 +147,10 @@ async function getConsumptionDetails(foodID, userID) {
   const foodName = details.food_name[0]
   let foodPhoto = details.food_photo[0]
   const totalGrams = totalWeight * quantity
-  
-  if (foodPhoto == "undefined") {
-    foodPhoto = "../crop/dummy-image-square.jpeg"
-  }
 
+  if (foodPhoto == 'undefined') {
+    foodPhoto = '../crop/dummy-image-square.jpeg'
+  }
 
   console.log(Math.round(nutritionValue[0] * quantity))
   console.log(quantity * totalWeight)
@@ -310,7 +324,7 @@ function loadAnimation() {
           offsetCenter: [0, '30%'],
           valueAnimation: true,
           formatter: function (value) {
-            value = (2000 - value) < 0 ? 0 : value
+            value = 2000 - value < 0 ? 0 : value
             return '{value|' + value.toFixed(0) + '}{unit|kcal left}'
           },
           rich: {
@@ -339,27 +353,36 @@ function loadAnimation() {
 }
 
 function changeBarLength() {
-  carbsLength =
+  const carbsLength =
     ((intakeStandard['carbohydrates'] - quotaMap.get('carbohydrates')) /
       intakeStandard['carbohydrates']) *
     100
 
-  sugarsLength =
+  const sugarsLength =
     ((intakeStandard['sugars'] - quotaMap.get('sugars')) /
       intakeStandard['sugars']) *
     100
 
-  proteinLength =
+  const proteinLength =
     ((intakeStandard['protein'] - quotaMap.get('protein')) /
       intakeStandard['protein']) *
     100
 
   document.querySelector('#carbs-bar').style.width = `${carbsLength}%`
+  document.querySelector('#carbs-display').children[1] += `<span>${Math.round(
+    carbsLength
+  )}%</span>`
   document.querySelector('#sugars-bar').style.width = `${sugarsLength}%`
+  document.querySelector('#sugars-display').children[1] += `<span>${Math.round(
+    sugarsLength
+  )}%</span>`
   document.querySelector('#protein-bar').style.width = `${proteinLength}%`
+  document.querySelector(
+    '#protein-display'
+  ).children[1].innerHTML += `<span>${Math.round(proteinLength)}%</span>`
 }
 
-function getIntakeStandard() {
+function getOtherIntake() {
   var chartDom = document.querySelector('#quota-display').children[0]
   var myChart = echarts.init(chartDom)
   var option
@@ -500,6 +523,8 @@ function getIntakeStandard() {
 
 // test
 
+let homePageFoodListMap = new Map()
+
 async function getFoodData() {
   const resp = await fetch('/api/food/info/name')
   const foodList = await resp.json()
@@ -507,10 +532,11 @@ async function getFoodData() {
   let htmlStr = ``
   for (const food of foodList) {
     htmlStr += /*html*/ `
-    <div class="food-row" id="food-id-${food.id}" data-id=${food.id}>
+    <div class="food-row" id="food-id-${food.id}" >
       <div class="form-food-name">${food.food_name}</div>
       <label class="quantity">
-          <select name="quantity">
+          <select name="quantity" data-id=${food.id}>
+            <option>0</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -519,9 +545,6 @@ async function getFoodData() {
           </select>
           pack
       </label>
-      <label class="eaten">
-        <input type="checkbox" name="eaten">
-      </label>
     </div>
     `
   }
@@ -529,34 +552,44 @@ async function getFoodData() {
   const eatenFoodForm = document.querySelector('#eaten-food-form')
 
   eatenFoodForm.innerHTML = htmlStr
+  document.querySelectorAll('select').forEach((selectElement) => {
+    selectElement.addEventListener('input', (e) => {
+      console.log(e.target.dataset.id)
+      console.log(e.target.value)
+      homePageFoodListMap.set(e.target.dataset.id, e.target.value)
+      console.log(homePageFoodListMap)
+      console.log(JSON.stringify(Object.fromEntries(homePageFoodListMap)))
+    })
+  })
 
   eatenFoodForm.addEventListener('submit', async (e) => {
     e.preventDefault()
 
-    const foodList = document.querySelectorAll('.food-row')
+    // const foodList = document.querySelectorAll('.food-row')
+    // console.log(foodList)
+    // let formObj = {
+    //   foodList: [],
+    // }
+    // console.log(formObj)
 
-    let formObj = {
-      foodList: [],
-    }
-
-    for (const food of foodList) {
-      if (food.querySelector('.eaten').querySelector('input').checked == true) {
-        formObj.foodList.push({
-          food_id: parseInt(food.dataset.id),
-          quantity: parseFloat(
-            food.querySelector('.quantity').querySelector('[name=quantity')
-              .value
-          ),
-        })
-      }
-    }
+    // for (const food of foodList) {
+    //   if (food.querySelector('.eaten').querySelector('input').checked == true) {
+    //     formObj.foodList.push({
+    //       food_id: parseInt(food.dataset.id),
+    //       quantity: parseFloat(
+    //         food.querySelector('.quantity').querySelector('[name=quantity')
+    //           .value
+    //       ),
+    //     })
+    //   }
+    // }
 
     const resp = await fetch('/api/consumption/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formObj),
+      body: JSON.stringify(Object.fromEntries(homePageFoodListMap)),
     })
 
     if (resp.status === 200) {
