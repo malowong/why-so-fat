@@ -136,13 +136,17 @@ table {
   margin-bottom: 20%;
 }
 
+.progress {
+  position: relative;
+}
+
 .progress-bar {
   position: relative;
 }
 
 span {
   position: absolute;
-  left: 25px;
+  left: 50%;
   text-align: center;
   color: black;
 }

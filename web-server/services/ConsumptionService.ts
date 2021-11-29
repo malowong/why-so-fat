@@ -5,34 +5,37 @@ export class ConsumptionService {
   constructor(private knex: Knex) {}
 
   getConsumptionHistory = async (userID: number) => {
-    const result = this.knex(tables.CONSUMPTION)
-      .innerJoin(tables.FOOD, "food.id", "consumptions.food_id")
-      .innerJoin(tables.NUTRITION_VALUE, "food.id", "nutrition_value.food_id")
-      .innerJoin(tables.NUTRITION, "nutrition_value.nutrition_id", "nutrition.id")
-      .select("consumptions.*, food.food_name, food.food_photo, food.total_weight")
-      // .orderBy("created_at", "desc")
-      .where("user_id", userID);
-
-    // const result = await this.knex.raw(/*sql*/ `SELECT c.*, f.food_name, f.food_photo, f.total_weight, nv.*, n.* FROM consumptions c
-    //   INNER JOIN food f
-    //   ON c.food_id = f.id
-    //   INNER JOIN nutrition_value nv
-    //   ON f.id = nv.food_id
-    //   INNER JOIN nutrition n
-    //   ON nv.nutrition_id = n.id
-    //   WHERE c.user_id = ${userID}
-    // `)
+    const result = this.knex
+      .raw(/*SQL*/ `SELECT DISTINCT ON (c.food_id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name
+    FROM consumptions c
+    INNER JOIN food ON food.id = c.food_id
+    RIGHT JOIN nutrition_value v ON food.id = v.food_id
+    INNER JOIN nutrition ON v.nutrition_id = nutrition.id
+    WHERE c.user_id = ${userID};`);
 
     return result;
   };
 
   getHomePageRecord = async (userID: number) => {
-    const result = await this.knex.raw(/*SQL*/ `SELECT * FROM consumptions c
+    const result = await this.knex.raw(/*SQL*/ `
+    WITH total_qty AS (SELECT f.id, sum(c.quantity) 
+      FROM consumptions c
       INNER JOIN food f
       ON c.food_id = f.id
       WHERE c.user_id = ${userID}
       AND c.created_at >= current_date::timestamp
-      AND c.created_at < current_date::timestamp + interval '1 day'`);
+      AND c.created_at < current_date::timestamp + interval '1 day'
+      GROUP BY f.id)
+    SELECT DISTINCT ON (f.id) f.id, f.food_name, t.sum, c.user_id
+ FROM consumptions c
+      INNER JOIN food f
+      ON c.food_id = f.id
+      INNER JOIN total_qty t
+      ON t.id = c.food_id
+      WHERE c.user_id = ${userID}
+      AND c.created_at >= current_date::timestamp
+      AND c.created_at < current_date::timestamp + interval '1 day';
+      `);
     return result;
   };
 
@@ -98,10 +101,12 @@ export class ConsumptionService {
     for (const i in foodIdArr) {
       if (foodInfo[foodIdArr[i]] == 0) {
       } else {
+        console.log("food_id: ", foodIdArr[i]);
+        console.log("quantity: ", foodInfo[foodIdArr[i]]);
         const foodList = {
           quantity: foodInfo[foodIdArr[i]],
           user_id: userID,
-          food_id: i,
+          food_id: Number(foodIdArr[i]),
         };
         await this.knex(tables.CONSUMPTION).insert(foodList);
       }
