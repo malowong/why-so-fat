@@ -1,4 +1,5 @@
 let quotaMap = new Map()
+let homePageFoodListMap = new Map()
 
 const intakeStandard = {
   energy: 2000,
@@ -103,8 +104,8 @@ async function loadFoodProfile() {
   for (const eachRecord of homePageRecord) {
     htmlStr += /*html*/ `
         <div class="date-row">
-            <h3>${eachRecord.food_name} X ${eachRecord.sum}</h3>
-            <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.food_id}" onclick="getConsumptionDetails(${eachRecord.food_id}, ${eachRecord.user_id})">
+            <h3>${eachRecord.food_name} x ${eachRecord.sum}</h3>
+            <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.id}" onclick="getConsumptionDetails(${eachRecord.id}, ${eachRecord.user_id})">
                 Details
             </button>
         </div>
@@ -113,14 +114,14 @@ async function loadFoodProfile() {
         <!-- Modal -->
         <div
             class="modal fade"
-            id="target-${eachRecord.food_id}"
+            id="target-${eachRecord.id}"
             tabindex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
         >
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-body" id="nutrition-table-${eachRecord.food_id}"></div>
+                    <div class="modal-body" id="nutrition-table-${eachRecord.id}"></div>
                 </div>
             </div>
         </div>
@@ -324,7 +325,7 @@ function loadAnimation() {
           offsetCenter: [0, '30%'],
           valueAnimation: true,
           formatter: function (value) {
-            value = 2000 - value < 0 ? 0 : value
+            value = 2000 - value < 0 ? 0 : 2000 - value
             return '{value|' + value.toFixed(0) + '}{unit|kcal left}'
           },
           rich: {
@@ -516,8 +517,6 @@ function getOtherIntake() {
 
 // test
 
-let homePageFoodListMap = new Map()
-
 async function getFoodData() {
   const resp = await fetch('/api/food/info/name')
   const foodList = await resp.json()
@@ -527,15 +526,15 @@ async function getFoodData() {
     htmlStr += /*html*/ `
     <div class="food-row" id="food-id-${food.id}" >
       <div class="form-food-name">${food.food_name}</div>
+      <select name="quantity" data-id=${food.id}>
+      <option>0</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>0.25</option>
+      <option>0.5</option>
+      </select>
       <label class="quantity">
-          <select name="quantity" data-id=${food.id}>
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>0.25</option>
-            <option>0.5</option>
-          </select>
           pack
       </label>
     </div>

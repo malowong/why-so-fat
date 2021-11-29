@@ -73,7 +73,10 @@ async function loadHistory() {
     }
   }
 
-  const mapKeys = Array.from(consumptionMap.keys()).reverse()
+  const mapKeys = Array.from(consumptionMap.keys()).sort(
+    (a, b) => new Date(b) - new Date(a)
+  )
+  console.log(mapKeys)
   const mapValues = Array.from(consumptionMap.values())
 
   let htmlStr = ``
