@@ -37,12 +37,21 @@ SELECT * FROM consumptions c
 
 
 -- 29/11
-SELECT DISTINCT ON (c.food_id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name
+SELECT DISTINCT ON (c.food_id, v.nutrition_value, c.quantity) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name
 FROM consumptions c
 INNER JOIN food ON food.id = c.food_id
 RIGHT JOIN nutrition_value v ON food.id = v.food_id
 INNER JOIN nutrition ON v.nutrition_id = nutrition.id
-WHERE c.user_id = 1;
+WHERE c.user_id = 4;
+
+SELECT c.food_id, v.nutrition_value, c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name
+FROM consumptions c
+INNER JOIN food ON food.id = c.food_id
+RIGHT JOIN nutrition_value v ON food.id = v.food_id
+INNER JOIN nutrition ON v.nutrition_id = nutrition.id
+WHERE c.user_id = 4;
+
+----
 
 SELECT * 
 FROM consumptions c
@@ -50,6 +59,15 @@ INNER JOIN food f ON c.food_id = f.id
 WHERE c.user_id = 4
 AND c.created_at >= current_date::timestamp
 AND c.created_at < current_date::timestamp + interval '1 day';
+
+
+-- api/consumption/history
+-- SELECT DISTINCT ON (c.food_id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name, food.total_weight
+--     FROM consumptions c
+--     INNER JOIN food ON food.id = c.food_id
+--     RIGHT JOIN nutrition_value v ON food.id = v.food_id
+--     INNER JOIN nutrition ON v.nutrition_id = nutrition.id
+--     WHERE c.user_id = 4;
 
 
 SELECT 

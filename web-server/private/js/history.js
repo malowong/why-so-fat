@@ -32,9 +32,9 @@ async function loadHistory() {
   const resp = await fetch('/api/consumption/history')
   const consumptions = (await resp.json()).rows
 
-  console.log(consumptions)
-
   const consumptionMap = new Map()
+
+  console.log(consumptions)
   for (const consumption of consumptions) {
     const consumptionDate = Date.parse(
       new Date(consumption['created_at'])
@@ -46,6 +46,7 @@ async function loadHistory() {
     const totalWeight = consumption.total_weight
     console.log(consumptionDate)
 
+    console.log(consumption)
     if (consumptionMap.has(consumptionDate)) {
       if (
         consumptionMap
@@ -173,3 +174,11 @@ function showNutritionDetails(mapKey, i) {
     moreText.style.display = 'inline'
   }
 }
+
+// async function getFoodWithDate(dateStr) {
+//   const resp = await fetch(`api/consumption/${dateStr}`)
+//   const foodList = (await resp.json()).rows
+
+//   console.log(dateStr)
+//   console.log(foodList)
+// }

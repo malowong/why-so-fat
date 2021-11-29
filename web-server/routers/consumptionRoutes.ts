@@ -15,3 +15,4 @@ consumptionRoutes.get("/consumptiondetails/:foodID/:userID", AsyncWrapper(consum
 consumptionRoutes.get("/quota", AsyncWrapper(consumptionController.quota));
 consumptionRoutes.get("/userbodyweight", AsyncWrapper(consumptionController.userBodyWeight));
 consumptionRoutes.post("/add", AsyncWrapper(consumptionController.add));
+// consumptionRoutes.get("/:date", AsyncWrapper(consumptionController.getFoodWithDate));
