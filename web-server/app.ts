@@ -28,6 +28,7 @@ export const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 app.use((req, res, next) => {
   const cur = new Date().toISOString();
   logger.info(`${cur} req path: ${req.path} method: ${req.method}`);
+  res.setHeader('app-version','1.2.3')
   next();
 });
 
