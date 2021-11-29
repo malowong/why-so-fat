@@ -18,7 +18,7 @@ order by v.food_id ASC
 SELECT * FROM users;
 SELECT * FROM food;
 SELECT * FROM consumptions;
-SELECT * FROM nutrition_value WHERE food_id = 30;
+SELECT * FROM nutrition_value;
 SELECT * FROM nutrition;
 
 SELECT nutrition_value.nutrition_value
@@ -34,6 +34,15 @@ SELECT * FROM consumptions c
     WHERE c.user_id = ${userID}
     AND c.created_at >= current_date::timestamp
     AND c.created_at < current_date::timestamp + interval '1 day'
+
+
+-- 29/11
+SELECT c.quantity, c.food_id, c.created_at, food.food_name, nutrition_value.nutrition_value, nutrition.nutrition_name
+FROM consumptions c
+INNER JOIN food ON food.id = c.food_id
+RIGHT JOIN nutrition_value ON food.id = nutrition_value.food_id
+INNER JOIN nutrition ON nutrition_value.nutrition_id = nutrition.id
+WHERE c.user_id = 4;
 
 
 
@@ -62,3 +71,5 @@ SELECT
 
 
 insert into food (food_name, food_photo, total_weight, created_at) values ('薯片3', 'test.jpg', 100,current_date::timestamp - interval '1 day');
+
+delete from consumptions where created_at >= current_date::timestamp AND created_at < current_date::timestamp + interval '1 day';

@@ -136,8 +136,29 @@ table {
   margin-bottom: 20%;
 }
 
-/* .progress-bar {
-  justify-content: center;
-  align-items: center;
+.progress-bar {
+  position: relative;
+}
+
+span {
+  position: absolute;
+  left: 25px;
+  text-align: center;
   color: black;
-} */
+}
+
+.food-list-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.food-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.form-food-name {
+  width: 5ch;
+}

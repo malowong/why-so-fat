@@ -75,7 +75,6 @@
           <div id="protein-display">
             <h4>Protein</h4>
             <div class="progress">
-              20%
               <div
                 class="progress-bar progress-bar-striped bg-danger"
                 role="progressbar"
@@ -103,7 +102,20 @@
       </div>
       <div id="separator"></div>
       <div id="profile-container">
-        <h2>Food List</h2>
+        <div class="food-list-title">
+          <h2 class="me-2">Food List</h2>
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal-addFood"
+            onclick="getFoodData()"
+          >
+            +
+          </button>
+        </div>
+
         <div id="today-container"></div>
       </div>
     </main>
@@ -187,4 +199,44 @@
     ></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </body>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal-addFood"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel-addFood"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel-addFood">
+            What 7 you eat?
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form id="eaten-food-form"></form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary" form="eaten-food-form">
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </html>

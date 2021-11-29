@@ -6,7 +6,13 @@ import { tables } from "../utils/freezedObj";
 export class FoodService {
   constructor(private knex: Knex) {}
 
-  getFoodInfo = async () => {
+  getFoodNameList = async () => {
+    const result = await this.knex(tables.FOOD).select("*");
+
+    return result;
+  };
+
+  getFoodAndNutritionInfo = async () => {
     const result = await this.knex.raw(
       /*SQL*/ `select  v.food_id, f.food_name, f.food_photo, f.total_weight , n.*, v.nutrition_value from nutrition_value v left join nutrition n on n.id = v.nutrition_id left join food f on f.id = v.food_id order by v.food_id ASC`
     );
