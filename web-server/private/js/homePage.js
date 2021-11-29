@@ -14,7 +14,7 @@ const intakeStandard = {
 window.onload = async () => {
   await setProteinStandard()
   await loadQuota()
-  await loadProfile()
+  await loadFoodProfile()
   loadAnimation()
   changeBarLength()
 }
@@ -76,22 +76,26 @@ async function loadQuota() {
   }
 
   console.log(quotaMap)
-  //   document.querySelector('#kcal-display').children[0].innerHTML =
-  //     quotaMap.get('energy')
-  document.querySelector(
-    '#carbs-display'
-  ).children[2].innerHTML = `<p>${parseInt(
+
+  const carbsInfo = document.querySelector('#carbs-display')
+  const sugarsInfo = document.querySelector('#sugars-display')
+  const proteinInfo = document.querySelector('#protein-display')
+
+  // document.querySelector('')children[2].innerHTML = `${Math.round(carbsLength)}%`
+  carbsInfo.children[2].innerHTML = `<p>${parseInt(
     quotaMap.get('carbohydrates')
   )} g left</p>`
-  document.querySelector(
-    '#sugars-display'
-  ).children[2].innerHTML = `<p>${parseInt(quotaMap.get('sugars'))} g left</p>`
-  document.querySelector(
-    '#protein-display'
-  ).children[2].innerHTML = `<p>${parseInt(quotaMap.get('protein'))} g left</p>`
+  // sugarsInfo.children[1].innerHTML = `${Math.round(sugarsLength)}%`
+  sugarsInfo.children[2].innerHTML = `<p>${parseInt(
+    quotaMap.get('sugars')
+  )} g left</p>`
+  // proteinInfo.children[1].innerHTML = `${Math.round(proteinLength)}%`
+  proteinInfo.children[2].innerHTML = `<p>${parseInt(
+    quotaMap.get('protein')
+  )} g left</p>`
 }
 
-async function loadProfile() {
+async function loadFoodProfile() {
   const resp = await fetch('/api/consumption/homePageRecord')
   const homePageRecord = (await resp.json()).rows
   console.log(homePageRecord)
@@ -99,10 +103,12 @@ async function loadProfile() {
   let modalStr = ``
   for (const eachRecord of homePageRecord) {
     htmlStr += /*html*/ `
-        <div class="date-row"><h3>${eachRecord.food_name}</h3>
+        <div class="date-row">
+            <h3>${eachRecord.food_name}</h3>
             <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.food_id}" onclick="getConsumptionDetails(${eachRecord.food_id}, ${eachRecord.user_id})">
                 Details
-            </button></div>
+            </button>
+        </div>
     `
     modalStr += /* html */ `
         <!-- Modal -->
@@ -344,17 +350,17 @@ function loadAnimation() {
 }
 
 function changeBarLength() {
-  carbsLength =
+  const carbsLength =
     ((intakeStandard['carbohydrates'] - quotaMap.get('carbohydrates')) /
       intakeStandard['carbohydrates']) *
     100
 
-  sugarsLength =
+  const sugarsLength =
     ((intakeStandard['sugars'] - quotaMap.get('sugars')) /
       intakeStandard['sugars']) *
     100
 
-  proteinLength =
+  const proteinLength =
     ((intakeStandard['protein'] - quotaMap.get('protein')) /
       intakeStandard['protein']) *
     100
@@ -363,11 +369,20 @@ function changeBarLength() {
   console.log(quotaMap.get('protein'))
 
   document.querySelector('#carbs-bar').style.width = `${carbsLength}%`
+  document.querySelector('#carbs-bar').innerHTML = `<span>${Math.round(
+    carbsLength
+  )}%</span>`
   document.querySelector('#sugars-bar').style.width = `${sugarsLength}%`
+  document.querySelector('#sugars-bar').innerHTML = `${Math.round(
+    sugarsLength
+  )}%`
   document.querySelector('#protein-bar').style.width = `${proteinLength}%`
+  document.querySelector('#protein-bar').innerHTML = `<span>${Math.round(
+    proteinLength
+  )}%</span>`
 }
 
-function getIntakeStandard() {
+function getOtherIntake() {
   var chartDom = document.querySelector('#quota-display').children[0]
   var myChart = echarts.init(chartDom)
   var option

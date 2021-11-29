@@ -26,112 +26,212 @@
       <form id="upload-form">
         <div class="form-group mb-3">
           <label for="food_name">Food Name</label>
-          <input type="text" class="form-control" id="food_name" name="food_name" required />
+          <input
+            type="text"
+            class="form-control"
+            id="food_name"
+            name="food_name"
+            required
+          />
         </div>
 
         <div class="mb-3">
           <label for="image">Food Photo</label>
-          <input type="file" accept="image/*;capture=camera" name="image" id="image" style="display: none;" 
-          onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" required/>
+          <input
+            type="file"
+            accept="image/*;capture=camera"
+            name="image"
+            id="image"
+            style="display: none"
+            onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
+            required
+          />
           <!-- <input type="file" name="image" id="food_photo"
             onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" required/> -->
           <div>
-            <img id="blah" width="200" height="200" src="crop/dummy-image-square.jpeg"/>
+            <img
+              id="blah"
+              width="200"
+              height="200"
+              src="crop/dummy-image-square.jpeg"
+            />
           </div>
         </div>
 
         <div class="input-group mb-3">
-          <label for="total_weight" style="width: 100%;">Total Weight</label>
-          <input type="number" class="form-control" name="total_weight" id="total_weight" required />
+          <label for="total_weight" style="width: 100%">Total Weight</label>
+          <input
+            type="number"
+            class="form-control"
+            name="total_weight"
+            id="total_weight"
+            required
+          />
           <label class="input-group-text" for="total_weight">g</label>
         </div>
 
         <div class="form-group mb-3">
           <label for="is_consumed">Consumed?</label>
-            <select name="is_consumed" id="is_consumed" class="form-select">
-              <option value="YES">Yes</option>
-              <option value="NO">No</option>
-            </select>
+          <select name="is_consumed" id="is_consumed" class="form-select">
+            <option value="YES">Yes</option>
+            <option value="NO">No</option>
+          </select>
         </div>
 
         <div class="input-group mb-3" id="quantity">
-          <label for="quantity" style="width: 100%;">
-            Consumed Quantity
-          </label>
-            <select name="quantity" class="form-select">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>0.25</option>
-              <option>0.5</option>
-            </select>
-            <label class="input-group-text" for="quantity">pack</label>
+          <label for="quantity" style="width: 100%"> Consumed Quantity </label>
+          <select name="quantity" class="form-select">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>0.25</option>
+            <option>0.5</option>
+          </select>
+          <label class="input-group-text" for="quantity">pack</label>
         </div>
 
         <div class="form-group mb-3">
           <label for="per_unit">Per Unit</label>
-            <select name="per_unit" class="form-select" id="per_unit">
-              <option value="per_100" id="per_100">Per 100g</option>
-              <option value="per_serving" id="per_serving">Per serving</option>
-              <option value="per_package" id="per_package">Per package</option>
-            </select>
+          <select name="per_unit" class="form-select" id="per_unit">
+            <option value="per_100" id="per_100">Per 100g</option>
+            <option value="per_serving" id="per_serving">Per serving</option>
+            <option value="per_package" id="per_package">Per package</option>
+          </select>
         </div>
 
-        <div class="input-group mb-3" hidden="true" id="serving_size" >
-          <label for="serving_size" style="width: 50%; line-height: 35px;">Serving Size</label>
+        <div class="input-group mb-3" hidden="true" id="serving_size">
+          <label for="serving_size" style="width: 50%; line-height: 35px"
+            >Serving Size</label
+          >
           <input type="number" class="form-control" name="serving_size" />
           <label class="input-group-text" for="serving_size">g</label>
         </div>
 
         <div class="input-group mb-3">
-          <label for="energy" style="width: 50%; line-height: 35px;">Energy</label>
-          <input type="number" name="energy" class="form-control" id="energy" required />
+          <label for="energy" style="width: 50%; line-height: 35px"
+            >Energy</label
+          >
+          <input
+            type="number"
+            name="energy"
+            class="form-control"
+            id="energy"
+            required
+          />
           <label class="input-group-text" for="energy">Kcal</label>
         </div>
 
         <div class="input-group mb-3">
-          <label for="protein" style="width: 50%; line-height: 35px;">Protein</label>
-          <input type="number" step="any" name="protein" class="form-control" id="protein" required />
+          <label for="protein" style="width: 50%; line-height: 35px"
+            >Protein</label
+          >
+          <input
+            type="number"
+            step="any"
+            name="protein"
+            class="form-control"
+            id="protein"
+            required
+          />
           <label class="input-group-text" for="protein">g</label>
         </div>
 
         <div class="input-group mb-3">
-          <label for="total_fat" style="width: 50%; line-height: 35px;">Total fat</label>
-          <input type="number" step="any" name="total_fat" class="form-control" id="total_fat" required />
+          <label for="total_fat" style="width: 50%; line-height: 35px"
+            >Total fat</label
+          >
+          <input
+            type="number"
+            step="any"
+            name="total_fat"
+            class="form-control"
+            id="total_fat"
+            required
+          />
           <label class="input-group-text" for="total_fat">g</label>
         </div>
 
         <div class="input-group mb-3">
-          <label for="saturated_fat" style="width: 50%; line-height: 35px;">Saturated fat</label>
-          <input type="number" step="any" name="saturated_fat" class="form-control" id="saturated_fat" required />
+          <label for="saturated_fat" style="width: 50%; line-height: 35px"
+            >Saturated fat</label
+          >
+          <input
+            type="number"
+            step="any"
+            name="saturated_fat"
+            class="form-control"
+            id="saturated_fat"
+            required
+          />
           <label class="input-group-text" for="saturated_fat">g</label>
         </div>
 
         <div class="input-group mb-3">
-          <label for="trans_fat" style="width: 50%; line-height: 35px;">Trans fat</label>
-          <input type="number" step="any" name="trans_fat" class="form-control" id="trans_fat" required />
+          <label for="trans_fat" style="width: 50%; line-height: 35px"
+            >Trans fat</label
+          >
+          <input
+            type="number"
+            step="any"
+            name="trans_fat"
+            class="form-control"
+            id="trans_fat"
+            required
+          />
           <label class="input-group-text" for="trans_fat">g</label>
         </div>
 
         <div class="input-group mb-3">
-          <label for="carbohydrates" style="width: 50%; line-height: 35px;">Carbohydrates</label>
-          <input type="number" step="any" name="carbohydrates" class="form-control" id="carbohydrates" required />
+          <label for="carbohydrates" style="width: 50%; line-height: 35px"
+            >Carbohydrates</label
+          >
+          <input
+            type="number"
+            step="any"
+            name="carbohydrates"
+            class="form-control"
+            id="carbohydrates"
+            required
+          />
           <label class="input-group-text" for="carbohydrates">g</label>
         </div>
 
         <div class="input-group mb-3">
-          <label for="sugars" style="width: 50%; line-height: 35px;">Sugars</label>
-          <input type="number" step="any" name="sugars" class="form-control" id="sugars" required />
+          <label for="sugars" style="width: 50%; line-height: 35px"
+            >Sugars</label
+          >
+          <input
+            type="number"
+            step="any"
+            name="sugars"
+            class="form-control"
+            id="sugars"
+            required
+          />
           <label class="input-group-text" for="sugars">g</label>
         </div>
 
         <div class="input-group mb-3">
-          <label for="sodium" style="width: 50%; line-height: 35px;">Sodium</label>
-          <input type="number" step="any" name="sodium" class="form-control" id="sodium" required />
-          <label class="input-group-text" for="sodium">g</label>
+          <label for="sodium" style="width: 50%; line-height: 35px"
+            >Sodium</label
+          >
+          <input
+            type="number"
+            step="any"
+            name="sodium"
+            class="form-control"
+            id="sodium"
+            required
+          />
+          <label class="input-group-text" for="sodium">mg</label>
         </div>
 
-        <input type="submit" value="Upload" id="upload-btn" class="btn btn-primary"/>
+        <input
+          type="submit"
+          value="Upload"
+          id="upload-btn"
+          class="btn btn-primary"
+        />
         <div id="db-feedback-msg"></div>
       </form>
     </main>
