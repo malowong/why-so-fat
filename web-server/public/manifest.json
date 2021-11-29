@@ -1,8 +1,13 @@
 {
-    "name": "My App",
-    "short_name": "App",
+    "name": "Why So Fat?",
+    "short_name": "Why So Fat?",
     "theme_color": "#000000",
     "start_url": "./",
     "background_color": "#FFFFFF",
-    "display": "standalone"
+    "display": "standalone",
+    "icon": {
+      "src": "icon.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
   }

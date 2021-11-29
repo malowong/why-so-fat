@@ -14,7 +14,7 @@ describe("FoodController", () => {
 
   beforeEach(() => {
     service = new FoodService({} as Knex);
-    service.getFoodInfo = jest.fn(
+    service.getFoodAndNutritionInfo = jest.fn(
       () => Promise.resolve({} as any) //
     );
 
@@ -34,9 +34,9 @@ describe("FoodController", () => {
   });
 
   it("test get food info success", async () => {
-    await controller.foodListInfo(req, res);
+    await controller.foodNameListInfo(req, res);
 
-    expect(service.getFoodInfo).toBeCalledWith();
+    expect(service.getFoodAndNutritionInfo).toBeCalledWith();
     expect(res.status).toBeCalledWith(200);
     expect(res.end).toBeCalled();
   });

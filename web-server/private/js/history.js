@@ -74,7 +74,7 @@ async function loadHistory() {
     }
   }
 
-  const mapKeys = Array.from(consumptionMap.keys()).reverse()
+  const mapKeys = Array.from(consumptionMap.keys())
   const mapValues = Array.from(consumptionMap.values())
 
   let htmlStr = ``
