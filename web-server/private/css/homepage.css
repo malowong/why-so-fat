@@ -166,3 +166,8 @@ span {
 .form-food-name {
   width: 5ch;
 }
+
+.form-food-name {
+  width: 65%;
+  text-align: center;
+}

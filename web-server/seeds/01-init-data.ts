@@ -152,7 +152,6 @@ const nutrition_value8 = [
   { nutrition_value: 2530.303, food_id: 8, nutrition_id: 8 },
 ];
 
-
 export async function seed(knex: Knex): Promise<void> {
   const userData = await Promise.all(
     users.map(async (user) => ({
@@ -174,7 +173,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     // await trx.raw(/* sql */ `
     // UPDATE food
-    // SET created_at = current_date::timestamp - interval '1 day',
+    // SET created_at = current_date::timestamp + interval '1 day',
     // updated_at = current_date::timestamp - interval '1 day'
     // WHERE id = 6
     // `)
@@ -183,7 +182,6 @@ export async function seed(knex: Knex): Promise<void> {
     await trx(tables.NUTRITION_VALUE).insert(nutrition_value7);
     await trx(tables.NUTRITION_VALUE).insert(nutrition_value8);
 
-
     await trx(tables.CONSUMPTION).insert(consumptions);
 
     await trx.raw(/* sql */ `
@@ -191,7 +189,35 @@ export async function seed(knex: Knex): Promise<void> {
       SET created_at = current_date::timestamp - interval '1 day',
       updated_at = current_date::timestamp - interval '1 day'
       WHERE consumptions.food_id = 6
-    `)
+    `);
+
+    await trx.raw(/* sql */ `
+      UPDATE consumptions
+      SET created_at = current_date::timestamp - interval '2 day',
+      updated_at = current_date::timestamp - interval '2 day'
+      WHERE consumptions.food_id = 4
+    `);
+
+    await trx.raw(/* sql */ `
+      UPDATE consumptions
+      SET created_at = current_date::timestamp - interval '2 day',
+      updated_at = current_date::timestamp - interval '2 day'
+      WHERE consumptions.food_id = 3
+    `);
+
+    await trx.raw(/* sql */ `
+      UPDATE consumptions
+      SET created_at = current_date::timestamp - interval '3 day',
+      updated_at = current_date::timestamp - interval '3 day'
+      WHERE consumptions.food_id = 2
+    `);
+
+    await trx.raw(/* sql */ `
+      UPDATE consumptions
+      SET created_at = current_date::timestamp - interval '3 day',
+      updated_at = current_date::timestamp - interval '3 day'
+      WHERE consumptions.food_id = 1
+    `);
 
     await trx.commit();
   } catch (err) {

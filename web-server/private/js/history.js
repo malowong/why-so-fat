@@ -35,7 +35,9 @@ async function loadHistory() {
   const consumptionMap = new Map()
 
   for (const consumption of consumptions) {
-    const consumptionDate = consumption['created_at'].slice(0, 10)
+    const consumptionDate = Date.parse(
+      new Date(consumption['created_at'])
+    ).toString('yyyy-MM-dd')
     const foodName = consumption.food_name
     const nutritionName = consumption.nutrition_name
     const nutritionValue = consumption.nutrition_value
@@ -72,7 +74,10 @@ async function loadHistory() {
     }
   }
 
-  const mapKeys = Array.from(consumptionMap.keys())
+  const mapKeys = Array.from(consumptionMap.keys()).sort(
+    (a, b) => new Date(b) - new Date(a)
+  )
+  console.log(mapKeys)
   const mapValues = Array.from(consumptionMap.values())
 
   let htmlStr = ``

@@ -63,7 +63,7 @@ export class ConsumptionService {
     json_agg(food_name) AS food_name
     FROM consumptions c
     INNER JOIN food f
-    ON c.food_id = f.id
+    ON f.id = c.food_id
     INNER JOIN nutrition_value v
     ON v.food_id = f.id
     INNER JOIN nutrition n
@@ -72,7 +72,7 @@ export class ConsumptionService {
     AND c.user_id = ${userID}
     AND c.created_at >= current_date::timestamp
     AND c.created_at < current_date::timestamp + interval '1 day'
-    GROUP BY c.food_id;`);
+    GROUP BY c.food_id`);
     return result;
   };
 
