@@ -62,10 +62,18 @@ document.querySelector('#is_consumed').addEventListener('input', () => {
   }
 })
 
-const storage = localStorage.getItem('result')
+const storage = localStorage.getItem('data')
+const result = JSON.parse(storage).data
+console.log(result)
 
 if (storage != null) {
-  const result = JSON.parse(storage).data
+  document.getElementById('per_unit').value = result.per
+
+  if(result.per = 'per_serving'){
+    document.getElementById('serving_size').hidden = false
+    document.getElementById('serving_size_input').value = parseFloat(result.serving_size)
+  }
+
   document.getElementById('energy').value = parseFloat(result.energy)
   document.getElementById('protein').value = parseFloat(result.protein)
   document.getElementById('total_fat').value = parseFloat(result.total_fat)
