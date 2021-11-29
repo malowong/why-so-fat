@@ -6,7 +6,7 @@ export class ConsumptionService {
 
   getConsumptionHistory = async (userID: number) => {
     const result = this.knex
-      .raw(/*SQL*/ `SELECT DISTINCT ON (c.food_id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name, food.total_weight
+      .raw(/*SQL*/ `SELECT DISTINCT ON (c.id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name, food.total_weight
     FROM consumptions c
     INNER JOIN food ON food.id = c.food_id
     RIGHT JOIN nutrition_value v ON food.id = v.food_id
