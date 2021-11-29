@@ -32,17 +32,17 @@ async function loadHistory() {
   const resp = await fetch('/api/consumption/history')
   const consumptions = (await resp.json()).rows
 
-  console.log(consumptions)
-
   const consumptionMap = new Map()
+
   for (const consumption of consumptions) {
-    const consumptionDate = consumption['created_at'].slice(0, 10)
+    const consumptionDate = Date.parse(
+      new Date(consumption['created_at'])
+    ).toString('yyyy-MM-dd')
     const foodName = consumption.food_name
     const nutritionName = consumption.nutrition_name
     const nutritionValue = consumption.nutrition_value
     const quantity = consumption.quantity
     const totalWeight = consumption.total_weight
-    console.log(consumptionDate)
 
     if (consumptionMap.has(consumptionDate)) {
       if (
@@ -59,7 +59,7 @@ async function loadHistory() {
           foodName: foodName,
           nutrition: [{ [nutritionName]: nutritionValue }],
           totalWeight: totalWeight,
-          quantity: quantity,
+          // quantity: quantity,
         })
       }
     } else {
@@ -68,13 +68,16 @@ async function loadHistory() {
           foodName: foodName,
           nutrition: [{ [nutritionName]: nutritionValue }],
           totalWeight: totalWeight,
-          quantity: quantity,
+          // quantity: quantity,
         },
       ])
     }
   }
 
-  const mapKeys = Array.from(consumptionMap.keys())
+  const mapKeys = Array.from(consumptionMap.keys()).sort(
+    (a, b) => new Date(b) - new Date(a)
+  )
+  console.log(mapKeys)
   const mapValues = Array.from(consumptionMap.values())
 
   let htmlStr = ``
@@ -110,11 +113,11 @@ async function loadHistory() {
     let modalStr = ``
 
     for (const mapValue of mapValues[i]) {
+      // <h6>Quantity: ${mapValue.quantity}</h6>
       modalStr += /*html*/ `
             <div class="food-row"> 
                 <div class="food-info">
                     <h4>${mapValue.foodName}</h4>
-                    <h6>Quantity: ${mapValue.quantity}</h6>
                     <h6>Weight: ${mapValue.totalWeight} g</h6>
                 </div>
         
@@ -140,13 +143,13 @@ async function loadHistory() {
     for (const mapValue of mapValues[i]) {
       let moreStr = ``
 
+      // mapValue.totalWeight *
+      // mapValue.quantity
       for (const nutrition of mapValue['nutrition']) {
         moreStr += /*html*/ `
-        <div>${nameMap.get(Object.keys(nutrition).toString())}: ${(
-          (Object.values(nutrition) / 100) *
-          mapValue.totalWeight *
-          mapValue.quantity
-        ).toFixed(1)} ${unitMap.get(Object.keys(nutrition).toString())}</div>
+        <div>${nameMap.get(Object.keys(nutrition).toString())}: ${Object.values(
+          nutrition
+        )} ${unitMap.get(Object.keys(nutrition).toString())}</div>
         `
       }
       document.querySelector(`[data-id='${mapKeys[i]}-${j}']`).innerHTML =
@@ -168,3 +171,11 @@ function showNutritionDetails(mapKey, i) {
     moreText.style.display = 'inline'
   }
 }
+
+// async function getFoodWithDate(dateStr) {
+//   const resp = await fetch(`api/consumption/${dateStr}`)
+//   const foodList = (await resp.json()).rows
+
+//   console.log(dateStr)
+//   console.log(foodList)
+// }

@@ -6,7 +6,7 @@ export class ConsumptionService {
 
   getConsumptionHistory = async (userID: number) => {
     const result = this.knex
-      .raw(/*SQL*/ `SELECT DISTINCT ON (c.food_id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name
+      .raw(/*SQL*/ `SELECT DISTINCT ON (c.food_id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name, food.total_weight
     FROM consumptions c
     INNER JOIN food ON food.id = c.food_id
     RIGHT JOIN nutrition_value v ON food.id = v.food_id
@@ -15,6 +15,19 @@ export class ConsumptionService {
 
     return result;
   };
+
+  // getFoodWithDate = async (userID: number, consumptionDate: string) => {
+  //   const result = this.knex
+  //     .raw(/*SQL*/ `SELECT DISTINCT ON (c.food_id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name, food.total_weight
+  //   FROM consumptions c
+  //   INNER JOIN food ON food.id = c.food_id
+  //   RIGHT JOIN nutrition_value v ON food.id = v.food_id
+  //   INNER JOIN nutrition ON v.nutrition_id = nutrition.id
+  //   WHERE c.user_id = ${userID}
+  //   AND c.created_at = convert(c.created_at,${consumptionDate},102)`);
+
+  //   return result;
+  // };
 
   getHomePageRecord = async (userID: number) => {
     const result = await this.knex.raw(/*SQL*/ `
@@ -50,7 +63,7 @@ export class ConsumptionService {
     json_agg(food_name) AS food_name
     FROM consumptions c
     INNER JOIN food f
-    ON c.food_id = f.id
+    ON f.id = c.food_id
     INNER JOIN nutrition_value v
     ON v.food_id = f.id
     INNER JOIN nutrition n
@@ -59,7 +72,7 @@ export class ConsumptionService {
     AND c.user_id = ${userID}
     AND c.created_at >= current_date::timestamp
     AND c.created_at < current_date::timestamp + interval '1 day'
-    GROUP BY c.food_id;`);
+    GROUP BY c.food_id`);
     return result;
   };
 
