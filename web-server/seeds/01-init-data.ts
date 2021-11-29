@@ -56,10 +56,10 @@ const nutrition = [
 ];
 
 const consumptions = [
-  { quantity: 0.25, user_id: 3, food_id: 2 },
-  { quantity: 1, user_id: 3, food_id: 6 },
-  { quantity: 1, user_id: 2, food_id: 4 },
-  { quantity: 0.5, user_id: 1, food_id: 1 },
+  { quantity: 0.25, user_id: 4, food_id: 2 },
+  { quantity: 1, user_id: 4, food_id: 6 },
+  { quantity: 1, user_id: 4, food_id: 4 },
+  { quantity: 0.5, user_id: 4, food_id: 1 },
   { quantity: 1, user_id: 4, food_id: 3 },
   { quantity: 1, user_id: 4, food_id: 1 },
   { quantity: 1, user_id: 4, food_id: 2 },
