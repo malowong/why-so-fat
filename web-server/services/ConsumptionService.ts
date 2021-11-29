@@ -101,6 +101,8 @@ export class ConsumptionService {
     for (const i in foodIdArr) {
       if (foodInfo[foodIdArr[i]] == 0) {
       } else {
+        console.log("food_id: ", foodIdArr[i]);
+        console.log("quantity: ", foodInfo[foodIdArr[i]]);
         const foodList = {
           quantity: foodInfo[foodIdArr[i]],
           user_id: userID,

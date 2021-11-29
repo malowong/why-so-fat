@@ -369,17 +369,10 @@ function changeBarLength() {
     100
 
   document.querySelector('#carbs-bar').style.width = `${carbsLength}%`
-  document.querySelector('#carbs-display').children[1] += `<span>${Math.round(
-    carbsLength
-  )}%</span>`
+
   document.querySelector('#sugars-bar').style.width = `${sugarsLength}%`
-  document.querySelector('#sugars-display').children[1] += `<span>${Math.round(
-    sugarsLength
-  )}%</span>`
+
   document.querySelector('#protein-bar').style.width = `${proteinLength}%`
-  document.querySelector(
-    '#protein-display'
-  ).children[1].innerHTML += `<span>${Math.round(proteinLength)}%</span>`
 }
 
 function getOtherIntake() {

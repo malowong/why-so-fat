@@ -44,6 +44,12 @@ RIGHT JOIN nutrition_value v ON food.id = v.food_id
 INNER JOIN nutrition ON v.nutrition_id = nutrition.id
 WHERE c.user_id = 1;
 
+SELECT * 
+FROM consumptions c
+INNER JOIN food f ON c.food_id = f.id
+WHERE c.user_id = 4
+AND c.created_at >= current_date::timestamp
+AND c.created_at < current_date::timestamp + interval '1 day';
 
 
 SELECT 
