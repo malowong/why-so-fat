@@ -8,7 +8,7 @@ git commit
 git push origin main
 
 git checkout production
-git merge main
+git merge main --no-edit
 git push origin production
 git checkout main
 
