@@ -25,7 +25,7 @@ export class FoodController {
 
   ocr = async (req: Request, res: Response) => {
     const body = req.file?.buffer.toString("base64");
-    const baseUrl = "http://13.251.231.193:8000"!!
+    const baseUrl = "http://localhost:8000"!!
 
     const resp = await fetch(baseUrl, {
       method: "POST",
