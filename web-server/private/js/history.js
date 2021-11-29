@@ -32,6 +32,8 @@ async function loadHistory() {
   const resp = await fetch('/api/consumption/history')
   const consumptions = await resp.json()
 
+  console.log(consumptions)
+
   const consumptionMap = new Map()
   for (const consumption of consumptions) {
     const consumptionDate = consumption['created_at'].slice(0, 10)
@@ -73,8 +75,6 @@ async function loadHistory() {
 
   const mapKeys = Array.from(consumptionMap.keys()).reverse()
   const mapValues = Array.from(consumptionMap.values())
-  //   const consumptionArray = Array.from(consumptionMap)
-  //   console.log(consumptionArray)
 
   let htmlStr = ``
 
@@ -138,6 +138,7 @@ async function loadHistory() {
 
     for (const mapValue of mapValues[i]) {
       let moreStr = ``
+
       for (const nutrition of mapValue['nutrition']) {
         moreStr += /*html*/ `
         <div>${nameMap.get(Object.keys(nutrition).toString())}: ${(
