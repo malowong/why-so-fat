@@ -1,4 +1,31 @@
 
+export function insertData(line, nutrition){
+    const text = spellChecker(line.match(/\d+(.*)/)[0])
+    data[nutrition] = text.match(/[+-]?\d+(\.\d+)?/g)[0]
+}
+  
+export function spellChecker(text){
+    if(text.includes("i")){
+        text = text.replace('i', '1')
+    }
+    if(text.includes("O")){
+        text = text.replace("O", "0")
+    }
+    if(text.includes(";")){
+        text = text.replace(";", ".")
+    }
+    if(text.includes(",")){
+        text = text.replace(",", ".")
+    }
+    if(text.includes("G")){
+        text = text.replace("G", "6")
+    }
+    if(text.includes("T")){
+        text = text.replace("T", "7")
+    }
+    return text
+}
+
 export async function sendOcr(blob, imageName) {
     console.log(imageName)
     const file = new File([blob], imageName); 
