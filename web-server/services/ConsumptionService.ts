@@ -9,9 +9,19 @@ export class ConsumptionService {
       .innerJoin(tables.FOOD, "food.id", "consumptions.food_id")
       .innerJoin(tables.NUTRITION_VALUE, "food.id", "nutrition_value.food_id")
       .innerJoin(tables.NUTRITION, "nutrition_value.nutrition_id", "nutrition.id")
-      .select("*")
-      //   .orderBy("created_at", "desc")
+      .select("consumptions.*, food.food_name, food.food_photo, food.total_weight")
+      // .orderBy("created_at", "desc")
       .where("user_id", userID);
+
+    // const result = await this.knex.raw(/*sql*/ `SELECT c.*, f.food_name, f.food_photo, f.total_weight, nv.*, n.* FROM consumptions c
+    //   INNER JOIN food f
+    //   ON c.food_id = f.id
+    //   INNER JOIN nutrition_value nv
+    //   ON f.id = nv.food_id
+    //   INNER JOIN nutrition n
+    //   ON nv.nutrition_id = n.id
+    //   WHERE c.user_id = ${userID}
+    // `)
 
     return result;
   };

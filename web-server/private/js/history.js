@@ -42,6 +42,7 @@ async function loadHistory() {
     const nutritionValue = consumption.nutrition_value
     const quantity = consumption.quantity
     const totalWeight = consumption.total_weight
+    console.log(consumptionDate)
 
     if (consumptionMap.has(consumptionDate)) {
       if (

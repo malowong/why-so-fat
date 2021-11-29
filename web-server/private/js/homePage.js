@@ -324,7 +324,10 @@ function loadAnimation() {
           offsetCenter: [0, '30%'],
           valueAnimation: true,
           formatter: function (value) {
-            value = 2000 - value < 0 ? 0 : value
+            if (value < 0) {
+              value = 0
+            }
+            value = 2000 - value
             return '{value|' + value.toFixed(0) + '}{unit|kcal left}'
           },
           rich: {
