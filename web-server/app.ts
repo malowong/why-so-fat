@@ -8,7 +8,9 @@ import { logger } from "./utils/logger";
 import expressSession from "express-session";
 
 const app = express();
-app.use(express.json());
+app.use(express.json({
+  limit: '30mb'
+}));
 app.use(
   expressSession({
     secret: "Tecky Academy teaches typescript",
