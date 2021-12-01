@@ -89,7 +89,7 @@ async function loadHistory() {
 
   for (const mapKey of mapKeys) {
     htmlStr += /*html*/ `<div class="date-row mb-3"><h3>${mapKey}</h3>
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal-${mapKey}">
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal-${mapKey}">
               Details
           </button></div>
 
@@ -128,7 +128,7 @@ async function loadHistory() {
                 </div>
         
                 <div> 
-                    <button type="button" id="more-btn-${mapKeys[i]}-${y}" class="btn btn-info" onclick="showNutritionDetails('${mapKeys[i]}',${y})">
+                    <button type="button" id="more-btn-${mapKeys[i]}-${y}" class="btn btn-success" onclick="showNutritionDetails('${mapKeys[i]}',${y})">
                         More
                     </button>
                     <div data-id='${mapKeys[i]}-${y}' class="more"></div>
