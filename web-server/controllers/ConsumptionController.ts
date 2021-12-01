@@ -49,12 +49,6 @@ export class ConsumptionController {
   add = async (req: Request, res: Response) => {
     const foodInfo = req.body;
     const userID = req.session["user"].id;
-    console.log(req.body);
-    // // const foodList = req.body.foodList;
-
-    // // for (const food of foodList) {
-    // //   food["user_id"] = userID;
-    // // }
 
     await this.consumptionService.addConsumption(foodInfo, userID);
 
