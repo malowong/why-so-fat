@@ -21,6 +21,10 @@ export class UserController {
 
   signup = async (req: Request, res: Response) => {
     const { username, password, gender, height, weight } = req.body;
+    if (password.length < 6) {
+      res.status(400).json({ message: "Password must contain at least 6 characters" });
+      return;
+    }
     const resultObj = {
       username,
       password: await hashPassword(password),
@@ -28,11 +32,8 @@ export class UserController {
       height: Number(height),
       weight: Number(weight),
     };
-    if (password.length < 6) {
-      res.status(400).json({ message: "Password must contain at least 6 characters" });
-      return;
-    }
-    if (gender != "male" && gender != "female") {
+    const supportedGender = ["male", "female"];
+    if (!supportedGender.includes(gender)) {
       res.status(400).json({ message: "Invalid gender" });
       return;
     }

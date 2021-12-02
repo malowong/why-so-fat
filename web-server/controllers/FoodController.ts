@@ -1,19 +1,20 @@
 import { FoodService } from "../services/FoodService";
 import { Request, Response } from "express";
 import fetch from "node-fetch";
+
 export class FoodController {
   constructor(private foodService: FoodService) {}
 
   foodNameListInfo = async (req: Request, res: Response) => {
     const foodList = await this.foodService.getFoodNameList();
 
-    res.status(200).json(foodList).end();
+    res.status(200).json(foodList);
   };
 
   foodListInfoWithNutrition = async (req: Request, res: Response) => {
     const foodList = await this.foodService.getFoodAndNutritionInfo();
 
-    res.status(200).json(foodList).end();
+    res.status(200).json(foodList);
   };
 
   upload = async (req: Request, res: Response) => {
@@ -25,13 +26,11 @@ export class FoodController {
 
   ocr = async (req: Request, res: Response) => {
     const body = req.file?.buffer.toString("base64");
-    const baseUrl = "http://localhost:8000"!!
+    const baseUrl = "http://localhost:8000";
 
     const resp = await fetch(baseUrl, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ data: body }),
     });
 
@@ -46,6 +45,7 @@ export class FoodController {
 
   convert = async (req: Request, res: Response) => {
     const foodId = Number(req.params.foodId);
+    // validation
     const data = await this.foodService.convert(foodId);
     res.status(200).json(data);
   };

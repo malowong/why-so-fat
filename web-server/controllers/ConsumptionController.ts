@@ -8,17 +8,8 @@ export class ConsumptionController {
     const userID = req.session["user"].id;
     const consumptionHistory = await this.consumptionService.getConsumptionHistory(userID);
 
-    res.status(200).json(consumptionHistory).end();
+    res.status(200).json(consumptionHistory);
   };
-
-  // getFoodWithDate = async (req: Request, res: Response) => {
-  //   const userID = req.session["user"].id;
-  //   const consumptionDate = req.params.date;
-  //   console.log(consumptionDate);
-  //   const foodList = await this.consumptionService.getFoodWithDate(userID, consumptionDate);
-
-  //   res.status(200).json(foodList).end();
-  // };
 
   homePageRecord = async (req: Request, res: Response) => {
     const userID = req.session["user"].id;
@@ -30,18 +21,21 @@ export class ConsumptionController {
   consumptionDetails = async (req: Request, res: Response) => {
     const foodID = Number(req.params.foodID);
     const userID = Number(req.params.userID);
+
     const data = await this.consumptionService.getConsumptionDetails(foodID, userID);
     res.status(200).json(data);
   };
 
   quota = async (req: Request, res: Response) => {
     const userID = req.session["user"].id;
+
     const quotaData = await this.consumptionService.getQuotaData(userID);
     res.status(200).json(quotaData);
   };
 
   userBodyWeight = async (req: Request, res: Response) => {
     const userID = req.session["user"].id;
+
     const bodyWeightData = await this.consumptionService.getBodyWeight(userID);
     res.status(200).json(bodyWeightData);
   };
@@ -52,6 +46,6 @@ export class ConsumptionController {
 
     await this.consumptionService.addConsumption(foodInfo, userID);
 
-    res.status(200).json({ message: "success add" }).end();
+    res.status(200).json({ message: "success add" });
   };
 }

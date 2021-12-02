@@ -8,6 +8,7 @@ import path from "path";
 
 const foodService = new FoodService(knex);
 const foodController = new FoodController(foodService);
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.resolve("./uploads"));
@@ -16,22 +17,16 @@ const storage = multer.diskStorage({
     cb(null, `${file.fieldname}-${Date.now()}.${file.mimetype.split("/")[1]}`);
   },
 });
+
 const upload = multer({
   storage,
-  limits: {
-    //         1048576
-    fileSize: 30000000,
-    fieldSize: 30000000
-  }
+  limits: { fileSize: 30_000_000, fieldSize: 30_000_000 },
 });
 
 const ocrStorage = multer.memoryStorage();
 const ocrUpload = multer({
   storage: ocrStorage,
-  limits: {
-    fileSize: 30000000,
-    fieldSize: 30000000
-  }
+  limits: { fileSize: 30_000_000, fieldSize: 30_000_000 },
 });
 
 export const foodRoutes = express.Router();

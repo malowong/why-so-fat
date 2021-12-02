@@ -16,14 +16,8 @@ export class UserService {
   };
 
   editUserProfile = async (userID: number, height: number, weight: number) => {
-    await this.knex(tables.USER)
-      .update({
-        height,
-        weight,
-      })
-      .where("id", userID);
-
-    return true;
+    await this.knex(tables.USER).update({ height, weight }).where("id", userID);
+    // return true;
   };
 
   insertNewUser = async (newUser: NewUser) => {

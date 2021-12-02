@@ -121,19 +121,19 @@ async function loadHistory() {
       console.log(mapValue)
       // <h6>Quantity: ${mapValue.quantity}</h6>
       modalStr += /*html*/ `
-            <div class="food-row"> 
+            <div class="food-row">
                 <div class="food-info">
                     <h4>${mapValue.foodName}</h4>
                     <h6>Weight: ${mapValue.totalWeight} g</h6>
                 </div>
-        
-                <div> 
+
+                <div>
                     <button type="button" id="more-btn-${mapKeys[i]}-${y}" class="btn btn-success" onclick="showNutritionDetails('${mapKeys[i]}',${y})">
                         More
                     </button>
                     <div data-id='${mapKeys[i]}-${y}' class="more"></div>
                 </div>
-            </div> 
+            </div>
             `
 
       modalStr += `<hr>`
@@ -177,11 +177,3 @@ function showNutritionDetails(mapKey, i) {
     moreText.style.display = 'inline'
   }
 }
-
-// async function getFoodWithDate(dateStr) {
-//   const resp = await fetch(`api/consumption/${dateStr}`)
-//   const foodList = (await resp.json()).rows
-
-//   console.log(dateStr)
-//   console.log(foodList)
-// }

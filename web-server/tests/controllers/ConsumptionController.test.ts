@@ -6,6 +6,7 @@ import { Knex } from "knex";
 jest.mock("../../services/ConsumptionService.ts");
 
 describe("ConsumptionController", () => {
+  const userID = 5;
   let controller: ConsumptionController;
   let service: ConsumptionService;
   let req: Request;
@@ -18,7 +19,7 @@ describe("ConsumptionController", () => {
     req = {
       session: {
         user: {
-          id: 5,
+          id: userID,
         } as any,
       } as any,
     } as Request;
@@ -35,8 +36,7 @@ describe("ConsumptionController", () => {
   it("test get consumption history - success", async () => {
     await controller.consumptionHistory(req, res);
 
-    expect(service.getConsumptionHistory).toBeCalledWith(5);
+    expect(service.getConsumptionHistory).toBeCalledWith(userID);
     expect(res.status).toBeCalledWith(200);
-    expect(res.end).toBeCalled();
   });
 });

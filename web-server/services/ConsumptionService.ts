@@ -5,33 +5,22 @@ export class ConsumptionService {
   constructor(private knex: Knex) {}
 
   getConsumptionHistory = async (userID: number) => {
-    const result = this.knex
-      .raw(/*SQL*/ `SELECT DISTINCT ON (c.id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name, food.total_weight
+    const result = this.knex.raw(
+      /*SQL*/ `SELECT DISTINCT ON (c.id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name, food.total_weight
     FROM consumptions c
     INNER JOIN food ON food.id = c.food_id
     RIGHT JOIN nutrition_value v ON food.id = v.food_id
     INNER JOIN nutrition ON v.nutrition_id = nutrition.id
-    WHERE c.user_id = ${userID};`);
+    WHERE c.user_id = ?;`,
+      [userID]
+    );
 
     return result;
   };
 
-  // getFoodWithDate = async (userID: number, consumptionDate: string) => {
-  //   const result = this.knex
-  //     .raw(/*SQL*/ `SELECT DISTINCT ON (c.food_id, v.nutrition_value) c.quantity, c.food_id, c.created_at, food.food_name, v.nutrition_value, nutrition.nutrition_name, food.total_weight
-  //   FROM consumptions c
-  //   INNER JOIN food ON food.id = c.food_id
-  //   RIGHT JOIN nutrition_value v ON food.id = v.food_id
-  //   INNER JOIN nutrition ON v.nutrition_id = nutrition.id
-  //   WHERE c.user_id = ${userID}
-  //   AND c.created_at = convert(c.created_at,${consumptionDate},102)`);
-
-  //   return result;
-  // };
-
   getHomePageRecord = async (userID: number) => {
     const result = await this.knex.raw(/*SQL*/ `
-    WITH total_qty AS (SELECT f.id, sum(c.quantity) 
+    WITH total_qty AS (SELECT f.id, sum(c.quantity)
       FROM consumptions c
       INNER JOIN food f
       ON c.food_id = f.id
@@ -53,8 +42,8 @@ export class ConsumptionService {
   };
 
   getConsumptionDetails = async (foodID: number, userID: number) => {
-    const result = await this.knex.raw(/*SQL*/ `SELECT 
-    c.food_id, 
+    const result = await this.knex.raw(/*SQL*/ `SELECT
+    c.food_id,
     json_agg(food_photo) AS food_photo,
     json_agg(quantity) AS quantity,
     json_agg(nutrition_value) AS nutrition_value,
@@ -77,8 +66,8 @@ export class ConsumptionService {
   };
 
   getQuotaData = async (userID: number) => {
-    const result = await this.knex.raw(/*SQL*/ `SELECT 
-    n.nutrition_name, 
+    const result = await this.knex.raw(/*SQL*/ `SELECT
+    n.nutrition_name,
     json_agg(quantity) AS quantity,
     json_agg(nutrition_value) AS nutrition_value,
     json_agg(total_weight) AS total_weight,
@@ -107,16 +96,12 @@ export class ConsumptionService {
 
   addConsumption = async (foodInfo: Object, userID: number) => {
     const foodIdArr = Object.keys(foodInfo);
-    // for (const i in foodIdArr) {
-    //   console.log(foodIdArr[i]);
-    // }
-    for (const i in foodIdArr) {
-      if (foodInfo[foodIdArr[i]] == 0) {
-      } else {
+    for (const foodId of foodIdArr) {
+      if (foodInfo[foodId] !== 0) {
         const foodList = {
-          quantity: foodInfo[foodIdArr[i]],
+          quantity: foodInfo[foodId],
           user_id: userID,
-          food_id: Number(foodIdArr[i]),
+          food_id: Number(foodId),
         };
         await this.knex(tables.CONSUMPTION).insert(foodList);
       }

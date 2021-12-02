@@ -38,6 +38,5 @@ describe("FoodController", () => {
 
     expect(service.getFoodNameList).toBeCalledWith();
     expect(res.status).toBeCalledWith(200);
-    expect(res.end).toBeCalled();
   });
 });

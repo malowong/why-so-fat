@@ -31,8 +31,8 @@ function genHtmlStr(uniqueFoodId, foodList) {
     }
 
     for (const foodItem of foodList) {
-      if (foodItem.food_photo == "undefined"){
-        foodItem.food_photo = "../crop/dummy-image-square.jpeg"
+      if (foodItem.food_photo == 'undefined') {
+        foodItem.food_photo = '../crop/dummy-image-square.jpeg'
       }
 
       if (foodItem.food_id == i) {
@@ -162,13 +162,13 @@ function genHtmlStr(uniqueFoodId, foodList) {
 
                                 </tr>
                         </table>
-            
+
                         </div>
                         <div class="modal-footer">
                             <button
                                 type="button"
                                 class="btn btn-secondary"
-                                data-bs-dismiss="modal"                    
+                                data-bs-dismiss="modal"
                             >
                                 Close
                             </button>
@@ -226,7 +226,7 @@ async function convertFnc(foodId) {
   }
   const userInput = Number(document.querySelector(`#convert-${foodId}`).value)
   let htmlStr = /*HTML */ `
-      <table>  
+      <table>
         <tr>
         <td></td>
         <td></td>

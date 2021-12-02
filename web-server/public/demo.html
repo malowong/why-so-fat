@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="demo">
+      <div class="demo-btn">Test</div>
+    </div>
+
+    <form id="demo-form">
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+
+  <script>
+    document.querySelector('.demo').addEventListener('click', function (e) {
+      console.log(e.target)
+      console.log(e.currentTarget)
+    })
+
+    document
+      .querySelector('#demo-form')
+      .addEventListener('submit', function (e) {
+        e.preventDefault()
+        console.log(e.target)
+        console.log(e.currentTarget)
+      })
+  </script>
+</html>

@@ -8,9 +8,9 @@ import { logger } from "./utils/logger";
 import expressSession from "express-session";
 
 const app = express();
-app.use(express.json({
-  limit: '30mb'
-}));
+
+app.use(express.json({ limit: "30mb" }));
+
 app.use(
   expressSession({
     secret: "Tecky Academy teaches typescript",
@@ -19,28 +19,27 @@ app.use(
   })
 );
 
-console.log("hello");
-
 const server = new http.Server(app);
 export const io = new SocketIO(server);
 
-const knexConfig = require("./knexfile");
+import knexConfig from "./knexfile";
 export const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
 app.use((req, res, next) => {
   const cur = new Date().toISOString();
   logger.info(`${cur} req path: ${req.path} method: ${req.method}`);
-  res.setHeader('app-version','1.2.3')
+  res.setHeader("app-version", "1.2.3");
   next();
 });
 
 import { routes } from "./routes";
+
 const API_VERSION = "/api";
 app.use(API_VERSION, routes);
 
-app.use(express.static(path.join(__dirname, "public"), { index: "login-page.html" }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(isLoggedInStatic, express.static(path.join(__dirname, "uploads")));
-app.use(isLoggedInStatic, express.static(path.join(__dirname, "private")));
+app.use(isLoggedInStatic, express.static(path.join(__dirname, "private"), { index: "home-page.html" }));
 
 const PORT = 8080;
 server.listen(PORT, () => {

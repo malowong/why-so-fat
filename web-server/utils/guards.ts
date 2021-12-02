@@ -11,10 +11,10 @@ export function isLoggedInStatic(req: Request, res: Response, next: NextFunction
 }
 
 export function isLoggedInApi(req: Request, res: Response, next: NextFunction) {
-  if (req.session?.['user']) {
-      next();
+  if (req.session?.["user"]) {
+    next();
   } else {
-      res.status(400).json({ message: "you haven't logged in yet" })
+    res.status(401).json({ message: "you haven't logged in yet" });
   }
+  // res.status(200).json({ statusCode: 11, message: "" });
 }
-

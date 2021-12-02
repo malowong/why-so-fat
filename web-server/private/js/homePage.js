@@ -158,13 +158,13 @@ async function getConsumptionDetails(foodID, userID) {
   console.log(quantity * totalWeight)
 
   modalStr = /*HTML*/ `
-          <img 
+          <img
           class="card-img-top"
           src="${foodPhoto}"
           alt="Card image cap"
           />
-          <h4><strong>${totalGrams}g ${foodName} contain...</strong></<h4> 
-        <table>  
+          <h4><strong>${totalGrams}g ${foodName} contain...</strong></<h4>
+        <table>
         <tr>
             <td>Energy/能量</td>
             <td></td>
@@ -250,7 +250,7 @@ async function getConsumptionDetails(foodID, userID) {
             </button>
         </div>
 
-    
+
     `
   document.querySelector(`#nutrition-table-${foodID}`).innerHTML = modalStr
 }

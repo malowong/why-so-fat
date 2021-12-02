@@ -13,9 +13,11 @@ export class FoodService {
   };
 
   getFoodAndNutritionInfo = async () => {
-    const result = await this.knex.raw(
-      /*SQL*/ `select  v.food_id, f.food_name, f.food_photo, f.total_weight , n.*, v.nutrition_value from nutrition_value v left join nutrition n on n.id = v.nutrition_id left join food f on f.id = v.food_id order by v.food_id ASC`
-    );
+    const result = await this.knex
+      .raw(/*SQL*/ `select  v.food_id, f.food_name, f.food_photo, f.total_weight , n.*, v.nutrition_value
+        from nutrition_value v
+        left join nutrition n on n.id = v.nutrition_id
+        left join food f on f.id = v.food_id order by v.food_id ASC`);
 
     return result;
   };
@@ -41,6 +43,19 @@ export class FoodService {
       const foodID = await this.knex(tables.FOOD).insert(userInput).returning("id");
       console.log(`foodID:${foodID}`);
 
+      // const nutritionValueArr = [];
+      // for (let i = 1; i <= nutritionMap.size; i++) {
+      //   let value;
+      //   // if ()
+      //   const nutritionValue = {
+      //     nutrition_value: value,
+      //     food_id: Number(foodID),
+      //     nutrition_id: i,
+      //   };
+      //   nutritionValueArr.push(nutritionValue);
+      // }
+      // await this.knex(tables.NUTRITION_VALUE).insert(nutritionValueArr);
+
       if (body.per_unit == "per_package") {
         for (let i = 1; i <= nutritionMap.size; i++) {
           const nutritionValue = {
@@ -50,7 +65,7 @@ export class FoodService {
           };
           await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
         }
-      } else if (body.per_unit == "per_serving") {
+      } else if (body.per_unit === "per_serving") {
         for (let i = 1; i <= nutritionMap.size; i++) {
           const nutritionValue = {
             nutrition_value: (body[`${nutritionMap.get(i)}`] / body["serving_size"]) * 100,
@@ -70,7 +85,8 @@ export class FoodService {
         }
       }
 
-      if (body.is_consumed == "YES") {
+      // boolean ???
+      if (body.is_consumed === "YES") {
         const consumptions = {
           quantity: body["quantity"],
           user_id: reqObj.session["user"].id,

@@ -35,9 +35,9 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(tables.CONSUMPTION, (table) => {
     table.increments();
     table.float("quantity").notNullable().unsigned();
-    table.integer("user_id").unsigned();
+    table.integer("user_id").unsigned().notNullable();
     table.foreign("user_id").references(`${tables.USER}.id`);
-    table.integer("food_id").unsigned();
+    table.integer("food_id").unsigned().notNullable();
     table.foreign("food_id").references(`${tables.FOOD}.id`);
     table.timestamps(false, true);
   });
@@ -49,6 +49,7 @@ export async function up(knex: Knex): Promise<void> {
     table.foreign("food_id").references(`${tables.FOOD}.id`);
     table.integer("nutrition_id").notNullable();
     table.foreign("nutrition_id").references(`${tables.NUTRITION}.id`);
+    table.unique(["food_id", "nutrition_id"]);
   });
 }
 
