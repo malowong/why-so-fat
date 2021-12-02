@@ -61,7 +61,6 @@ const consumptions = [
   { quantity: 1, user_id: 4, food_id: 4 },
   { quantity: 0.5, user_id: 4, food_id: 1 },
   { quantity: 1, user_id: 4, food_id: 3 },
-  { quantity: 1, user_id: 4, food_id: 1 },
   { quantity: 1, user_id: 4, food_id: 2 },
 ];
 
@@ -170,14 +169,6 @@ export async function seed(knex: Knex): Promise<void> {
     await trx(tables.NUTRITION_VALUE).insert(nutrition_value3);
     await trx(tables.NUTRITION_VALUE).insert(nutrition_value4);
     await trx(tables.NUTRITION_VALUE).insert(nutrition_value5);
-
-    // await trx.raw(/* sql */ `
-    // UPDATE food
-    // SET created_at = current_date::timestamp + interval '1 day',
-    // updated_at = current_date::timestamp - interval '1 day'
-    // WHERE id = 6
-    // `)
-
     await trx(tables.NUTRITION_VALUE).insert(nutrition_value6);
     await trx(tables.NUTRITION_VALUE).insert(nutrition_value7);
     await trx(tables.NUTRITION_VALUE).insert(nutrition_value8);

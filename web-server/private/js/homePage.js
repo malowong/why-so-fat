@@ -516,8 +516,6 @@ function getOtherIntake() {
   myChart.setOption(option)
 }
 
-// test
-
 async function getFoodData() {
   const resp = await fetch('/api/food/info/name')
   const foodList = await resp.json()
