@@ -286,8 +286,11 @@ $inputImage.on('change', function (event) {
 
   if (file) {
     img = new Image();
+    console.log(img.width)
 
     img.onload = function () {
+      console.log(this.width, this.height);
+
       resolution = this.width * this.height;
 
       if (resolution <= MAX_RESOLUTION) {
