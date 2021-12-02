@@ -89,26 +89,25 @@ if (storage != null) {
 }
 
 document.getElementById('blah').addEventListener('click', () => {
-  document.getElementById('image').click();
+  document.getElementById('image').click()
 })
 
 document.getElementById('next-btn').addEventListener('click', () => {
-  const a = document.querySelector('#upload-form').food_name.reportValidity();
-  const b = document.querySelector('#upload-form').total_weight.reportValidity();
-  const c = document.querySelector('#upload-form').is_consumed.reportValidity();
+  const a = document.querySelector('#upload-form').food_name.reportValidity()
+  const b = document.querySelector('#upload-form').total_weight.reportValidity()
+  const c = document.querySelector('#upload-form').is_consumed.reportValidity()
 
-  if (a == true && b == true && c == true){
-    console.log("hi")
-    document.querySelector('.first-page').hidden = true;
-    document.querySelector('.second-page').hidden = false;
+  if (a == true && b == true && c == true) {
+    console.log('hi')
+    document.querySelector('.first-page').hidden = true
+    document.querySelector('.second-page').hidden = false
   }
 })
 
 document.getElementById('back-btn').addEventListener('click', () => {
-  document.querySelector('.second-page').hidden = true;
-  document.querySelector('.first-page').hidden = false;
+  document.querySelector('.second-page').hidden = true
+  document.querySelector('.first-page').hidden = false
 })
-
 
 // document.querySelector('#upload-btn').addEventListener('submit', () => {
 //   window.location = '/home-page.html'
