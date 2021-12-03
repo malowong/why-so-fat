@@ -2,6 +2,11 @@ main {
   padding-top: 80px;
 }
 
+.title-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 #carbs {
   background-color: yellow;
   height: 15px;

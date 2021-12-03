@@ -41,34 +41,24 @@ export class FoodService {
       const foodID = await this.knex(tables.FOOD).insert(userInput).returning("id");
       console.log(`foodID:${foodID}`);
 
-      if (body.per_unit == "per_package") {
-        for (let i = 1; i <= nutritionMap.size; i++) {
-          const nutritionValue = {
-            nutrition_value: (body[`${nutritionMap.get(i)}`] / body["total_weight"]) * 100,
-            food_id: Number(foodID),
-            nutrition_id: i,
-          };
-          await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
+      const nutritionValueArr = [];
+      for (let i = 1; i <= nutritionMap.size; i++) {
+        let value;
+        const nutritionValue = {
+          nutrition_value: value,
+          food_id: Number(foodID),
+          nutrition_id: i,
+        };
+        if (body.per_unit == "per_package") {
+          value = (body[`${nutritionMap.get(i)}`] / body["total_weight"]) * 100;
+        } else if (body.per_unit == "per_serving") {
+          value = (body[`${nutritionMap.get(i)}`] / body["serving_size"]) * 100;
+        } else {
+          value = body[`${nutritionMap.get(i)}`];
         }
-      } else if (body.per_unit == "per_serving") {
-        for (let i = 1; i <= nutritionMap.size; i++) {
-          const nutritionValue = {
-            nutrition_value: (body[`${nutritionMap.get(i)}`] / body["serving_size"]) * 100,
-            food_id: Number(foodID),
-            nutrition_id: i,
-          };
-          await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
-        }
-      } else {
-        for (let i = 1; i <= nutritionMap.size; i++) {
-          const nutritionValue = {
-            nutrition_value: body[`${nutritionMap.get(i)}`],
-            food_id: Number(foodID),
-            nutrition_id: i,
-          };
-          await this.knex(tables.NUTRITION_VALUE).insert(nutritionValue);
-        }
+        nutritionValueArr.push(nutritionValue);
       }
+      await this.knex(tables.NUTRITION_VALUE).insert(nutritionValueArr);
 
       if (body.is_consumed == "YES") {
         const consumptions = {

@@ -9,6 +9,7 @@ const users = [
     gender: "male",
     height: 165,
     weight: 80.5,
+    energy_intake: 2000,
   },
   {
     username: "dennis",
@@ -16,6 +17,7 @@ const users = [
     gender: "male",
     height: 175,
     weight: 64,
+    energy_intake: 1800,
   },
   {
     username: "matthew",
@@ -23,6 +25,7 @@ const users = [
     gender: "male",
     height: 173,
     weight: 58,
+    energy_intake: 1700,
   },
   {
     username: "maggie",
@@ -30,6 +33,7 @@ const users = [
     gender: "female",
     height: 190,
     weight: 72,
+    energy_intake: 1500,
   },
 ];
 
@@ -56,13 +60,13 @@ const nutrition = [
 ];
 
 const consumptions = [
-  { quantity: 0.25, user_id: 4, food_id: 2 },
-  { quantity: 1, user_id: 4, food_id: 6 },
-  { quantity: 1, user_id: 4, food_id: 4 },
-  { quantity: 0.5, user_id: 4, food_id: 1 },
-  { quantity: 1, user_id: 4, food_id: 3 },
-  { quantity: 1, user_id: 4, food_id: 1 },
-  { quantity: 1, user_id: 4, food_id: 2 },
+  { quantity: 0.25, user_id: 1, food_id: 2 },
+  { quantity: 1, user_id: 1, food_id: 6 },
+  { quantity: 1, user_id: 1, food_id: 4 },
+  { quantity: 0.5, user_id: 1, food_id: 1 },
+  { quantity: 1, user_id: 1, food_id: 3 },
+  { quantity: 1, user_id: 1, food_id: 1 },
+  { quantity: 1, user_id: 1, food_id: 2 },
 ];
 
 const nutrition_value1 = [
