@@ -103,13 +103,10 @@ export class ConsumptionService {
   };
 
   addConsumption = async (foodInfo: Object, userID: number) => {
-    console.log(Object.keys(foodInfo));
     const foodIdArr = Object.keys(foodInfo);
     for (const i in foodIdArr) {
       if (foodInfo[foodIdArr[i]] == 0) {
       } else {
-        console.log("food_id: ", foodIdArr[i]);
-        console.log("quantity: ", foodInfo[foodIdArr[i]]);
         const foodList = {
           quantity: foodInfo[foodIdArr[i]],
           user_id: userID,

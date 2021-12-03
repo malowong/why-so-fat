@@ -50,12 +50,10 @@ export class UserController {
       res.status(400).json({ message: "Energy intake must be larger than 1000 kcal" });
     }
     const isExist = await this.userService.getUserByUsername(username);
-    console.log("isExist" + isExist);
     if (isExist) {
       res.status(400).json({ message: "Username has been used" });
     } else {
       const newUserID = await this.userService.insertNewUser(resultObj);
-      console.log(newUserID);
       req.session["user"] = { id: newUserID[0], username };
       res.status(200).json({ message: "Successfully registered" });
     }

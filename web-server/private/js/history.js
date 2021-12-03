@@ -31,14 +31,14 @@ unitMap.set('energy', 'Kcal')
 async function loadHistory() {
   const resp = await fetch('/api/consumption/history')
   const consumptions = (await resp.json()).rows
-  console.log(consumptions)
+
   const consumptionMap = new Map()
 
   for (const consumption of consumptions) {
     const consumptionDate = Date.parse(
       new Date(consumption['created_at'])
     ).toString('yyyy-MM-dd')
-    console.log(consumptionDate)
+
     const foodName = consumption.food_name
     const nutritionName = consumption.nutrition_name
     const nutritionValue = consumption.nutrition_value
@@ -60,7 +60,6 @@ async function loadHistory() {
           foodName: foodName,
           nutrition: [{ [nutritionName]: nutritionValue }],
           totalWeight: totalWeight,
-          // quantity: quantity,
         })
       }
     } else {
@@ -69,27 +68,23 @@ async function loadHistory() {
           foodName: foodName,
           nutrition: [{ [nutritionName]: nutritionValue }],
           totalWeight: totalWeight,
-          // quantity: quantity,
         },
       ])
     }
   }
-  console.log(consumptionMap)
+
   const sortConsumptionMap = new Map(
     [...consumptionMap.entries()].sort().reverse()
   )
 
-  console.log(sortConsumptionMap)
   const mapKeys = Array.from(sortConsumptionMap.keys())
-
-  console.log(mapKeys)
   const mapValues = Array.from(sortConsumptionMap.values())
 
   let htmlStr = ``
 
   for (const mapKey of mapKeys) {
     htmlStr += /*html*/ `<div class="date-row mb-3"><h3>${mapKey}</h3>
-          <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal-${mapKey}">
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal-${mapKey}">
               Details
           </button></div>
 
@@ -112,13 +107,11 @@ async function loadHistory() {
   }
 
   historyContainer.innerHTML = htmlStr
-  console.log(mapValues.length)
   for (let i = 0; i < mapValues.length; i++) {
     let y = 0
     let modalStr = ``
 
     for (const mapValue of mapValues[i]) {
-      console.log(mapValue)
       // <h6>Quantity: ${mapValue.quantity}</h6>
       modalStr += /*html*/ `
             <div class="food-row"> 
@@ -128,7 +121,7 @@ async function loadHistory() {
                 </div>
         
                 <div> 
-                    <button type="button" id="more-btn-${mapKeys[i]}-${y}" class="btn btn-info" onclick="showNutritionDetails('${mapKeys[i]}',${y})">
+                    <button type="button" id="more-btn-${mapKeys[i]}-${y}" class="btn btn-success" onclick="showNutritionDetails('${mapKeys[i]}',${y})">
                         More
                     </button>
                     <div data-id='${mapKeys[i]}-${y}' class="more"></div>
@@ -149,8 +142,6 @@ async function loadHistory() {
     for (const mapValue of mapValues[i]) {
       let moreStr = ``
 
-      // mapValue.totalWeight *
-      // mapValue.quantity
       for (const nutrition of mapValue['nutrition']) {
         moreStr += /*html*/ `
         <div>${nameMap.get(Object.keys(nutrition).toString())}: ${Object.values(
@@ -177,11 +168,3 @@ function showNutritionDetails(mapKey, i) {
     moreText.style.display = 'inline'
   }
 }
-
-// async function getFoodWithDate(dateStr) {
-//   const resp = await fetch(`api/consumption/${dateStr}`)
-//   const foodList = (await resp.json()).rows
-
-//   console.log(dateStr)
-//   console.log(foodList)
-// }
