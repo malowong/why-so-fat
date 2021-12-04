@@ -113,6 +113,12 @@ async function loadHistory() {
 
     for (const mapValue of mapValues[i]) {
       // <h6>Quantity: ${mapValue.quantity}</h6>
+      // <div>
+      //     <button type="button" id="more-btn-${mapKeys[i]}-${y}" class="btn btn-success" onclick="showNutritionDetails('${mapKeys[i]}',${y})">
+      //         More
+      //     </button>
+      //     <div data-id='${mapKeys[i]}-${y}' class="more"></div>
+      // </div>
       modalStr += /*html*/ `
             <div class="food-row"> 
                 <div class="food-info">
@@ -120,12 +126,6 @@ async function loadHistory() {
                     <h6>Weight: ${mapValue.totalWeight} g</h6>
                 </div>
         
-                <div> 
-                    <button type="button" id="more-btn-${mapKeys[i]}-${y}" class="btn btn-success" onclick="showNutritionDetails('${mapKeys[i]}',${y})">
-                        More
-                    </button>
-                    <div data-id='${mapKeys[i]}-${y}' class="more"></div>
-                </div>
             </div> 
             `
 
@@ -136,24 +136,24 @@ async function loadHistory() {
     document.querySelector(`#d-${mapKeys[i]}`).innerHTML = modalStr
   }
 
-  for (let i = 0; i < mapValues.length; i++) {
-    let j = 0
+  // for (let i = 0; i < mapValues.length; i++) {
+  //   let j = 0
 
-    for (const mapValue of mapValues[i]) {
-      let moreStr = ``
+  //   for (const mapValue of mapValues[i]) {
+  //     let moreStr = ``
 
-      for (const nutrition of mapValue['nutrition']) {
-        moreStr += /*html*/ `
-        <div>${nameMap.get(Object.keys(nutrition).toString())}: ${Object.values(
-          nutrition
-        )} ${unitMap.get(Object.keys(nutrition).toString())}</div>
-        `
-      }
-      document.querySelector(`[data-id='${mapKeys[i]}-${j}']`).innerHTML =
-        moreStr
-      j++
-    }
-  }
+  //     for (const nutrition of mapValue['nutrition']) {
+  //       moreStr += /*html*/ `
+  //       <div>${nameMap.get(Object.keys(nutrition).toString())}: ${Object.values(
+  //         nutrition
+  //       )} ${unitMap.get(Object.keys(nutrition).toString())}</div>
+  //       `
+  //     }
+  //     document.querySelector(`[data-id='${mapKeys[i]}-${j}']`).innerHTML =
+  //       moreStr
+  //     j++
+  //   }
+  // }
 }
 
 function showNutritionDetails(mapKey, i) {
