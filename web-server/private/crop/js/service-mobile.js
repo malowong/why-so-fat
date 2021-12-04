@@ -339,9 +339,10 @@ $btnDownload.on('click', async function () {
   if (supportingFileAPI) {
     blob = base64ToBlob(dataURL);
     type = blob.type.split('/')[1];
-    if (imageName.split('.').pop() !== type) {
-      imageName += '.' + type;
-    }
+    console.log(type)
+    // if (imageName.split('.').pop() !== type) {
+    //   imageName += '.' + type;
+    // }
 
     // Library: FileSaver - saveAs
     // saveAs(blob, imageName); // eslint-disable-line

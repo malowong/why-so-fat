@@ -11,7 +11,7 @@ def get_nutrition_info(request):
     req = request.json["data"]
 
     img = base64.decodebytes(req.encode())
-
+    
     result = ocr(img)
     print(result)
 

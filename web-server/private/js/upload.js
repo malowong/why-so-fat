@@ -45,9 +45,6 @@ document.querySelector('#per_unit').addEventListener('input', () => {
   if (form.per_unit.value == 'per_serving') {
     document.getElementById('serving_size').hidden = false
     document.getElementById('serving_size').setAttribute('required', '')
-  } else if (form.per_unit.value == 'per_package') {
-    document.getElementById('serving_size').hidden = true
-    document.getElementById('serving_size').removeAttribute('required')
   } else {
     document.getElementById('serving_size').hidden = true
     document.getElementById('serving_size').removeAttribute('required')
@@ -62,7 +59,7 @@ document.querySelector('#is_consumed').addEventListener('input', () => {
   }
 })
 
-const storage = localStorage.getItem('data')
+const storage = localStorage.getItem('result')
 const result = JSON.parse(storage).data
 console.log(result)
 
@@ -101,6 +98,7 @@ document.getElementById('next-btn').addEventListener('click', () => {
     console.log('hi')
     document.querySelector('.first-page').hidden = true
     document.querySelector('.second-page').hidden = false
+    document.getElementById('serving_size').hidden = true
   }
 })
 

@@ -290,7 +290,7 @@ function loadAnimation() {
         startAngle: 180,
         endAngle: 0,
         min: 0,
-        max: 2000,
+        max: energy,
         splitNumber: 4,
         itemStyle: {
           color: '#58D9F9',
@@ -349,7 +349,7 @@ function loadAnimation() {
           offsetCenter: [0, '30%'],
           valueAnimation: true,
           formatter: function (value) {
-            value = 2000 - value < 0 ? 0 : 2000 - value
+            value = energy - value < 0 ? 0 : energy - value
             return '{value|' + value.toFixed(0) + '}{unit|kcal left}'
           },
           rich: {
@@ -367,7 +367,7 @@ function loadAnimation() {
         },
         data: [
           {
-            value: 2000 - quotaMap.get('energy'),
+            value: energy - quotaMap.get('energy'),
           },
         ],
       },
@@ -619,5 +619,5 @@ async function showIntakeStandard() {
 
   </tr>
   </table>`
-  document.getElementById('nutrition-intake').innerHTML += modalStr
+  document.getElementById('nutrition-intake').innerHTML = modalStr
 }
