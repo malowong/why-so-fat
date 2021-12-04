@@ -131,7 +131,7 @@ h2 {
 } */
 
 table {
-  font-size: 80%;
+  font-size: 100%;
   width: 100%;
   border: 0;
   padding: 5px;
@@ -161,6 +161,7 @@ span {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1.5em;
 }
 
 .food-row {

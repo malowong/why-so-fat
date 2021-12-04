@@ -8,63 +8,70 @@ result = {}
 
 def ocr(img):
 
-    jpg_as_np = np.frombuffer(img, dtype=np.uint8)
-    img = cv2.imdecode(jpg_as_np, flags=1)
-    
-    image_removed_lines = remove_lines(img)
+    try:
 
-    text = pytesseract.image_to_string(image_removed_lines, lang='eng+chi_tra')
-
-    lines = text.split('\n')
-
-    print(lines)
-
-    for line in lines:
-
-        if "per" in line.lower() and "100" in line.lower():
-            result['per'] = 'per_100'
-        elif "per" in line.lower() and "ser" in line.lower():
-            result['per'] = 'per_serving'
-        elif "per" in line.lower() and "pac" in line.lower():
-            result['per'] = 'per_package'
-
-        if "ser" in line.lower() and "size" in line.lower():
-            insert_data(line, 'serving_size', 1)
-
-        if "ener" in line.lower():
-            insert_data(line, 'energy', 4)
+        jpg_as_np = np.frombuffer(img, dtype=np.uint8)
+        img = cv2.imdecode(jpg_as_np, flags=1)
         
-        if "pro" in line.lower() or "ein" in line.lower():
-            insert_data(line, 'protein', 1)
-        
-        if "tot" in line.lower() and "fat" in line.lower():
-            insert_data(line, 'total_fat', 1)
-        
-        if "urated" in line.lower() and "fat" in line.lower():
-            insert_data(line, 'saturated_fat', 1)
+        image_removed_lines = remove_lines(img)
 
-        if "tran" in line.lower() and "fat" in line.lower():
-            insert_data(line, 'trans_fat', 1)
+        text = pytesseract.image_to_string(image_removed_lines, lang='eng+chi_tra')
 
-        if "carbo" in line.lower():
-            insert_data(line, 'carbohydrates', 1)
+        lines = text.split('\n')
 
-        if "sug" in line.lower():
-            insert_data(line, 'sugar', 1)
-        
-        if "sod" in line.lower():
-            insert_data(line, 'sodium', 2)
+        print(lines)
 
-    return result
+        for line in lines:
+
+            if "per" in line.lower() and "100" in line.lower():
+                result['per'] = 'per_100'
+            elif "per" in line.lower() and "ser" in line.lower():
+                result['per'] = 'per_serving'
+            elif "per" in line.lower() and "pac" in line.lower():
+                result['per'] = 'per_package'
+
+            if "ser" in line.lower() and "size" in line.lower():
+                insert_data(line, 'serving_size', 1)
+
+            if "ener" in line.lower() or "ergy" in line.lower():
+                insert_data(line, 'energy', 4)
+            
+            if "pro" in line.lower() or "ein" in line.lower():
+                insert_data(line, 'protein', 1)
+            
+            if "tot" in line.lower() and "fat" in line.lower():
+                insert_data(line, 'total_fat', 1)
+            
+            if "urated" in line.lower() and "fat" in line.lower():
+                insert_data(line, 'saturated_fat', 1)
+
+            if "tran" in line.lower() and "fat" in line.lower():
+                insert_data(line, 'trans_fat', 1)
+
+            if "carbo" in line.lower() or "hydra" in line.lower():
+                insert_data(line, 'carbohydrates', 1)
+
+            if "sug" in line.lower():
+                insert_data(line, 'sugar', 1)
+            
+            if "sod" in line.lower():
+                insert_data(line, 'sodium', 2)
+
+        return result
+
+    except:
+
+        return result
+
         
 
 def insert_data(line, nutrition, unit_letter):
     num = spell_checker(re.search("\d+(.*)", line).group())
 
     if "/" in num:
-        result[nutrition] = re.search(f"\d*\.?\d*(?=.{{{unit_letter}}}[\/])", num).group()
+        result[nutrition] = re.search(f"\d*\.?\d*(?=.{{{unit_letter}}}[\/])", num).group() if re.search(f"\d*\.?\d*(?=.{{{unit_letter}}}[\/])", num).group() != '' else re.search(f"(\d*\.?\d*)(?!.*\d)", num).group()
     else:
-        result[nutrition] = re.search(f"[+-]?\d+(\.\d+)?", num).group()
+        result[nutrition] = re.search(f"\d*\.?\d*(?=.{{{unit_letter}}})", num).group()
 
 def spell_checker(text):
     if "i" in text:

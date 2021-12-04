@@ -112,11 +112,11 @@ async function loadFoodProfile() {
   for (const eachRecord of homePageRecord) {
     console.log(eachRecord)
     htmlStr += /*html*/ `
-        <div class="date-row" id='record-${eachRecord.id}'>
-            <h3>${eachRecord.food_name} x ${eachRecord.sum}</h3>
-            <div>
-              <button type="button" class="fas fa-trash mb-3" onclick='deleteRecord(${eachRecord.id})'></button>
-              <button type="button" class="fas fa-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.id}" onclick="getConsumptionDetails(${eachRecord.id}, ${eachRecord.user_id})">
+        <div class="date-row mb-4" id='record-${eachRecord.id}'>
+            <h3 class="mb-0">${eachRecord.food_name} x ${eachRecord.sum}</h3>
+            <div style="display: flex; align-items:center;">
+              <button type="button" class="fas fa-trash mb-0" onclick='deleteRecord(${eachRecord.id})' style="margin-right: 10px; font-size: 12px"></button>
+              <button type="button" class="fas fa-info-circle mb-0" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.id}" onclick="getConsumptionDetails(${eachRecord.id}, ${eachRecord.user_id})" style="font-size: 12px;">
               Details
               </button>
             </div>  
@@ -131,9 +131,9 @@ async function loadFoodProfile() {
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
         >
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="top: 80px; overflow-y: initial !important;">
                 <div class="modal-content">
-                    <div class="modal-body" id="nutrition-table-${eachRecord.id}"></div>
+                    <div class="modal-body" id="nutrition-table-${eachRecord.id}" style="height: 79vh; overflow-y: auto;"></div>
                 </div>
             </div>
         </div>
@@ -185,9 +185,10 @@ async function getConsumptionDetails(foodID, userID) {
           class="card-img-top"
           src="${foodPhoto}"
           alt="Card image cap"
+          style="max-height: 35vh; width: unset"
           />
-          <h4><strong>${totalGrams}g ${foodName} contain...</strong></<h4> 
-        <table>  
+          <h4 class="p-1"><strong>${totalGrams}g ${foodName} contain...</strong></h4> 
+        <table class="p-1">  
         <tr>
             <td>Energy/能量</td>
             <td></td>
@@ -261,7 +262,6 @@ async function getConsumptionDetails(foodID, userID) {
             } mg/毫克</td>
         </tr>
 
-        </tr>
         </table>
         <div class="modal-footer">
             <button
@@ -531,7 +531,7 @@ async function getFoodData() {
   let htmlStr = ``
   for (const food of foodList) {
     htmlStr += /*html*/ `
-    <div class="food-row" id="food-id-${food.id}" >
+    <div class="food-row" id="food-id-${food.id}" style="padding: 10px 0 10px">
       <div class="form-food-name">${food.food_name}</div>
       <select name="quantity" data-id=${food.id}>
       <option>0</option>
