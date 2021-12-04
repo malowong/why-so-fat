@@ -1,0 +1,8 @@
+#!/Users/malowong/tecky-project/c17-bad-project-10-tw/c17-bad-project-10-tw/py-api-new/api_python_new/bin/python
+# -*- coding: utf-8 -*-
+import re
+import sys
+from pytesseract.pytesseract import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
