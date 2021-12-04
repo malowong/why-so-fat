@@ -106,33 +106,3 @@ document.getElementById('back-btn').addEventListener('click', () => {
   document.querySelector('.second-page').hidden = true
   document.querySelector('.first-page').hidden = false
 })
-
-// document.querySelector('#upload-btn').addEventListener('submit', () => {
-//   window.location = '/home-page.html'
-// })
-
-// document.querySelector('#per_serving').addEventListener('input', () => {
-//   form.serving_size.attributes['required'] = true
-// })
-
-// document.querySelector('#per_package').addEventListener('input', () => {
-//   form.serving_size.attributes['required'] = false
-// })
-
-// document.querySelector('#per_100').addEventListener('click', () => {
-//   form.serving_size.attributes['required'] = false
-// })
-
-// consumedDropdownItem.addEventListener('click', () => {
-//     const text = consumedBtn.innerHTML.trim()
-//     console.log(text)
-//     if (text == 'YES') {
-//         consumedBtn.innerHTML = 'NO'
-//         quantity.hidden = true
-//         consumedDropdownItem.innerHTML = 'YES'
-//     } else {
-//         consumedBtn.innerHTML = 'YES'
-//         quantity.hidden = false
-//         consumedDropdownItem.innerHTML = 'NO'
-//     }
-// })

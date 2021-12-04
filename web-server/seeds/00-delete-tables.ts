@@ -21,10 +21,4 @@ export async function seed(knex: Knex): Promise<void> {
     await trx.destroy();
   }
 
-  // Deletes ALL existing entries
-  // await knex.raw(`TRUNCATE ${tables.USER} RESTART IDENTITY CASCADE`);
-  // await knex.raw(`TRUNCATE ${tables.FOOD} RESTART IDENTITY CASCADE`);
-  // await knex.raw(`TRUNCATE ${tables.NUTRITION} RESTART IDENTITY CASCADE`);
-  // await knex.raw(`TRUNCATE ${tables.CONSUMPTION} RESTART IDENTITY CASCADE`);
-  // await knex.raw(`TRUNCATE ${tables.NUTRITION_VALUE} RESTART IDENTITY CASCADE`);
 }

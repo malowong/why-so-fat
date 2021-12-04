@@ -346,8 +346,6 @@ async function convertFnc(foodId) {
 
 sortButtons.forEach((sortButton) => {
   console.log(sortButton)
-  // console.log(sortButton.classList)
-  // console.log(sortButton.classList[2][0])
   sortButton.addEventListener('click', (e) => {
     sortByNutrition(
       sortButton,
@@ -403,7 +401,3 @@ function topFunction() {
   document.body.scrollTop = 0 // For Safari
   document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
 }
-
-// test
-// test
-// test

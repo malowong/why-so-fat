@@ -1,7 +1,6 @@
 import { Knex } from "knex";
 import { Request } from "express";
 import { tables } from "../utils/freezedObj";
-// import { Food } from "../utils/models";
 
 export class FoodService {
   constructor(private knex: Knex) {}

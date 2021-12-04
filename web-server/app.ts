@@ -8,9 +8,7 @@ import { logger } from "./utils/logger";
 import expressSession from "express-session";
 
 const app = express();
-app.use(express.json({
-  limit: '30mb'
-}));
+app.use(express.json({limit: '30mb'}));
 app.use(
   expressSession({
     secret: "Tecky Academy teaches typescript",
@@ -18,8 +16,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-console.log("hello");
 
 const server = new http.Server(app);
 export const io = new SocketIO(server);
@@ -38,9 +34,9 @@ import { routes } from "./routes";
 const API_VERSION = "/api";
 app.use(API_VERSION, routes);
 
-app.use(express.static(path.join(__dirname, "public"), { index: "login-page.html" }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(isLoggedInStatic, express.static(path.join(__dirname, "uploads")));
-app.use(isLoggedInStatic, express.static(path.join(__dirname, "private")));
+app.use(isLoggedInStatic, express.static(path.join(__dirname, "private"), { index: "home-page.html" }));
 
 const PORT = 8080;
 server.listen(PORT, () => {

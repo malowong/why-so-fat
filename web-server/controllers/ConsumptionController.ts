@@ -8,17 +8,8 @@ export class ConsumptionController {
     const userID = req.session["user"].id;
     const consumptionHistory = await this.consumptionService.getConsumptionHistory(userID);
 
-    res.status(200).json(consumptionHistory).end();
+    res.status(200).json(consumptionHistory)
   };
-
-  // getFoodWithDate = async (req: Request, res: Response) => {
-  //   const userID = req.session["user"].id;
-  //   const consumptionDate = req.params.date;
-  //   console.log(consumptionDate);
-  //   const foodList = await this.consumptionService.getFoodWithDate(userID, consumptionDate);
-
-  //   res.status(200).json(foodList).end();
-  // };
 
   homePageRecord = async (req: Request, res: Response) => {
     const userID = req.session["user"].id;
@@ -52,7 +43,7 @@ export class ConsumptionController {
 
     await this.consumptionService.addConsumption(foodInfo, userID);
 
-    res.status(200).json({ message: "success add" }).end();
+    res.status(200).json({ message: "success add" })
   };
 
   deleteRecord = async (req: Request, res: Response) => {

@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 import { tables } from "../utils/freezedObj";
-import { User, NewUser } from "../utils/models";
+import { User, NewUser } from "./models";
 
 export class UserService {
   constructor(private knex: Knex) {}

@@ -21,9 +21,3 @@ input::-webkit-inner-spin-button {
   bottom: 13vh;
   left: 12px;
 }
-
-
-/* 
-input[type="number"],input[type="text"] {
-  width: 20%;
-}  */

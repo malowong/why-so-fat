@@ -92,14 +92,9 @@ async function loadQuota() {
   const sugarsInfo = document.querySelector('#sugars-display')
   const proteinInfo = document.querySelector('#protein-display')
 
-  // document.querySelector('')children[2].innerHTML = `${Math.round(carbsLength)}%`
-  // carbsInfo.children[2].innerHTML = `<p>${parseInt(
-  document.querySelector(
-    '#carbs-display'
-  ).children[2].innerHTML = `<p>${carbohydratesValue} g left</p>`
-  // sugarsInfo.children[1].innerHTML = `${Math.round(sugarsLength)}%`
+
+  document.querySelector('#carbs-display').children[2].innerHTML = `<p>${carbohydratesValue} g left</p>`
   sugarsInfo.children[2].innerHTML = `<p>${sugarsValue} g left</p>`
-  // proteinInfo.children[1].innerHTML = `${Math.round(proteinLength)}%`
   proteinInfo.children[2].innerHTML = `<p>${proteinValue} g left</p>`
 }
 

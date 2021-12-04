@@ -7,13 +7,13 @@ export class FoodController {
   foodNameListInfo = async (req: Request, res: Response) => {
     const foodList = await this.foodService.getFoodNameList();
 
-    res.status(200).json(foodList).end();
+    res.status(200).json(foodList)
   };
 
   foodListInfoWithNutrition = async (req: Request, res: Response) => {
     const foodList = await this.foodService.getFoodAndNutritionInfo();
 
-    res.status(200).json(foodList).end();
+    res.status(200).json(foodList)
   };
 
   upload = async (req: Request, res: Response) => {
@@ -25,7 +25,7 @@ export class FoodController {
 
   ocr = async (req: Request, res: Response) => {
     const body = req.file?.buffer.toString("base64");
-    const baseUrl = "http://localhost:8000"
+    const baseUrl = process.env.PY_API_URL !!
 
     const resp = await fetch(baseUrl, {
       method: "POST",
