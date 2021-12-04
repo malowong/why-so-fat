@@ -1,148 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, height=812, initial-scale=1.0, shrink-to-fit=no, user-scalable=no, viewport-fit=cover">
-        <title>Profile</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=812, initial-scale=1.0, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Profile</title>
 
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-            crossorigin="anonymous"
-        />
-        <link rel="stylesheet" href="./css/index.css" />
-        <link rel="stylesheet" href="./css/profile.css" />
-    </head>
-    <body>
-        <header class="container-fluid bg-success p-0">
-            <div class="safe-area bg-success"></div>
-            <h1>Profile</h1>
-        </header>
-        <main>
-            <div id="container">
-                <div id="user-info"></div>
-                <div>
-                    <!-- Button trigger modal -->
-                    <button
-                        type="button"
-                        class="edit-btn btn btn-info"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                    >
-                        Edit
-                    </button>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/profile.css" />
+  </head>
+  <body>
+    <header class="container-fluid bg-success p-0">
+      <div class="safe-area bg-success"></div>
+      <h1>Profile</h1>
+    </header>
+    <main>
+      <div id="container">
+        <div id="user-info"></div>
+        <div>
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="edit-btn btn btn-info"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Edit
+          </button>
 
-                    <!-- Modal -->
-                    <div
-                        class="modal fade"
-                        id="exampleModal"
-                        tabindex="-1"
-                        aria-labelledby="exampleModalLabel"
-                        aria-hidden="true"
-                    >
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5
-                                        class="modal-title"
-                                        id="exampleModalLabel"
-                                    >
-                                        Edit Info
-                                    </h5>
-                                    <button
-                                        type="button"
-                                        class="btn-close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                    ></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="edit-form">
-                                        <div
-                                            class="
-                                                input-group input-group-sm
-                                                mb-3
-                                            "
-                                        >
-                                            <input
-                                                type="number"
-                                                name="height"
-                                                placeholder="height (cm)"
-                                                class="form-control"
-                                                aria-label="Small"
-                                                aria-describedby="inputGroup-sizing-sm"
-                                            />
-                                        </div>
-                                        <div
-                                            class="
-                                                input-group input-group-sm
-                                                mb-3
-                                            "
-                                        >
-                                            <input
-                                                type="number"
-                                                name="weight"
-                                                placeholder="weight (kg)"
-                                                class="form-control"
-                                                aria-label="Small"
-                                                aria-describedby="inputGroup-sizing-sm"
-                                            />
-                                        </div>
-                                        <div class="edit-message mb-2"></div>
-                                        <button
-                                            type="button"
-                                            class="btn btn-secondary"
-                                            data-bs-dismiss="modal"
-                                        >
-                                            Close
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            class="save-edit-btn btn btn-info"
-                                        >
-                                            Save changes
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="logout-btn btn btn-danger">
-                        Logout
-                    </button>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Edit Info</h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
+                <div class="modal-body">
+                  <form id="edit-form">
+                    <div class="input-group input-group-sm mb-3">
+                      <input
+                        type="number"
+                        name="height"
+                        placeholder="Height (cm)"
+                        class="form-control"
+                        aria-label="Small"
+                        aria-describedby="inputGroup-sizing-sm"
+                      />
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                      <input
+                        type="number"
+                        name="weight"
+                        placeholder="Weight (kg)"
+                        class="form-control"
+                        aria-label="Small"
+                        aria-describedby="inputGroup-sizing-sm"
+                      />
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                      <input
+                        type="number"
+                        name="energyIntake"
+                        placeholder="Energy intake (kcal)"
+                        class="form-control"
+                        aria-label="Small"
+                        aria-describedby="inputGroup-sizing-sm"
+                      />
+                    </div>
+                    <div class="edit-message mb-2"></div>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="submit" class="save-edit-btn btn btn-info">
+                      Save changes
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
-        </main>
+          </div>
+          <button type="button" class="logout-btn btn btn-danger">
+            Logout
+          </button>
+        </div>
+      </div>
+    </main>
 
-        <footer class="container-fluid bg-success p-0">
-            <div class="d-flex justify-content-around w-100">
-                <a href="/food-list.html" class="text-light"
-                    ><i class="fa fa-cutlery" aria-hidden="true"></i
-                ></a>
-                <a href="crop/edit.html" class="text-light"
-                    ><i class="fa fa-upload" aria-hidden="true"></i
-                ></a>
-                <a href="/home-page.html" class="text-light"
-                    ><i class="fa fa-home" aria-hidden="true"></i
-                ></a>
-                <a href="/history.html" class="text-light"
-                    ><i class="fa fa-history" aria-hidden="true"></i
-                ></a>
-                <a href="/profile.html" class="text-light"
-                    ><i class="fa fa-user" aria-hidden="true"></i
-                ></a>
-            </div>
-            <div class="safe-area bg-success"></div>
-        </footer>
+    <footer class="container-fluid bg-success p-0">
+      <div class="d-flex justify-content-around w-100">
+        <a href="/food-list.html" class="text-light"
+          ><i class="fa fa-cutlery" aria-hidden="true"></i
+        ></a>
+        <a href="crop/edit.html" class="text-light"
+          ><i class="fa fa-upload" aria-hidden="true"></i
+        ></a>
+        <a href="/home-page.html" class="text-light"
+          ><i class="fa fa-home" aria-hidden="true"></i
+        ></a>
+        <a href="/history.html" class="text-light"
+          ><i class="fa fa-history" aria-hidden="true"></i
+        ></a>
+        <a href="/profile.html" class="text-light"
+          ><i class="fa fa-user" aria-hidden="true"></i
+        ></a>
+      </div>
+      <div class="safe-area bg-success"></div>
+    </footer>
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"
-        ></script>
-        <script src="./js/profile.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-    </body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/profile.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  </body>
 </html>

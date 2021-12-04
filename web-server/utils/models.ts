@@ -23,6 +23,7 @@ export interface NewUser {
   gender: string;
   height: number;
   weight: number;
+  energy_intake: number;
 }
 
 export interface Consumptions {

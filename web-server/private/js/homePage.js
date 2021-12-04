@@ -1,34 +1,42 @@
 let quotaMap = new Map()
 let homePageFoodListMap = new Map()
-
-const intakeStandard = {
-  energy: 2000,
-  carbohydrates: 275,
-  total_fat: 60,
-  sugars: 50,
-  saturated_fat: 20,
-  trans_fat: 2.2,
-  sodium: 2000,
-  protein: 0,
-}
+let energy
+let protein
+let intakeStandard
 
 window.onload = async () => {
-  await setProteinStandard()
+  await setProteinAndEnergyStandard()
+
+  intakeStandard = {
+    energy,
+    carbohydrates: energy * 0.55,
+    total_fat: energy * 0.27,
+    sugars: energy * 0.1,
+    saturated_fat: energy * 0.07,
+    trans_fat: energy * 0.0011,
+    sodium: energy,
+    protein,
+  }
+
   await loadQuota()
   await loadFoodProfile()
   loadAnimation()
   changeBarLength()
 }
 
-async function setProteinStandard() {
-  const bodyWeightResp = await fetch('/api/consumption/userbodyweight')
-  const bodyWeight = (await bodyWeightResp.json()).weight
-  intakeStandard['protein'] = bodyWeight
+async function setProteinAndEnergyStandard() {
+  const resp = await fetch('/api/consumption/setstandard')
+  const userInfo = await resp.json()
+  const energyStandard = userInfo.energy_intake
+  const bodyWeight = userInfo.weight
+  protein = bodyWeight
+  energy = energyStandard
 }
 
 async function loadQuota() {
   const quotaResp = await fetch('/api/consumption/quota')
   const quota = (await quotaResp.json()).rows
+  console.log(quota)
 
   const sortedIntakeStandardKeys = Object.keys(intakeStandard).sort()
 
@@ -104,11 +112,14 @@ async function loadFoodProfile() {
   for (const eachRecord of homePageRecord) {
     console.log(eachRecord)
     htmlStr += /*html*/ `
-        <div class="date-row">
+        <div class="date-row" id='record-${eachRecord.id}'>
             <h3>${eachRecord.food_name} x ${eachRecord.sum}</h3>
-            <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.id}" onclick="getConsumptionDetails(${eachRecord.id}, ${eachRecord.user_id})">
-                Details
-            </button>
+            <div>
+              <button type="button" class="fas fa-trash mb-3" onclick='deleteRecord(${eachRecord.id})'></button>
+              <button type="button" class="fas fa-info mb-3" data-bs-toggle="modal" data-bs-target="#target-${eachRecord.id}" onclick="getConsumptionDetails(${eachRecord.id}, ${eachRecord.user_id})">
+              Details
+              </button>
+            </div>  
         </div>
     `
     modalStr += /* html */ `
@@ -131,6 +142,18 @@ async function loadFoodProfile() {
   document.querySelector('#today-container').innerHTML += htmlStr
   if (document.getElementById('today-container').innerHTML != '') {
     document.getElementById('my-modal-container').innerHTML += modalStr
+  }
+}
+
+async function deleteRecord(foodID) {
+  const resp = await fetch(`/api/consumption/deleterecord/${foodID}`, {
+    method: 'DELETE',
+  })
+  if (resp.status == 200) {
+    document
+      .querySelectorAll("[id^='record-']")
+      .forEach((element) => element.remove())
+    window.onload()
   }
 }
 
@@ -497,26 +520,9 @@ function getOtherIntake() {
       },
     ],
   }
-  // setInterval(function () {
-  //   gaugeData[0].value = +(Math.random() * 100).toFixed(2)
-  //   gaugeData[1].value = +(Math.random() * 100).toFixed(2)
-  //   gaugeData[2].value = +(Math.random() * 100).toFixed(2)
-  //   myChart.setOption({
-  //     series: [
-  //       {
-  //         data: gaugeData,
-  //         pointer: {
-  //           show: false,
-  //         },
-  //       },
-  //     ],
-  //   })
-  // }, 2000)
 
   myChart.setOption(option)
 }
-
-// test
 
 async function getFoodData() {
   const resp = await fetch('/api/food/info/name')
@@ -571,4 +577,47 @@ async function getFoodData() {
       window.location = '/home-page.html'
     }
   })
+}
+
+async function showIntakeStandard() {
+  console.log('test')
+  modalStr = /*HTML*/ `
+  <h3>Daily Nutrition Intake Standard</h3>
+  <table>  
+  <tr>
+      <td>Energy/能量</td>
+      <td>${Math.round(intakeStandard['energy'])} kcal/千卡</td>
+  </tr>
+  <tr>
+      <td>Protein/蛋白質</td>
+      <td>${Math.round(intakeStandard['protein'])}g/克</td>
+  </tr>
+  <tr>
+      <td>Total fat/總脂肪</td>
+      <td>${Math.round(intakeStandard['total_fat'])}g/克</td>
+  </tr>
+  <tr>
+      <td>Saturated fat/飽和脂肪</td>
+      <td>${Math.round(intakeStandard['saturated_fat'])}g/克</td>
+  </tr>
+  <tr>
+      <td>Trans fat/反式脂肪</td>
+      <td>${Math.round(intakeStandard['trans_fat'])}g/克</td>
+  </tr>
+  <tr>
+      <td>Carbohydrates/碳水化合物</td>
+      <td>${Math.round(intakeStandard['carbohydrates'])}g/克</td>
+  </tr>
+  <tr>
+      <td>Sugars/糖</td>
+      <td>${Math.round(intakeStandard['sugars'])}g/克</td>
+  </tr>
+  <tr>
+      <td>Sodium/鈉</td>
+      <td>${Math.round(intakeStandard['sodium'])}mg/毫克</td>
+  </tr>
+
+  </tr>
+  </table>`
+  document.getElementById('nutrition-intake').innerHTML += modalStr
 }

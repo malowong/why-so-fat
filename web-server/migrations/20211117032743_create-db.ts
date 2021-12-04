@@ -16,6 +16,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("gender", 10).notNullable();
     table.float("height").notNullable().unsigned();
     table.float("weight").notNullable().unsigned();
+    table.integer("energy_intake").notNullable().unsigned();
     table.timestamps(false, true);
   });
 
