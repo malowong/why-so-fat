@@ -27,7 +27,7 @@ export class FoodController {
     const body = req.file?.buffer.toString("base64");
     const baseUrl = process.env.PY_API_URL !!
 
-    const resp = await fetch(baseUrl, {
+    const resp = await fetch("https://localhost:8000", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
