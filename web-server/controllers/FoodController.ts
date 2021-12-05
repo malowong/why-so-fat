@@ -25,7 +25,6 @@ export class FoodController {
 
   ocr = async (req: Request, res: Response) => {
     const body = req.file?.buffer.toString("base64");
-    const baseUrl = process.env.PY_API_URL !!
 
     const resp = await fetch("https://localhost:8000", {
       method: "POST",
