@@ -15,6 +15,8 @@ def ocr(img):
         
         image_removed_lines = remove_lines(img)
 
+        print(image_removed_lines)
+
         text = pytesseract.image_to_string(image_removed_lines, lang='eng+chi_tra')
 
         lines = text.split('\n')
