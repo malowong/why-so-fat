@@ -7,7 +7,6 @@ opencv-python==4.5.4.60
 Pillow==8.4.0
 pip==21.3.1
 pycodestyle==2.8.0
-pytesseract==0.3.8
 sanic==21.9.3
 sanic-routing==0.7.2
 setuptools==58.1.0
