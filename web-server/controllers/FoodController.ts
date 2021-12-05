@@ -26,7 +26,7 @@ export class FoodController {
   ocr = async (req: Request, res: Response) => {
     const body = req.file?.buffer.toString("base64");
 
-    const resp = await fetch("https://localhost:8000", {
+    const resp = await fetch("http://localhost:8000", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
