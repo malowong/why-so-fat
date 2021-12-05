@@ -3,7 +3,7 @@ autopep8==1.6.0
 httptools==0.3.0
 multidict==5.2.0
 numpy==1.21.4
-opencv-python-headless==4.5.4.60
+opencv-python==4.5.4.60
 Pillow==8.4.0
 pip==21.3.1
 pycodestyle==2.8.0
