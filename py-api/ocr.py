@@ -48,6 +48,7 @@ def ocr(img):
                 insert_data(line, 'saturated_fat', 1)
 
             if "tran" in line.lower() and "fat" in line.lower():
+                print(yes)
                 insert_data(line, 'trans_fat', 1)
 
             if "carbo" in line.lower() or "hydra" in line.lower():
