@@ -370,7 +370,7 @@ $btnDownload.on('click', async function () {
     
     const result = (await resp.json());
     
-    // window.location = '../../upload.html'
+    window.location = '../../upload.html'
     // loader.style.display = 'none'
     
     localStorage.setItem('result', JSON.stringify(result))
