@@ -353,12 +353,14 @@ $btnDownload.on('click', async function () {
     formData.append('image', file)
 
     const header = document.querySelector('.header')
-    const loader = document.querySelector('.video-loader')
+    const loader = document.querySelector('.lds-ring')
+    const canva = document.querySelector('.tui-image-editor-canvas-container')
     const footer = document.querySelector('.tui-image-editor-controls')
 
+    canva.style.display = 'none'
     loader.style.display = 'flex'
-    header.innerHTML = /* html */ `<h2>loading</h2>`
-    footer.innerHTML = /* html */ `<h2>this may take a while...</h2>`
+    header.innerHTML = /* html */ `<h2>Loading</h2>`
+    footer.innerHTML = /* html */ `<h2>This may take a while...</h2>`
 
     const resp = await fetch('/api/food/ocr', {
         method: 'POST',
@@ -368,7 +370,7 @@ $btnDownload.on('click', async function () {
     
     const result = (await resp.json());
     
-    window.location = '../../upload.html'
+    // window.location = '../../upload.html'
     // loader.style.display = 'none'
     
     localStorage.setItem('result', JSON.stringify(result))
