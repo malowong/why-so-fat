@@ -8,22 +8,22 @@ result = {}
 
 def ocr(img):
 
-    try:
+    jpg_as_np = np.frombuffer(img, dtype=np.uint8)
+    img = cv2.imdecode(jpg_as_np, flags=1)
+    
+    image_removed_lines = remove_lines(img)
 
-        jpg_as_np = np.frombuffer(img, dtype=np.uint8)
-        img = cv2.imdecode(jpg_as_np, flags=1)
-        
-        image_removed_lines = remove_lines(img)
+    print(image_removed_lines)
 
-        print(image_removed_lines)
+    text = pytesseract.image_to_string(image_removed_lines, lang='eng+chi_tra')
 
-        text = pytesseract.image_to_string(image_removed_lines, lang='eng+chi_tra')
+    lines = text.split('\n')
 
-        lines = text.split('\n')
+    print(lines)
 
-        print(lines)
+    for line in lines:
 
-        for line in lines:
+        try:
 
             if "per" in line.lower() and "100" in line.lower():
                 result['per'] = 'per_100'
@@ -61,12 +61,14 @@ def ocr(img):
             if "sod" in line.lower():
                 insert_data(line, 'sodium', 2)
 
-        return result
 
-    except:
+        except Exception as e: 
 
-        return result
+            print(e)
 
+            continue
+
+    return result
         
 
 def insert_data(line, nutrition, unit_letter):
