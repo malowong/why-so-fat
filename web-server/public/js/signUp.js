@@ -13,7 +13,7 @@ document.querySelector('#signUpForm').addEventListener('submit', async (e) => {
     gender: e.target['dropbtn'].value,
     height: e.target['height'].value,
     weight: e.target['weight'].value,
-    weight: e.target['energyIntake'].value,
+    energy_intake: e.target['energyIntake'].value,
   }
   console.log(formObj)
   const resp = await fetch('/api/user/signup', {
