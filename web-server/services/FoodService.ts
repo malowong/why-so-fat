@@ -43,11 +43,6 @@ export class FoodService {
       const nutritionValueArr = [];
       for (let i = 1; i <= nutritionMap.size; i++) {
         let value;
-        const nutritionValue = {
-          nutrition_value: value,
-          food_id: Number(foodID),
-          nutrition_id: i,
-        };
         if (body.per_unit == "per_package") {
           value = (body[`${nutritionMap.get(i)}`] / body["total_weight"]) * 100;
         } else if (body.per_unit == "per_serving") {
@@ -55,6 +50,11 @@ export class FoodService {
         } else {
           value = body[`${nutritionMap.get(i)}`];
         }
+        const nutritionValue = {
+          nutrition_value: value,
+          food_id: Number(foodID),
+          nutrition_id: i,
+        };
         nutritionValueArr.push(nutritionValue);
       }
       console.log(nutritionValueArr)
