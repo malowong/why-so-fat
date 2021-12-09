@@ -57,6 +57,7 @@ export class FoodService {
         }
         nutritionValueArr.push(nutritionValue);
       }
+      console.log(nutritionValueArr)
       await this.knex(tables.NUTRITION_VALUE).insert(nutritionValueArr);
 
       if (body.is_consumed == "YES") {
