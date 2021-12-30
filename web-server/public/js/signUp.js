@@ -6,12 +6,14 @@ document.querySelector('#signUpForm').addEventListener('submit', async (e) => {
   e.preventDefault()
   console.log(e.target['username'].value)
   console.log(e)
+  console.log(e.target['energyIntake'].value)
   const formObj = {
     username: e.target['username'].value,
     password: e.target['password'].value,
     gender: e.target['dropbtn'].value,
     height: e.target['height'].value,
     weight: e.target['weight'].value,
+    energy_intake: e.target['energyIntake'].value,
   }
   console.log(formObj)
   const resp = await fetch('/api/user/signup', {

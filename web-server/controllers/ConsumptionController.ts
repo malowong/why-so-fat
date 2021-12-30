@@ -8,17 +8,8 @@ export class ConsumptionController {
     const userID = req.session["user"].id;
     const consumptionHistory = await this.consumptionService.getConsumptionHistory(userID);
 
-    res.status(200).json(consumptionHistory).end();
+    res.status(200).json(consumptionHistory)
   };
-
-  // getFoodWithDate = async (req: Request, res: Response) => {
-  //   const userID = req.session["user"].id;
-  //   const consumptionDate = req.params.date;
-  //   console.log(consumptionDate);
-  //   const foodList = await this.consumptionService.getFoodWithDate(userID, consumptionDate);
-
-  //   res.status(200).json(foodList).end();
-  // };
 
   homePageRecord = async (req: Request, res: Response) => {
     const userID = req.session["user"].id;
@@ -40,24 +31,25 @@ export class ConsumptionController {
     res.status(200).json(quotaData);
   };
 
-  userBodyWeight = async (req: Request, res: Response) => {
+  setStandard = async (req: Request, res: Response) => {
     const userID = req.session["user"].id;
-    const bodyWeightData = await this.consumptionService.getBodyWeight(userID);
+    const bodyWeightData = await this.consumptionService.getStandardInfo(userID);
     res.status(200).json(bodyWeightData);
   };
 
   add = async (req: Request, res: Response) => {
     const foodInfo = req.body;
     const userID = req.session["user"].id;
-    console.log(req.body);
-    // // const foodList = req.body.foodList;
-
-    // // for (const food of foodList) {
-    // //   food["user_id"] = userID;
-    // // }
 
     await this.consumptionService.addConsumption(foodInfo, userID);
 
-    res.status(200).json({ message: "success add" }).end();
+    res.status(200).json({ message: "success add" })
+  };
+
+  deleteRecord = async (req: Request, res: Response) => {
+    const userID = req.session["user"].id;
+    const foodID = Number(req.params.foodID);
+    await this.consumptionService.deleteRecord(foodID, userID);
+    res.status(200).json({ message: "successfully deleted" });
   };
 }

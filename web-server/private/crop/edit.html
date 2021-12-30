@@ -24,34 +24,19 @@
     <header class="container-fluid bg-success p-0">
       <div class="safe-area bg-success"></div>
       <h1>Upload</h1>
-      <!-- <div class="button" id="take-photo">
-        <label for="input-image-file">
-          <img src="img/openImage.png"/>
-        </label>
-        <input type="file" accept="image/*;capture=camera" id="input-image-file" />
-      </div> -->
     </header>
     <div class="header">
       <div class="menu">
-        <span class="button">Photo
-          <input type="file" accept="image/*;capture=camera" id="input-image-file" />
+        <span class="button" style="text-align: left;">Photo
+          <input type="file" accept="image/*;capture=camera" id="input-image-file" style="height: 0;"/>
         </span>
-        <!-- <span>hi
-          <input type="file" accept="image/*;capture=camera" id="input-image-file" />
-        </span> -->
         <span class="button" onclick="location.href='../upload.html'">Skip</span>
-        <!-- <button class="button" id="btn-remove-active-object"><img src="img/remove.png" /></button> -->
-        <span class="button" id="btn-download-new">Done</span>
+        <span class="button" id="btn-download" style="text-align: right;">Done</span>
       </div>
     </div>
     <!-- Image editor area -->
     <div class="tui-image-editor">
-
-      <div class="video-loader">
-        <video autoplay="autoplay" loop="loop" muted defaultMuted playsinline  oncontextmenu="return false;"  preload="auto"  id="myVideo">
-          <source src="video.mp4" type="video/mp4">
-        </video>
-      </div>
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
 
     </div>
 
@@ -292,140 +277,6 @@
     ></script>
     <script type="text/javascript" src="./dist/tui-image-editor.js"></script>
     <script type="module" src="js/service-mobile.js"></script>
-    <!-- <script type="module" src="js/edit.js"></script> -->
-    <!-- <script type="module" src="./js/test.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-    <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
-    <script>
-
-      document.getElementById('btn-download-new').addEventListener('click', (e) => {
-        const header = document.querySelector('.header')
-        const loader = document.querySelector('.video-loader')
-        const footer = document.querySelector('.tui-image-editor-controls')
-
-        loader.style.display = 'flex'
-        header.innerHTML = /* html */ `<h2>loading</h2>`
-        footer.innerHTML = /* html */ `<h2>this may take a while...</h2>`
-
-        Tesseract.recognize(
-          document.querySelector('.lower-canvas'),
-          'eng+chi_tra',
-          { logger: m => console.log(m) }
-        ).then(({ data: { text } }) => {
-          let result = {}
-          const lines = text.split('\n')
-
-          function insertData(line, nutrition){
-            const text = spellChecker(line.match(/\d+(.*)/)[0])
-
-            if(line.includes("/")){
-              result[nutrition] = text.match(/\d*\.?\d*(?=.{1}[\/])/g)[0]
-
-            } else {
-              result[nutrition] = text.match(/[+-]?\d+(\.\d+)?/g)[0]
-            }
-
-          }
-
-          function insertDataTwoUnit(line, nutrition){
-            const text = spellChecker(line.match(/\d+(.*)/)[0])
-
-            if(line.includes("/")){
-              result[nutrition] = text.match(/\d*\.?\d*(?=.{2}[\/])/g)[0]
-
-            } else {
-              result[nutrition] = text.match(/[+-]?\d+(\.\d+)?/g)[0]
-            }
-          }
-
-          function insertDataFourUnit(line, nutrition){
-            const text = spellChecker(line.match(/\d+(.*)/)[0])
-
-            if(line.includes("/")){
-              result[nutrition] = text.match(/\d*\.?\d*(?=.{4}[\/])/g)[0]
-
-            } else {
-              result[nutrition] = text.match(/[+-]?\d+(\.\d+)?/g)[0]
-            }
-          }
-
-          function spellChecker(text){
-            if(text.includes("i")){
-              text = text.replace('i', '1')
-            }
-            if(text.includes("O")){
-              text = text.replace("O", "0")
-            }
-            if(text.includes(";")){
-              text = text.replace(";", ".")
-            }
-            if(text.includes(",")){
-              text = text.replace(",", ".")
-            }
-            if(text.includes("G")){
-              text = text.replace("G", "6")
-            }
-            if(text.includes("﹒")){
-              text = text.replace("﹒", ".")
-            }
-            if(text.includes("T")){
-              text = text.replace("T", "7")
-            }
-            return text
-          }
-
-          for (let line of lines) {
-
-            if(line.toLowerCase().includes("per") && line.toLowerCase().includes("100")){
-              result['per'] = 'per_100'
-            } else if (line.toLowerCase().includes("per") && line.toLowerCase().includes("ser")){
-              result['per'] = 'per_serving'
-            } else if (line.toLowerCase().includes("per") && line.toLowerCase().includes("pac")){
-              result['per'] = 'per_package'
-            }
-
-            if(line.toLowerCase().includes("ser") && line.toLowerCase().includes("size")){
-              insertData(line, 'serving_size')
-            }
-
-            if(line.toLowerCase().includes("ener")){
-              insertDataFourUnit(line, 'energy')
-            }
-
-            if(line.toLowerCase().includes("pro") || line.toLowerCase().includes("ein")){
-              insertData(line, 'protein')
-            }
-
-            if(line.toLowerCase().includes("tot") && line.toLowerCase().includes("fat")){
-              insertData(line, 'total_fat')
-            }
-
-            if(line.toLowerCase().includes("urated") && line.toLowerCase().includes("fat")){
-              insertData(line, 'saturated_fat')
-            }
-
-            if(line.toLowerCase().includes("tran") && line.toLowerCase().includes("fat")){
-              insertData(line, 'trans_fat')
-            }
-
-            if(line.toLowerCase().includes("carbo")){
-              insertData(line, 'carbohydrates')
-            }
-
-            if(line.toLowerCase().includes("sug")){
-              insertData(line, 'sugar')
-            }
-
-            if(line.toLowerCase().includes("sod")){
-              insertDataTwoUnit(line, 'sodium')
-            }
-          }
-          localStorage.setItem('data', JSON.stringify({"data": result}))
-          console.log(lines)
-          window.location = '../../upload.html'
-
-        })
-      })
-    </script>
   </body>
 </html>

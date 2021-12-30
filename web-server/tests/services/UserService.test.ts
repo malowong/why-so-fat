@@ -1,6 +1,6 @@
 import Knex from "knex";
 import { UserService } from "../../services/UserService";
-import { User } from "../../utils/models";
+import { User } from "../../services/models";
 import { tables } from "../../utils/freezedObj";
 import { truncateTable } from "../../utils/truncateTable";
 const knexConfig = require("../../knexfile");

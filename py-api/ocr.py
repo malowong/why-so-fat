@@ -1,77 +1,83 @@
-import easyocr
+import cv2
+import pytesseract
+from PIL import Image
+import numpy as np
 import re
 
-data = {}
+result = {}
 
-def ocr(image):
+def ocr(img):
 
-    reader = easyocr.Reader(['ch_tra', 'en'], gpu=True)
+    jpg_as_np = np.frombuffer(img, dtype=np.uint8)
+    img = cv2.imdecode(jpg_as_np, flags=1)
+    
+    image_removed_lines = remove_lines(img)
 
-    result = reader.readtext(image)
+    print(image_removed_lines)
 
-    result.append(([[189, 75], [469, 75], [469, 165], [189, 165]], 'testing1', 0.3754989504814148))
-    result.append(([[189, 75], [469, 75], [469, 165], [189, 165]], 'testing2', 0.3754989504814148))
+    text = pytesseract.image_to_string(image_removed_lines, lang='eng+chi_tra')
 
-    for i in range(len(result) - 2):
-        coordinate = result[i][0]
-        text = result[i][1]
+    lines = text.split('\n')
 
-        print(text)
+    print(lines)
 
-        serving_size_1 = re.search("ser", text, re.IGNORECASE)
-        serving_size_2 = re.search("size", text, re.IGNORECASE)
-        energy = re.search("ener", text, re.IGNORECASE)
-        protein_1 = re.search("pro", text, re.IGNORECASE)
-        protein_2 = re.search("ein", text, re.IGNORECASE)
-        fat = re.search("fat", text, re.IGNORECASE)
-        total_fat = re.search("tot", text, re.IGNORECASE)
-        saturated_fat = re.search("urated", text, re.IGNORECASE)
-        trans_fat = re.search("tran", text, re.IGNORECASE)
-        carbohydrates = re.search("carbo", text, re.IGNORECASE)
-        sodium = re.search("sod", text, re.IGNORECASE)
-        sugar = re.search("sug", text, re.IGNORECASE)
+    for line in lines:
 
-        if serving_size_1 and serving_size_2:
-            if re.search("\d*\.?\d*(?=g[\/])", text) is None:
-                new_text = spell_checker(result[i+1][1])
-                data['serving_size'] = re.search("\d*\.?\d*", new_text).group()
-            else:
-                new_text = spell_checker(result[i][1])
-                data['serving_size'] = re.search("\d*\.?\d*", new_text).group()
+        try:
 
-        if energy:
-            find_number(result, 'energy', i)
+            if "per" in line.lower() and "100" in line.lower():
+                result['per'] = 'per_100'
+            elif "per" in line.lower() and "ser" in line.lower():
+                result['per'] = 'per_serving'
+            elif "per" in line.lower() and "pac" in line.lower():
+                result['per'] = 'per_package'
 
-        if protein_1 or protein_2:
-            find_number(result, 'protein', i)
+            if "ser" in line.lower() and "size" in line.lower():
+                insert_data(line, 'serving_size', 1)
 
-        if total_fat and fat:
-            find_number(result, 'total_fat', i)
+            if "ener" in line.lower() or "ergy" in line.lower():
+                insert_data(line, 'energy', 4)
+            
+            if "pro" in line.lower() or "ein" in line.lower():
+                insert_data(line, 'protein', 1)
+            
+            if "tot" in line.lower() and "fat" in line.lower():
+                insert_data(line, 'total_fat', 1)
+            
+            if "urated" in line.lower() and "fat" in line.lower():
+                print("yes")
+                insert_data(line, 'saturated_fat', 1)
 
-        if saturated_fat and fat:
-            find_number(result, 'saturated_fat', i)
+            if "tran" in line.lower() and "fat" in line.lower():
+                print("yes")
+                insert_data(line, 'trans_fat', 1)
 
-        if trans_fat and fat:
-            find_number(result, 'trans_fat', i)
+            if "carbo" in line.lower() or "hydra" in line.lower():
+                insert_data(line, 'carbohydrates', 1)
 
-        if carbohydrates:
-            find_number(result, 'carbohydrates', i)
+            if "sug" in line.lower():
+                insert_data(line, 'sugar', 1)
+            
+            if "sod" in line.lower():
+                insert_data(line, 'sodium', 2)
 
-        if sodium:
-            find_number(result, 'sodium', i)
 
-        if sugar:
-            find_number(result, 'sugar', i)
+        except Exception as e: 
 
-    return data
+            print(e)
 
-def find_number(result, nutrition, i):
-    next_text = spell_checker(result[i+1][1])
-    if re.search("\d*\.?\d*", next_text).group() == "":
-        second_next_text = spell_checker(result[i+2][1])
-        data[nutrition] = re.search("\d*\.?\d*", second_next_text).group()
+            continue
+
+    return result
+        
+
+def insert_data(line, nutrition, unit_letter):
+    num = spell_checker(re.search("\d+(.*)", line).group())
+
+    if "/" in num:
+        result[nutrition] = re.search(f"\d*\.?\d*(?=.{{{unit_letter}}}[\/])", num).group() if re.search(f"\d*\.?\d*(?=.{{{unit_letter}}}[\/])", num).group() != '' else re.search(f"(\d*\.?\d*)(?!.*\d)", num).group()
     else:
-        data[nutrition] = re.search("\d*\.?\d*", next_text).group()
+        result[nutrition] = re.search(f"\d*\.?\d*(?=.{{{unit_letter}}})", num).group()
 
 def spell_checker(text):
     if "i" in text:
@@ -86,11 +92,36 @@ def spell_checker(text):
         text = text.replace("G", "6")
     if "T" in text:
         text = text.replace("T", "7")
+    if "﹒" in text:
+        text = text.replace("﹒", ".")
+
     return text
 
+def remove_lines(img):
+
+    # image = cv2.imread(img)
+    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+
+    # Remove horizontal
+    horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (250,1))
+    detected_lines = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, horizontal_kernel, iterations=2)
+    vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1,250))
+    detected_lines_2 = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, vertical_kernel, iterations=2)
+
+    cnts = cv2.findContours(detected_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+    for c in cnts:
+        cv2.drawContours(img, [c], -1, (255,255,255), 10)
+
+    cnts = cv2.findContours(detected_lines_2, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+    for c in cnts:
+        cv2.drawContours(img, [c], -1, (255,255,255), 10)
+
+    return Image.fromarray(img)
 
 if __name__ == '__main__':
-    image_path = '/Users/malowong/tecky-project/c17-bad-project-10-tw/pytesseract/test_1_success.jpg'
+    image_path = '/Users/malowong/tecky-project/c17-bad-project-10-tw/python_test/image/IMG_2545 copy.jpg'
     result = ocr(image_path)
-    for item in result.items():
-        print(item)
+    print(result)

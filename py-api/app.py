@@ -5,6 +5,7 @@ import base64
 
 app = Sanic("My Hello, world app")
 
+
 @app.post("/")
 def get_nutrition_info(request):
 

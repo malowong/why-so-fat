@@ -2,6 +2,11 @@ main {
   padding-top: 80px;
 }
 
+.title-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 #carbs {
   background-color: yellow;
   height: 15px;
@@ -119,14 +124,8 @@ h2 {
   width: 13ch;
 }
 
-/* img {
-    height: 75vw;
-    object-fit: cover;
-
-} */
-
 table {
-  font-size: 80%;
+  font-size: 100%;
   width: 100%;
   border: 0;
   padding: 5px;
@@ -155,6 +154,8 @@ span {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5em;
 }
 
 .food-row {

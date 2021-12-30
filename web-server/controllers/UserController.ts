@@ -21,15 +21,16 @@ export class UserController {
 
   signup = async (req: Request, res: Response) => {
     console.log(req.body);
-    const { username, password, gender, height, weight } = req.body;
+    const { username, password, gender, height, weight, energy_intake } = req.body;
     const resultObj = {
       username,
       password: await hashPassword(password),
       gender,
       height: Number(height),
       weight: Number(weight),
+      energy_intake: Number(energy_intake),
     };
-    if (password.length < 6) {
+    if (password.length < 6 || undefined) {
       res.status(400).json({ message: "Password must contain at least 6 characters" });
       return;
     }
@@ -45,13 +46,14 @@ export class UserController {
       res.status(400).json({ message: "Weight must be within 40kg - 100kg" });
       return;
     }
+    if (energy_intake <= 1000) {
+      res.status(400).json({ message: "Energy intake must be larger than 1000 kcal" });
+    }
     const isExist = await this.userService.getUserByUsername(username);
-    console.log("isExist" + isExist);
     if (isExist) {
       res.status(400).json({ message: "Username has been used" });
     } else {
       const newUserID = await this.userService.insertNewUser(resultObj);
-      console.log(newUserID);
       req.session["user"] = { id: newUserID[0], username };
       res.status(200).json({ message: "Successfully registered" });
     }
@@ -66,8 +68,8 @@ export class UserController {
 
   editProfile = async (req: Request, res: Response) => {
     const userID = req.session["user"].id;
-    const { height, weight } = req.body;
-    await this.userService.editUserProfile(userID, height, weight);
+    const { height, weight, energyIntake } = req.body;
+    await this.userService.editUserProfile(userID, height, weight, energyIntake);
 
     res.status(200).json({ message: "success edit" });
   };

@@ -45,9 +45,6 @@ document.querySelector('#per_unit').addEventListener('input', () => {
   if (form.per_unit.value == 'per_serving') {
     document.getElementById('serving_size').hidden = false
     document.getElementById('serving_size').setAttribute('required', '')
-  } else if (form.per_unit.value == 'per_package') {
-    document.getElementById('serving_size').hidden = true
-    document.getElementById('serving_size').removeAttribute('required')
   } else {
     document.getElementById('serving_size').hidden = true
     document.getElementById('serving_size').removeAttribute('required')
@@ -62,7 +59,7 @@ document.querySelector('#is_consumed').addEventListener('input', () => {
   }
 })
 
-const storage = localStorage.getItem('data')
+const storage = localStorage.getItem('result')
 const result = JSON.parse(storage).data
 console.log(result)
 
@@ -89,53 +86,23 @@ if (storage != null) {
 }
 
 document.getElementById('blah').addEventListener('click', () => {
-  document.getElementById('image').click();
+  document.getElementById('image').click()
 })
 
 document.getElementById('next-btn').addEventListener('click', () => {
-  const a = document.querySelector('#upload-form').food_name.reportValidity();
-  const b = document.querySelector('#upload-form').total_weight.reportValidity();
-  const c = document.querySelector('#upload-form').is_consumed.reportValidity();
+  const a = document.querySelector('#upload-form').food_name.reportValidity()
+  const b = document.querySelector('#upload-form').total_weight.reportValidity()
+  const c = document.querySelector('#upload-form').is_consumed.reportValidity()
 
-  if (a == true && b == true && c == true){
-    console.log("hi")
-    document.querySelector('.first-page').hidden = true;
-    document.querySelector('.second-page').hidden = false;
+  if (a == true && b == true && c == true) {
+    console.log('hi')
+    document.querySelector('.first-page').hidden = true
+    document.querySelector('.second-page').hidden = false
+    document.getElementById('serving_size').hidden = true
   }
 })
 
 document.getElementById('back-btn').addEventListener('click', () => {
-  document.querySelector('.second-page').hidden = true;
-  document.querySelector('.first-page').hidden = false;
+  document.querySelector('.second-page').hidden = true
+  document.querySelector('.first-page').hidden = false
 })
-
-
-// document.querySelector('#upload-btn').addEventListener('submit', () => {
-//   window.location = '/home-page.html'
-// })
-
-// document.querySelector('#per_serving').addEventListener('input', () => {
-//   form.serving_size.attributes['required'] = true
-// })
-
-// document.querySelector('#per_package').addEventListener('input', () => {
-//   form.serving_size.attributes['required'] = false
-// })
-
-// document.querySelector('#per_100').addEventListener('click', () => {
-//   form.serving_size.attributes['required'] = false
-// })
-
-// consumedDropdownItem.addEventListener('click', () => {
-//     const text = consumedBtn.innerHTML.trim()
-//     console.log(text)
-//     if (text == 'YES') {
-//         consumedBtn.innerHTML = 'NO'
-//         quantity.hidden = true
-//         consumedDropdownItem.innerHTML = 'YES'
-//     } else {
-//         consumedBtn.innerHTML = 'YES'
-//         quantity.hidden = false
-//         consumedDropdownItem.innerHTML = 'NO'
-//     }
-// })

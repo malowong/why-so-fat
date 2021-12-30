@@ -1,21 +1,21 @@
-main{
-    padding: 100px 12px;
+main {
+  padding: 100px 12px;
 }
 
 .date-row {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .more {
-    display: none;
+  display: none;
 }
 
 .food-row {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .food-info {
-    width: 13ch;
+  width: 13ch;
 }

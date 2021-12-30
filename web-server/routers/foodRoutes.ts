@@ -19,9 +19,8 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: {
-    //         1048576
-    fileSize: 30000000,
-    fieldSize: 30000000
+    fileSize: 30_000_000,
+    fieldSize: 30_000_000
   }
 });
 
@@ -29,8 +28,8 @@ const ocrStorage = multer.memoryStorage();
 const ocrUpload = multer({
   storage: ocrStorage,
   limits: {
-    fileSize: 30000000,
-    fieldSize: 30000000
+    fileSize: 30_000_000,
+    fieldSize: 30_000_000
   }
 });
 

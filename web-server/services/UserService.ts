@@ -1,6 +1,6 @@
 import { Knex } from "knex";
 import { tables } from "../utils/freezedObj";
-import { User, NewUser } from "../utils/models";
+import { User, NewUser } from "./models";
 
 export class UserService {
   constructor(private knex: Knex) {}
@@ -15,11 +15,12 @@ export class UserService {
     return result;
   };
 
-  editUserProfile = async (userID: number, height: number, weight: number) => {
+  editUserProfile = async (userID: number, height: number, weight: number, energy_intake: number) => {
     await this.knex(tables.USER)
       .update({
         height,
         weight,
+        energy_intake,
       })
       .where("id", userID);
 

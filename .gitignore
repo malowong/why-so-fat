@@ -3,4 +3,4 @@ node_modules
 .env
 yarn-error.log
 api_python
-fat.session.sql
+__pycache__
